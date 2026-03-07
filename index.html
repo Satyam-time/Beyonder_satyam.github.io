@@ -9,8 +9,16 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* Force hero visibility */
+        #home { opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; }
+    </style>
 </head>
-<body>
+<body class="custom-cursor-active">
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
 
     <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
@@ -36,24 +44,23 @@
     <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
-        <div class="nav-brand">SKS</div>
+        <div class="nav-brand magnetic-hover">SKS</div>
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#journey">Journey</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Research</a></li>
-            <li><a href="#publications">Publications</a></li>
-            <li><a href="Resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
+            <li><a href="#home" class="magnetic-hover">Home</a></li>
+            <li><a href="#journey" class="magnetic-hover">Journey</a></li>
+            <li><a href="#experience" class="magnetic-hover">Experience</a></li>
+            <li><a href="#projects" class="magnetic-hover">Research</a></li>
+            <li><a href="#publications" class="magnetic-hover">Publications</a></li>
+            <li><a href="Resume.pdf" target="_blank" class="nav-resume magnetic-hover">Resume</a></li>
         </ul>
     </nav>
 
     <div class="scrollytelling-wrapper">
         
-        <section id="home" class="hero center-align" style="opacity: 1 !important; transform: none !important; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 10%; position: relative;">
+        <section id="home" class="step hero center-align" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 10%; position: relative;">
             
             <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%233182ce' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M50 10 L50 90 M10 50 L90 50 M20 20 L80 80 M20 80 L80 20'/></svg>" class="mixed-media mm-star">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%233182ce' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M10 50 C 30 10, 70 90, 90 50'/></svg>" class="mixed-media mm-squiggle">
-
+            
             <div class="glass-panel" id="hero-panel">
                 <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Satyam Kumar Singh" class="profile-img stop-motion-float hero-fade-in">
                 
@@ -62,61 +69,75 @@
                 <p class="hero-fade-in">Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence.</p>
                 
                 <div class="hero-buttons hero-fade-in">
-                    <a href="#journey" class="btn liquid-btn">
-                        <span class="liquid-blob"></span>
-                        <span class="liquid-blob"></span>
-                        <span class="liquid-blob"></span>
+                    <a href="#journey" class="btn liquid-btn magnetic-hover">
+                        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
                         <span class="liquid-text">Explore My Journey</span>
                     </a>
                 </div>
             </div>
         </section>
 
-        <section id="journey" class="step right-align">
-            <div class="glass-panel">
-                <h3>The Foundation</h3>
-                <h2 class="expressive-text">Institute of Science, BHU</h2>
-                <p>Pursuing my BSc (Hons) in Physics (2024–2028), minoring in Chemistry. My academic roots are in core theoretical physics and mathematical modeling, exploring everything from spectroscopy to the development of early-stage AI autonomy for rover systems.</p>
-                <ul class="timeline">
-                    <li><strong>MITx:</strong> Mastering Quantum Mechanics</li>
-                    <li><strong>Yale:</strong> Rocket Science for Everyone</li>
-                    <li><strong>Univ. of Edinburgh:</strong> AstroTech & Astronomical Discovery</li>
-                    <li><strong>IISc:</strong> Familiarisation Workshop on Quantum Computing</li>
-                </ul>
+        <section id="journey" class="step right-align relative-z">
+            
+            <div class="astronaut-character">
+                <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="50" width="40" height="50" rx="10" fill="#ffffff" stroke="#1a365d" stroke-width="3"/>
+                    <circle cx="50" cy="35" r="25" fill="#ffffff" stroke="#1a365d" stroke-width="3"/>
+                    <rect x="35" y="25" width="30" height="15" rx="7" fill="#1a365d" class="astro-visor"/>
+                    <circle cx="45" cy="32" r="2" fill="#63b3ed" class="astro-eye"/>
+                    <circle cx="55" cy="32" r="2" fill="#63b3ed" class="astro-eye"/>
+                    <path d="M 70 60 Q 90 40 85 25" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" class="astro-arm"/>
+                    <path d="M 70 60 Q 90 40 85 25" fill="none" stroke="#1a365d" stroke-width="3" stroke-linecap="round" class="astro-arm"/>
+                </svg>
+            </div>
+
+            <div class="glass-panel faux-3d-card">
+                <div class="faux-3d-content">
+                    <h3>The Foundation</h3>
+                    <h2 class="expressive-text">Institute of Science, BHU</h2>
+                    <p>Pursuing my BSc (Hons) in Physics (2024–2028), minoring in Chemistry. My academic roots are in core theoretical physics and mathematical modeling, exploring everything from spectroscopy to AI autonomy for rover systems.</p>
+                    <ul class="timeline">
+                        <li><strong>MITx:</strong> Mastering Quantum Mechanics</li>
+                        <li><strong>Yale:</strong> Rocket Science for Everyone</li>
+                        <li><strong>Univ. of Edinburgh:</strong> AstroTech & Astronomical Discovery</li>
+                        <li><strong>IISc:</strong> Familiarisation Workshop on Quantum Computing</li>
+                    </ul>
+                </div>
             </div>
         </section>
         
         <section class="step left-align">
-            <div class="glass-panel">
-                <h3>Applied Innovation</h3>
-                <h2 class="expressive-text">Advanced Multiphysics</h2>
-                <p>Transitioning from theory to application, I focus on complex transport phenomena and 3D modeling. <em>Click the VR button (if on a supported device) to step inside the magnetic confinement geometry of my research.</em></p>
-                <p>Scroll down to explore the complete technical breakdown of my projects, experience, and global scientific engagement.</p>
+            <div class="glass-panel faux-3d-card">
+                <div class="faux-3d-content">
+                    <h3>Applied Innovation</h3>
+                    <h2 class="expressive-text">Advanced Multiphysics</h2>
+                    <p>Transitioning from theory to application, I focus on complex transport phenomena and 3D modeling. <em>Click the VR button (if on a supported device) to step inside the magnetic confinement geometry of my research.</em></p>
+                </div>
             </div>
         </section>
     </div>
+
 
     <main class="solid-content">
         
         <section id="experience" class="section interactive-web-container">
             <canvas class="web-canvas"></canvas>
-            
             <div class="container relative-z">
                 <h2 class="section-title">Professional Experience</h2>
                 <div class="card-grid">
-                    <div class="card clay-card">
+                    <div class="card clay-card magnetic-hover">
                         <h3>Nanotechnology Research Intern</h3>
                         <p><strong>Cognizance, IIT Roorkee</strong> (Feb 2025 - Mar 2025)<br>Conducting stoichiometric calculations and materials synthesis for advanced nanomaterials (BaTiO₃ and La₂SrV₂O₉) for energy storage applications.</p>
                     </div>
-                    <div class="card clay-card">
+                    <div class="card clay-card magnetic-hover">
                         <h3>Space Tech Innovator</h3>
                         <p><strong>Team BEYONDER (IIT Delhi)</strong><br>Developed an AI-powered cargo management system for space stations, conceptualizing Docker-based APIs to optimize workflows in extraterrestrial environments.</p>
                     </div>
-                    <div class="card clay-card">
+                    <div class="card clay-card magnetic-hover">
                         <h3>Co-Founder</h3>
                         <p><strong>The Matrix Society, BHU</strong><br>Founded the official space society at BHU to nurture curiosity about space, astronomy, and astrophysics among university students.</p>
                     </div>
-                    <div class="card clay-card">
+                    <div class="card clay-card magnetic-hover">
                         <h3>Space Community Intern</h3>
                         <p><strong>Agnirva Space Program</strong><br>Explored key concepts in satellite technology, AI in space, and future mission design through structured computational modules.</p>
                     </div>
@@ -127,17 +148,15 @@
         <section id="projects" class="section bg-light">
             <div class="container">
                 <h2 class="section-title">Selected Projects</h2>
-                <p style="text-align: center; margin-bottom: 3rem; color: var(--text-muted);">(Hover over cards for Isometric 3D Projection)</p>
-                
                 <div class="isometric-grid">
-                    <div class="isometric-card project-card">
+                    <div class="isometric-card project-card magnetic-hover">
                         <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600" alt="Geospatial AI" class="card-img">
                         <div class="card-content">
                             <h3>GeoSage X</h3>
                             <p>An autonomous geospatial thinker submitted for the Bharatiya Antariksh Hackathon (ISRO). Transforms natural language into explainable GIS workflows using Chain-of-Thought LLMs and live satellite data.</p>
                         </div>
                     </div>
-                    <div class="isometric-card project-card">
+                    <div class="isometric-card project-card magnetic-hover">
                         <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=600" alt="Plasma Reactor" class="card-img">
                         <div class="card-content">
                             <h3>MEPPHS Mark II</h3>
@@ -152,14 +171,14 @@
             <div class="container">
                 <h2 class="section-title">Core Competencies</h2>
                 <div class="tags-container">
-                    <span class="tag claymorphic">Astrophysics & Cosmology</span>
-                    <span class="tag claymorphic">Quantum Mechanics</span>
-                    <span class="tag claymorphic">AI / Machine Learning</span>
-                    <span class="tag claymorphic">COMSOL Multiphysics</span>
-                    <span class="tag claymorphic">Docker & APIs</span>
-                    <span class="tag claymorphic">Python, R & SQL</span>
-                    <span class="tag claymorphic">Scientific Writing & LaTeX</span>
-                    <span class="tag claymorphic">Geospatial Analysis (GIS)</span>
+                    <span class="tag claymorphic magnetic-hover">Astrophysics & Cosmology</span>
+                    <span class="tag claymorphic magnetic-hover">Quantum Mechanics</span>
+                    <span class="tag claymorphic magnetic-hover">AI / Machine Learning</span>
+                    <span class="tag claymorphic magnetic-hover">COMSOL Multiphysics</span>
+                    <span class="tag claymorphic magnetic-hover">Docker & APIs</span>
+                    <span class="tag claymorphic magnetic-hover">Python, R & SQL</span>
+                    <span class="tag claymorphic magnetic-hover">Scientific Writing & LaTeX</span>
+                    <span class="tag claymorphic magnetic-hover">Geospatial Analysis (GIS)</span>
                 </div>
             </div>
         </section>
@@ -167,7 +186,7 @@
         <section id="publications" class="section bg-light">
             <div class="container">
                 <h2 class="section-title">Publications & Literature</h2>
-                <div class="flipbook-wrapper">
+                <div class="flipbook-wrapper magnetic-hover">
                     <div class="flipbook">
                         <div class="page cover-front">
                             <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=400" alt="Space Magazine Cover">
@@ -183,7 +202,6 @@
                                     <li><strong>First Light Machine:</strong> James Webb Space Telescope insights.</li>
                                     <li><strong>Planetary Defense:</strong> Analysis of NASA's DART mission.</li>
                                 </ul>
-                                <p style="font-size: 0.85rem; margin-top: 1rem; color: #718096;">A valuable resource keeping me engaged with the global conversation on space exploration. 🌌🚀</p>
                             </div>
                         </div>
                     </div>
@@ -212,17 +230,16 @@
                         <input type="email" id="emailInput" placeholder="Email">
                         <textarea rows="5" id="msgInput" placeholder="Message"></textarea>
                         <div id="formErrorMsg" class="error-text"></div>
-                        <button type="submit" class="btn liquid-btn" style="border: none;">
-                            <span class="liquid-blob"></span>
-                            <span class="liquid-blob"></span>
-                            <span class="liquid-blob"></span>
-                            <span class="liquid-text">Send Message</span>
+                        
+                        <button type="submit" class="btn liquid-btn magnetic-hover" id="submitBtn" style="border: none;">
+                            <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+                            <span class="liquid-text" id="btnText">Send Message</span>
                         </button>
                     </form>
                     <div class="social-links">
-                        <a href="#" class="social-btn claymorphic">Email Me</a>
-                        <a href="#" class="social-btn claymorphic">LinkedIn</a>
-                        <a href="#" class="social-btn claymorphic">GitHub</a>
+                        <a href="#" class="social-btn claymorphic magnetic-hover">Email Me</a>
+                        <a href="#" class="social-btn claymorphic magnetic-hover">LinkedIn</a>
+                        <a href="#" class="social-btn claymorphic magnetic-hover">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -232,12 +249,7 @@
     </main>
 
     <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
-            }
-        }
+        { "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/" } }
     </script>
     <script type="module" src="script.js"></script>
 </body>
