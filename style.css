@@ -359,3 +359,10 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     opacity: 0;
     transform: translateY(20px);
 }
+
+
+/* Force the hero section container to be visible so the inner animations can play */
+#home.step {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
