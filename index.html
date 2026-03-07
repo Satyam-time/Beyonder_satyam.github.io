@@ -6,13 +6,8 @@
     <title>Satyam Kumar Singh | Academic Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
-
-    <div id="collaborative-cursors"></div>
 
     <canvas id="bg-canvas"></canvas>
 
@@ -22,6 +17,7 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#journey">Journey</a></li>
             <li><a href="#projects">Research</a></li>
+            <li><a href="#skills">Skills</a></li>
             <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
         </ul>
     </nav>
@@ -30,8 +26,8 @@
         <section id="home" class="step hero">
             <div class="glass-panel">
                 <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Profile Placeholder" class="profile-img">
-                <h1 class="expressive-text">Satyam Kumar Singh</h1>
-                <h2 class="expressive-text">Physics at BHU | Space Tech Innovator</h2>
+                <h1>Satyam Kumar Singh</h1>
+                <h2>BSc (Hons) Physics at BHU | Space Tech Innovator</h2>
                 <p>Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence.</p>
                 <div class="hero-buttons">
                     <a href="#journey" class="btn">Explore My Journey</a>
@@ -42,36 +38,71 @@
         <section id="journey" class="step right-align">
             <div class="glass-panel">
                 <h3>The Foundation</h3>
-                <h2 class="expressive-text">Institute of Science, BHU</h2>
-                <p>Pursuing my BSc (Hons) in Physics (2024–2028), my academic roots are in core theoretical physics and mathematical modeling.</p>
+                <h2>Institute of Science, BHU</h2>
+                <p>Pursuing my BSc (Hons) in Physics (2024–2028), my academic roots are in core theoretical physics and mathematical modeling. Here, I laid the groundwork for complex problem-solving, exploring everything from spectroscopy to the development of early-stage AI autonomy for rover systems.</p>
             </div>
         </section>
 
-        <section id="projects" class="step left-align">
+        <section class="step left-align">
             <div class="glass-panel">
-                <h3>Applied Innovation</h3>
-                <h2 class="expressive-text">MEPPHS Mark II</h2>
-                <p>Transitioning from theory to application, I developed and simulated a Venturi-based plasma reactor utilizing a multi-turn solenoid. This project heavily utilized COMSOL to optimize magnetic confinement.</p>
+                <h3>Global Perspectives</h3>
+                <h2>Beyond the Curriculum</h2>
+                <p>I believe in pushing boundaries. Through rigorous independent study, I have audited specialized coursework globally:</p>
+                <ul class="timeline">
+                    <li><strong>MITx:</strong> Mastering Quantum Mechanics</li>
+                    <li><strong>Yale:</strong> Rocket Science for Everyone</li>
+                    <li><strong>Univ. of Edinburgh:</strong> AstroTech & Astronomical Discovery</li>
+                </ul>
+                <p>In 2025, I further honed my focus by participating in the Familiarisation Workshop on Quantum Computing at IISc.</p>
             </div>
         </section>
-        
-        <section class="step center-align">
+
+        <section id="projects" class="step right-align">
+            <div class="glass-panel">
+                <h3>Applied Innovation</h3>
+                <h2>MEPPHS Mark II</h2>
+                <p>Transitioning from theory to application, I focused on advanced multiphysics simulations. I developed and simulated a Venturi-based plasma reactor utilizing a multi-turn solenoid. This project heavily utilized COMSOL to optimize magnetic confinement and complex transport phenomena.</p>
+            </div>
+        </section>
+
+        <section class="step left-align">
+            <div class="glass-panel">
+                <h3>Hackathons & AI</h3>
+                <h2>GeoSage X & BEYONDER</h2>
+                <p>Applying physics and logic to code, I developed <strong>GeoSage X</strong> for the ISRO Bharatiya Antariksh Hackathon—an autonomous geospatial thinker utilizing Chain-of-Thought LLMs.</p>
+                <p>At the IIT Delhi Hackathon, with Team BEYONDER, I conceptualized Docker-based APIs for an AI-powered cargo management system designed for extraterrestrial space stations.</p>
+            </div>
+        </section>
+
+        <section id="skills" class="step center-align">
             <div class="glass-panel full-width">
-                <h2 class="expressive-text">Step Into My Research</h2>
-                <p>Click the VR button in the bottom corner (if on a supported device) to view the magnetic confinement geometry in WebXR.</p>
+                <h2>A Multidisciplinary Toolkit</h2>
+                <div class="tags-container">
+                    <span class="tag">Astrophysics & Cosmology</span>
+                    <span class="tag">Quantum Mechanics</span>
+                    <span class="tag">AI / Machine Learning</span>
+                    <span class="tag">COMSOL Multiphysics</span>
+                    <span class="tag">Docker & APIs</span>
+                    <span class="tag">Geospatial Analysis (GIS)</span>
+                    <span class="tag">Python, R & SQL</span>
+                    <span class="tag">Scientific Writing</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="step right-align">
+            <div class="glass-panel">
+                <h3>Community & Leadership</h3>
+                <h2>Global Scientific Engagement</h2>
+                <p>Science doesn't happen in a vacuum. I co-founded <strong>The Matrix Society</strong> at BHU to democratize space education.</p>
+                <p>Globally, I actively volunteer with Astronomers for Planet Earth, the Snowdrop Foundation, and hold memberships with the International Science Reserve, IEEE Collabratec, and the American Physical Society.</p>
+                <br>
                 <a href="resume.pdf" target="_blank" class="btn">View Full Resume</a>
             </div>
         </section>
     </main>
 
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
-            }
-        }
-    </script>
-    <script type="module" src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
