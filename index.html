@@ -11,7 +11,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        /* Force hero visibility */
         #home { opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; }
     </style>
 </head>
@@ -31,16 +30,11 @@
     </svg>
 
     <div id="page-loader">
-        <div class="orbit-spinner">
-            <div class="orbit"></div>
-            <div class="orbit"></div>
-            <div class="orbit"></div>
-        </div>
+        <div class="orbit-spinner"><div class="orbit"></div><div class="orbit"></div><div class="orbit"></div></div>
         <p class="loader-text">Initiating Physics Engine...</p>
     </div>
 
     <div id="collaborative-cursors"></div>
-    
     <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
@@ -56,13 +50,17 @@
     </nav>
 
     <div class="scrollytelling-wrapper">
-        
         <section id="home" class="step hero center-align" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 10%; position: relative;">
             
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%233182ce' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path d='M50 10 L50 90 M10 50 L90 50 M20 20 L80 80 M20 80 L80 20'/></svg>" class="mixed-media mm-star">
-            
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%233182ce' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path class='self-draw-path' d='M50 10 L50 90 M10 50 L90 50 M20 20 L80 80 M20 80 L80 20'/></svg>" class="mixed-media mm-star">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke='%233182ce' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'><path class='self-draw-path' d='M10 50 C 30 10, 70 90, 90 50'/></svg>" class="mixed-media mm-squiggle">
+
             <div class="glass-panel" id="hero-panel">
-                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Satyam Kumar Singh" class="profile-img stop-motion-float hero-fade-in">
+                
+                <div class="profile-wrapper hero-fade-in">
+                    <div class="morphing-blob"></div>
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Satyam Kumar Singh" class="profile-img stop-motion-float">
+                </div>
                 
                 <h1 class="expressive-text hero-fade-in">Satyam Kumar Singh</h1>
                 <h2 class="expressive-text hero-fade-in">BSc (Hons) Physics at BHU | Space Tech Innovator</h2>
@@ -78,7 +76,6 @@
         </section>
 
         <section id="journey" class="step right-align relative-z">
-            
             <div class="astronaut-character">
                 <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
                     <rect x="30" y="50" width="40" height="50" rx="10" fill="#ffffff" stroke="#1a365d" stroke-width="3"/>
@@ -119,7 +116,6 @@
 
 
     <main class="solid-content">
-        
         <section id="experience" class="section interactive-web-container">
             <canvas class="web-canvas"></canvas>
             <div class="container relative-z">
@@ -230,7 +226,6 @@
                         <input type="email" id="emailInput" placeholder="Email">
                         <textarea rows="5" id="msgInput" placeholder="Message"></textarea>
                         <div id="formErrorMsg" class="error-text"></div>
-                        
                         <button type="submit" class="btn liquid-btn magnetic-hover" id="submitBtn" style="border: none;">
                             <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
                             <span class="liquid-text" id="btnText">Send Message</span>
