@@ -22,6 +22,7 @@
     </div>
 
     <div id="collaborative-cursors"></div>
+    
     <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
@@ -37,12 +38,18 @@
     </nav>
 
     <div class="scrollytelling-wrapper">
+        
         <section id="home" class="step hero center-align">
-            <div class="glass-panel">
-                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Satyam Kumar Singh" class="profile-img stop-motion-float">
-                <h1 class="expressive-text">Satyam Kumar Singh</h1>
-                <h2 class="expressive-text">BSc (Hons) Physics at BHU | Space Tech Innovator</h2>
-                <p>Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence.</p>
+            <div class="glass-panel" id="hero-panel">
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Satyam Kumar Singh" class="profile-img stop-motion-float hero-fade-in">
+                
+                <h1 class="expressive-text hero-fade-in">Satyam Kumar Singh</h1>
+                <h2 class="expressive-text hero-fade-in">BSc (Hons) Physics at BHU | Space Tech Innovator</h2>
+                <p class="hero-fade-in">Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence.</p>
+                
+                <div class="hero-buttons hero-fade-in">
+                    <a href="#journey" class="btn">Explore My Journey</a>
+                </div>
             </div>
         </section>
 
@@ -55,7 +62,17 @@
                     <li><strong>MITx:</strong> Mastering Quantum Mechanics</li>
                     <li><strong>Yale:</strong> Rocket Science for Everyone</li>
                     <li><strong>Univ. of Edinburgh:</strong> AstroTech & Astronomical Discovery</li>
+                    <li><strong>IISc:</strong> Familiarisation Workshop on Quantum Computing</li>
                 </ul>
+            </div>
+        </section>
+        
+        <section class="step left-align">
+            <div class="glass-panel">
+                <h3>Applied Innovation</h3>
+                <h2 class="expressive-text">Advanced Multiphysics</h2>
+                <p>Transitioning from theory to application, I focus on complex transport phenomena and 3D modeling. <em>Click the VR button (if on a supported device) to step inside the magnetic confinement geometry of my research.</em></p>
+                <p>Scroll down to explore the complete technical breakdown of my projects, experience, and global scientific engagement.</p>
             </div>
         </section>
     </div>
@@ -74,20 +91,46 @@
                     </div>
                     <div class="card clay-card">
                         <h3>Space Tech Innovator</h3>
-                        <p><strong>Team BEYONDER (IIT Delhi)</strong><br>Developed an AI-powered cargo management system for space stations, conceptualizing Docker-based APIs to optimize workflows.</p>
+                        <p><strong>Team BEYONDER (IIT Delhi)</strong><br>Developed an AI-powered cargo management system for space stations, conceptualizing Docker-based APIs to optimize workflows in extraterrestrial environments.</p>
                     </div>
                     <div class="card clay-card">
                         <h3>Co-Founder</h3>
                         <p><strong>The Matrix Society, BHU</strong><br>Founded the official space society at BHU to nurture curiosity about space, astronomy, and astrophysics among university students.</p>
                     </div>
+                    <div class="card clay-card">
+                        <h3>Space Community Intern</h3>
+                        <p><strong>Agnirva Space Program</strong><br>Explored key concepts in satellite technology, AI in space, and future mission design through structured computational modules.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="section bg-light">
+        <section id="projects" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Selected Projects</h2>
+                <div class="card-grid">
+                    <div class="card project-card">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600" alt="Geospatial AI" class="card-img">
+                        <div class="card-content">
+                            <h3>GeoSage X</h3>
+                            <p>An autonomous geospatial thinker submitted for the Bharatiya Antariksh Hackathon (ISRO). Transforms natural language into explainable GIS workflows using Chain-of-Thought LLMs, multi-agent AI, and live satellite data.</p>
+                        </div>
+                    </div>
+                    <div class="card project-card">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=600" alt="Plasma Reactor" class="card-img">
+                        <div class="card-content">
+                            <h3>MEPPHS Mark II</h3>
+                            <p>Development and simulation of a Venturi-based plasma reactor utilizing a multi-turn solenoid for optimal magnetic confinement. Focuses on advanced transport phenomena modeling.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
             <div class="container">
                 <h2 class="section-title">Core Competencies</h2>
-                <p style="text-align: center; margin-bottom: 2rem;">(Hover over these tags to feel the Claymorphic 3D bounce)</p>
+                <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">(Hover over these tags to feel the Claymorphic 3D bounce)</p>
                 <div class="tags-container">
                     <span class="tag claymorphic">Astrophysics & Cosmology</span>
                     <span class="tag claymorphic">Quantum Mechanics</span>
@@ -96,13 +139,15 @@
                     <span class="tag claymorphic">Docker & APIs</span>
                     <span class="tag claymorphic">Python, R & SQL</span>
                     <span class="tag claymorphic">Scientific Writing & LaTeX</span>
+                    <span class="tag claymorphic">Geospatial Analysis (GIS)</span>
                 </div>
             </div>
         </section>
 
-        <section id="publications" class="section">
+        <section id="publications" class="section bg-light">
             <div class="container">
                 <h2 class="section-title">Publications & Literature</h2>
+                <p style="text-align: center; margin-bottom: 3rem; color: var(--text-muted);">Hover over the magazine to open the flipbook.</p>
                 <div class="flipbook-wrapper">
                     <div class="flipbook">
                         <div class="page cover-front">
@@ -118,9 +163,35 @@
                                 <ul class="timeline" style="font-size: 0.9rem; margin-top: 1rem;">
                                     <li><strong>First Light Machine:</strong> James Webb Space Telescope insights.</li>
                                     <li><strong>Planetary Defense:</strong> Analysis of NASA's DART mission.</li>
+                                    <li><strong>Commercial Space:</strong> The rise of private spacefaring.</li>
                                 </ul>
+                                <p style="font-size: 0.85rem; margin-top: 1rem; color: #718096;">A valuable resource keeping me engaged with the global conversation on space exploration and the future of humanity in space. 🌌🚀</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <div class="container">
+                <h2 class="section-title">Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item stop-motion-hover">
+                        <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&q=80&w=600" alt="Lab Work">
+                        <div class="gallery-overlay">Lab Research</div>
+                    </div>
+                    <div class="gallery-item stop-motion-hover">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600" alt="Hardware">
+                        <div class="gallery-overlay">HPC & Simulations</div>
+                    </div>
+                    <div class="gallery-item stop-motion-hover">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600" alt="Space">
+                        <div class="gallery-overlay">Astrophysics</div>
+                    </div>
+                    <div class="gallery-item stop-motion-hover">
+                        <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=600" alt="Conference">
+                        <div class="gallery-overlay">Exhibitions</div>
                     </div>
                 </div>
             </div>
