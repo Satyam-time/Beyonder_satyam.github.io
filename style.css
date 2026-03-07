@@ -326,3 +326,36 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .web-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .relative-z { position: relative; z-index: 2; }
 
+/* ==========================================
+   BACKGROUND WEBSITE ANIMATION (Mesh Gradient)
+   ========================================== */
+.solid-content {
+    /* Replaces the static background with a breathing, animated gradient */
+    background: linear-gradient(-45deg, #ffffff, #f0f4f8, #e2e8f0, #ebf4ff);
+    background-size: 400% 400%;
+    animation: breathingMesh 15s ease infinite;
+    position: relative; 
+    z-index: 10;
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.3);
+}
+
+@keyframes breathingMesh {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==========================================
+   PAGE TRANSITION EFFECTS
+   ========================================== */
+#page-loader {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #050814; z-index: 99999; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; 
+    /* Removed the old fade-out transition, GSAP handles the slide up now */
+}
+
+.hero-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+}
