@@ -495,3 +495,60 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .isometric-card:hover .card-content {
     transform: translateZ(20px);
 }
+
+/* ==========================================
+   MICROINTERACTIONS: CUSTOM MAGNETIC CURSOR
+   ========================================== */
+.custom-cursor-active, .custom-cursor-active * { cursor: none !important; }
+
+.cursor-dot, .cursor-ring {
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999999;
+    transition: width 0.3s, height 0.3s, background 0.3s;
+}
+.cursor-dot { width: 8px; height: 8px; background: var(--secondary-color); }
+.cursor-ring {
+    width: 30px; height: 30px;
+    border: 2px solid rgba(49, 130, 206, 0.5);
+    transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
+}
+
+/* Magnetic Hover State */
+.cursor-ring.magnetic {
+    width: 60px; height: 60px;
+    background: rgba(49, 130, 206, 0.1);
+    border-color: transparent;
+}
+
+/* ==========================================
+   CHARACTER ANIMATION (Floating Astronaut)
+   ========================================== */
+.astronaut-character {
+    position: absolute; left: -80px; top: 20%;
+    width: 120px; z-index: 5;
+    animation: astroFloat 6s ease-in-out infinite;
+}
+@keyframes astroFloat { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+.astro-eye { animation: astroBlink 4s infinite; }
+@keyframes astroBlink { 0%, 96%, 100% { transform: scaleY(1); } 98% { transform: scaleY(0.1); } }
+.astro-arm { transform-origin: 70px 60px; animation: astroWave 3s infinite; }
+@keyframes astroWave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(30deg); } }
+
+/* ==========================================
+   FAUX 3D ANIMATION EFFECTS
+   ========================================== */
+.faux-3d-card {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+.faux-3d-content {
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+}
+/* This makes the text physically pop out from the glass background */
+.faux-3d-content > * {
+    transform: translateZ(40px);
+    text-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
