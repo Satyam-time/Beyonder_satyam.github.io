@@ -155,3 +155,42 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     .bio-grid, .contact-wrapper { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.5rem; }
 }
+
+
+/* --- Add this to the bottom of your style.css --- */
+
+/* Hero Section 3D Canvas Handling */
+.hero {
+    position: relative;
+    overflow: hidden; 
+    /* The 3D geometry needs a slightly darker/transparent background to pop well */
+    background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+}
+
+#bg-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Puts the 3D render in the background */
+    pointer-events: none; /* Prevents canvas from blocking mouse clicks on buttons */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Keeps your text and buttons in the foreground */
+    background: rgba(255, 255, 255, 0.4); /* Adds a subtle glassmorphism effect */
+    padding: 3rem;
+    border-radius: 20px;
+    backdrop-filter: blur(8px); /* Blurs the 3D object slightly behind the text box for readability */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Adjustments for Glassmorphism padding */
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+}
