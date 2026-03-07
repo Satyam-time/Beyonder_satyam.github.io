@@ -6,202 +6,72 @@
     <title>Satyam Kumar Singh | Academic Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+
+    <div id="collaborative-cursors"></div>
+
+    <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
         <div class="nav-brand">SKS</div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#community">Community & Honors</a></li>
+            <li><a href="#journey">Journey</a></li>
+            <li><a href="#projects">Research</a></li>
             <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
         </ul>
     </nav>
 
-    <header id="home" class="hero section-hidden">
-        <canvas id="bg-canvas"></canvas> 
+    <main>
+        <section id="home" class="step hero">
+            <div class="glass-panel">
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Profile Placeholder" class="profile-img">
+                <h1 class="expressive-text">Satyam Kumar Singh</h1>
+                <h2 class="expressive-text">Physics at BHU | Space Tech Innovator</h2>
+                <p>Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence.</p>
+                <div class="hero-buttons">
+                    <a href="#journey" class="btn">Explore My Journey</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="step right-align">
+            <div class="glass-panel">
+                <h3>The Foundation</h3>
+                <h2 class="expressive-text">Institute of Science, BHU</h2>
+                <p>Pursuing my BSc (Hons) in Physics (2024–2028), my academic roots are in core theoretical physics and mathematical modeling.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="step left-align">
+            <div class="glass-panel">
+                <h3>Applied Innovation</h3>
+                <h2 class="expressive-text">MEPPHS Mark II</h2>
+                <p>Transitioning from theory to application, I developed and simulated a Venturi-based plasma reactor utilizing a multi-turn solenoid. This project heavily utilized COMSOL to optimize magnetic confinement.</p>
+            </div>
+        </section>
         
-        <div class="hero-content">
-            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Profile Placeholder" class="profile-img">
-            <h1>Satyam Kumar Singh</h1>
-            <h2>BSc (Hons) Physics at BHU | Space Tech Innovator</h2>
-            <p>Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence and Computational Modeling.</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn">Get in Touch</a>
-                <a href="resume.pdf" target="_blank" class="btn btn-outline">View Resume</a>
+        <section class="step center-align">
+            <div class="glass-panel full-width">
+                <h2 class="expressive-text">Step Into My Research</h2>
+                <p>Click the VR button in the bottom corner (if on a supported device) to view the magnetic confinement geometry in WebXR.</p>
+                <a href="resume.pdf" target="_blank" class="btn">View Full Resume</a>
             </div>
-        </div>
-    </header>
+        </section>
+    </main>
 
-    <section id="about" class="section section-hidden">
-        <div class="container">
-            <h2 class="section-title">Biography & Education</h2>
-            <div class="bio-grid">
-                <div class="bio-text">
-                    <p>I am an undergraduate physics student at the Institute of Science, Banaras Hindu University (BHU), minoring in Chemistry. My academic journey is deeply rooted in space science, theoretical physics, and computational methodologies like COMSOL Multiphysics.</p>
-                    <p>Beyond my university curriculum, I independently expand my knowledge through rigorous audited courses from global institutions, including <em>Mastering Quantum Mechanics</em> (MITx) and <em>Rocket Science for Everyone</em> (Yale). My goal is to leverage computational fluid dynamics, AI, and advanced mathematics to drive innovations in space technology and planetary defense.</p>
-                </div>
-                <div class="early-life">
-                    <h3>Academic Journey</h3>
-                    <ul class="timeline">
-                        <li class="timeline-item">
-                            <strong>Banaras Hindu University (BHU)</strong>
-                            <p>BSc (Hons) in Physics (2024–2028). Engaging in astrophysics, computational modeling, and rover development.</p>
-                        </li>
-                        <li class="timeline-item">
-                            <strong>Global Audited Coursework</strong>
-                            <p>Independent studies in Quantum Mechanics (MITx), Rocket Science (Yale), and AstroTech (Univ. of Edinburgh).</p>
-                        </li>
-                        <li class="timeline-item">
-                            <strong>Indian Institute of Science (IISc)</strong>
-                            <p>Familiarisation Workshop on Quantum Computing (Sept 2025).</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="section bg-light section-hidden">
-        <div class="container">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Nanotechnology Research Intern</h3>
-                    <p><strong>Cognizance, IIT Roorkee</strong><br>Conducted stoichiometric calculations and materials synthesis for advanced nanomaterials (BaTiO₃ and La₂SrV₂O₉) focusing on energy storage applications.</p>
-                </div>
-                <div class="card">
-                    <h3>Space Community Intern</h3>
-                    <p><strong>Agnirva Space Program</strong><br>Explored key concepts in space science, satellite technology, AI in space, and future mission design through structured computational modules.</p>
-                </div>
-                <div class="card">
-                    <h3>Co-Founder</h3>
-                    <p><strong>The Matrix Society, BHU</strong><br>Founded the official space society at BHU to nurture curiosity about space, astronomy, and astrophysics among university students.</p>
-                </div>
-                <div class="card">
-                    <h3>Space Tech Innovator</h3>
-                    <p><strong>Team BEYONDER (IIT Delhi Hackathon)</strong><br>Developed an AI-powered cargo management system for space stations, conceptualizing early-stage Docker-based APIs to optimize workflows.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="section section-hidden">
-        <div class="container">
-            <h2 class="section-title">Core Competencies & Skills</h2>
-            <div class="tags-container">
-                <span class="tag">Astrophysics & Cosmology</span>
-                <span class="tag">Quantum Mechanics</span>
-                <span class="tag">High-Energy Physics</span>
-                <span class="tag">AI / Machine Learning</span>
-                <span class="tag">Docker & API Development</span>
-                <span class="tag">Geospatial Analysis (GIS)</span>
-                <span class="tag">COMSOL Multiphysics</span>
-                <span class="tag">Python, R & SQL</span>
-                <span class="tag">Scientific Writing</span>
-                <span class="tag">Open Science</span>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="section bg-light section-hidden">
-        <div class="container">
-            <h2 class="section-title">Selected Projects</h2>
-            <div class="card-grid">
-                <div class="card project-card">
-                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=600" alt="Satellite Data" class="card-img">
-                    <div class="card-content">
-                        <h3>GeoSage X</h3>
-                        <p>An autonomous geospatial thinker for the Bharatiya Antariksh Hackathon (ISRO) that transforms natural language queries into explainable GIS workflows using Chain-of-Thought LLMs and multi-agent AI.</p>
-                    </div>
-                </div>
-                <div class="card project-card">
-                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=600" alt="Physics Simulation" class="card-img">
-                    <div class="card-content">
-                        <h3>MEPPHS Mark II</h3>
-                        <p>Development and simulation of a Venturi-based plasma reactor utilizing a multi-turn solenoid for magnetic confinement to optimize complex transport phenomena.</p>
-                    </div>
-                </div>
-                <div class="card project-card">
-                    <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=600" alt="Nanomaterials" class="card-img">
-                    <div class="card-content">
-                        <h3>Core-Shell Architectures</h3>
-                        <p>Investigating SiO2–Fe3O4–MOF structures and their role in plasma-enhanced catalysis, leveraging high-performance compute nodes for 3D modeling.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="community" class="section section-hidden">
-        <div class="container">
-            <h2 class="section-title">Honors & Global Community</h2>
-            <div class="bio-grid">
-                <div>
-                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">Awards & Honors</h3>
-                    <ul class="timeline">
-                        <li class="timeline-item">
-                            <strong>Gold Honour – IAAC 2025</strong>
-                            <p>Placed in the top 2% internationally in the International Astronomy and Astrophysics Competition.</p>
-                        </li>
-                        <li class="timeline-item">
-                            <strong>First Position – Int. Conf. on Quantum Science</strong>
-                            <p>Secured 1st place in the Quiz Competition alongside the Seminar on Discovery of Gravitational Waves.</p>
-                        </li>
-                        <li class="timeline-item">
-                            <strong>Lunar Eclipse Champion Badge</strong>
-                            <p>Awarded by Gravistra for outstanding performance in astronomy knowledge.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">Volunteering & Memberships</h3>
-                    <ul class="timeline">
-                        <li class="timeline-item">
-                            <strong>Astronomers for Planet Earth & Stardust</strong>
-                            <p>Contributing to climate awareness, sustainability, and global outreach to democratize access to space education.</p>
-                        </li>
-                        <li class="timeline-item">
-                            <strong>Snowdrop Foundation</strong>
-                            <p>Fundraising & Teaching Volunteer. Awarded Gold Medal in Prayas 4.0 and "Member of the Month".</p>
-                        </li>
-                        <li class="timeline-item">
-                            <strong>Global Scientific Networks</strong>
-                            <p>Active member of the International Science Reserve, IEEE Collabratec, American Physical Society (APS), and UKSEDS.</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section bg-light section-hidden">
-        <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <div class="contact-wrapper">
-                <form class="contact-form">
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <textarea rows="5" placeholder="Message" required></textarea>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-                <div class="social-links">
-                    <a href="#" class="social-btn">Email Me</a>
-                    <a href="#" class="social-btn">LinkedIn</a>
-                    <a href="#" class="social-btn">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Satyam Kumar Singh. All rights reserved.</p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="script.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
