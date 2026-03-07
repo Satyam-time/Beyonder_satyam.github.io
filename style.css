@@ -552,3 +552,57 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     transform: translateZ(40px);
     text-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
+/* ==========================================
+   MORPHING ANIMATION (Plasma Blob)
+   ========================================== */
+.profile-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* This is the morphing energy field behind your photo */
+.morphing-blob {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: linear-gradient(135deg, var(--secondary-color), #63b3ed, #90cdf4);
+    z-index: -1;
+    opacity: 0.8;
+    /* CSS Blob Morphing Magic */
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: morphPlasma 8s ease-in-out infinite;
+    filter: blur(8px);
+}
+
+@keyframes morphPlasma {
+    0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/* Ensure the profile image sits perfectly above the morphing blob */
+.profile-img {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0; /* Override previous margin since wrapper handles it */
+}
+
+
+/* ==========================================
+   SELF-DRAWING ANIMATION EFFECTS (SVG Paths)
+   ========================================== */
+/* We target the path inside the inline SVGs in HTML */
+.self-draw-path {
+    stroke-dasharray: 400; /* Creates dashes long enough to cover the whole path */
+    stroke-dashoffset: 400; /* Pushes the dash completely out of view */
+    animation: selfDraw 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+
+@keyframes selfDraw {
+    0% { stroke-dashoffset: 400; }
+    40%, 100% { stroke-dashoffset: 0; } /* Stays fully drawn for a moment before erasing */
+}
