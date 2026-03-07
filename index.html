@@ -12,6 +12,15 @@
 </head>
 <body>
 
+    <div id="page-loader">
+        <div class="orbit-spinner">
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+            <div class="orbit"></div>
+        </div>
+        <p class="loader-text">Initiating Physics Engine...</p>
+    </div>
+
     <div id="collaborative-cursors"></div>
     <canvas id="bg-canvas"></canvas>
 
@@ -23,7 +32,6 @@
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Research</a></li>
             <li><a href="#publications">Publications</a></li>
-            <li><a href="#gallery">Gallery</a></li>
             <li><a href="resume.pdf" target="_blank" class="nav-resume">Resume</a></li>
         </ul>
     </nav>
@@ -32,13 +40,9 @@
         <section id="home" class="step hero center-align">
             <div class="glass-panel">
                 <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=400" alt="Satyam Kumar Singh" class="profile-img stop-motion-float">
-                
                 <h1 class="expressive-text">Satyam Kumar Singh</h1>
                 <h2 class="expressive-text">BSc (Hons) Physics at BHU | Space Tech Innovator</h2>
                 <p>Passionate about Astrophysics, Quantum Mechanics, and the intersection of High-Energy Physics with Artificial Intelligence.</p>
-                <div class="hero-buttons">
-                    <a href="#journey" class="btn">Explore My Journey</a>
-                </div>
             </div>
         </section>
 
@@ -57,11 +61,48 @@
     </div>
 
     <main class="solid-content">
-        <section id="publications" class="section bg-light">
+        
+        <section id="experience" class="section interactive-web-container">
+            <canvas class="web-canvas"></canvas>
+            
+            <div class="container relative-z">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="card-grid">
+                    <div class="card clay-card">
+                        <h3>Nanotechnology Research Intern</h3>
+                        <p><strong>Cognizance, IIT Roorkee</strong> (Feb 2025 - Mar 2025)<br>Conducting stoichiometric calculations and materials synthesis for advanced nanomaterials (BaTiO₃ and La₂SrV₂O₉) for energy storage applications.</p>
+                    </div>
+                    <div class="card clay-card">
+                        <h3>Space Tech Innovator</h3>
+                        <p><strong>Team BEYONDER (IIT Delhi)</strong><br>Developed an AI-powered cargo management system for space stations, conceptualizing Docker-based APIs to optimize workflows.</p>
+                    </div>
+                    <div class="card clay-card">
+                        <h3>Co-Founder</h3>
+                        <p><strong>The Matrix Society, BHU</strong><br>Founded the official space society at BHU to nurture curiosity about space, astronomy, and astrophysics among university students.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Core Competencies</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">(Hover over these tags to feel the Claymorphic 3D bounce)</p>
+                <div class="tags-container">
+                    <span class="tag claymorphic">Astrophysics & Cosmology</span>
+                    <span class="tag claymorphic">Quantum Mechanics</span>
+                    <span class="tag claymorphic">AI / Machine Learning</span>
+                    <span class="tag claymorphic">COMSOL Multiphysics</span>
+                    <span class="tag claymorphic">Docker & APIs</span>
+                    <span class="tag claymorphic">Python, R & SQL</span>
+                    <span class="tag claymorphic">Scientific Writing & LaTeX</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications" class="section">
             <div class="container">
                 <h2 class="section-title">Publications & Literature</h2>
-                <p style="text-align: center; margin-bottom: 3rem;">Hover over the magazine to open the flipbook and explore the features.</p>
-                
                 <div class="flipbook-wrapper">
                     <div class="flipbook">
                         <div class="page cover-front">
@@ -77,9 +118,7 @@
                                 <ul class="timeline" style="font-size: 0.9rem; margin-top: 1rem;">
                                     <li><strong>First Light Machine:</strong> James Webb Space Telescope insights.</li>
                                     <li><strong>Planetary Defense:</strong> Analysis of NASA's DART mission.</li>
-                                    <li><strong>Commercial Space:</strong> The rise of private spacefaring.</li>
                                 </ul>
-                                <p style="font-size: 0.85rem; margin-top: 1rem; color: #718096;">A valuable resource keeping me engaged with the global conversation on space exploration and the future of humanity in space. 🌌🚀</p>
                             </div>
                         </div>
                     </div>
@@ -87,21 +126,27 @@
             </div>
         </section>
 
-        <section id="gallery" class="section">
+        <section id="contact" class="section bg-light">
             <div class="container">
-                <h2 class="section-title">Gallery</h2>
-                <div class="gallery-grid">
-                    <div class="gallery-item stop-motion-hover">
-                        <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&q=80&w=600" alt="Lab Work">
-                        <div class="gallery-overlay">Lab Research</div>
+                <h2 class="section-title">Contact</h2>
+                <div class="contact-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" id="nameInput" placeholder="Name">
+                        <input type="email" id="emailInput" placeholder="Email">
+                        <textarea rows="5" id="msgInput" placeholder="Message"></textarea>
+                        <div id="formErrorMsg" class="error-text"></div>
+                        <button type="submit" class="btn claymorphic">Send Message</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" class="social-btn claymorphic">Email Me</a>
+                        <a href="#" class="social-btn claymorphic">LinkedIn</a>
+                        <a href="#" class="social-btn claymorphic">GitHub</a>
                     </div>
-                    </div>
+                </div>
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2026 Satyam Kumar Singh. All rights reserved.</p>
-        </footer>
+        <footer><p>&copy; 2026 Satyam Kumar Singh. All rights reserved.</p></footer>
     </main>
 
     <script type="importmap">
