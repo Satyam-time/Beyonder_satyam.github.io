@@ -40,9 +40,10 @@
     <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
-        <div class="nav-brand magnetic-hover logo-container" id="sks-logo">
-    <span class="logo-text">SKS</span>
-    <svg class="line-burst" viewBox="0 0 100 100">
+        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+    <span class="logo-text" style="display: inline-block;">SKS</span>
+    
+    <svg class="line-burst" viewBox="0 0 100 100" style="position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%); pointer-events: none; z-index: -1;">
         <line x1="50" y1="20" x2="50" y2="5" />
         <line x1="50" y1="80" x2="50" y2="95" />
         <line x1="20" y1="50" x2="5" y2="50" />
