@@ -79,25 +79,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sksLogo) {
         sksLogo.addEventListener('click', (e) => {
             e.preventDefault(); 
-            
             const text = sksLogo.querySelector('.logo-text');
             const burst = sksLogo.querySelector('.line-burst');
-            
-            // 1. Remove classes to reset the animation
             text.classList.remove('rubber-bounce');
             burst.classList.remove('burst-active');
-            
-            // 2. Force the browser to register the reset (Reflow)
             void sksLogo.offsetWidth;
-            
-            // 3. Add classes back to trigger the animation
             text.classList.add('rubber-bounce');
             burst.classList.add('burst-active');
-            
-            // Scroll to top
-            setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 300);
+            setTimeout(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, 300);
         });
     }
 
@@ -105,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // SMART 3D SCENE ROUTER (Page-Specific Geometry)
     // ==========================================
     const canvas = document.querySelector('#bg-canvas');
+    let starfield; // Declared here so sockets can access it
     if (canvas) {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -119,16 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let activeMesh;
         const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x3182ce, wireframe: true, transparent: true, opacity: 0.4 });
 
-        // Route the 3D geometry based on the HTML body ID
         if (pageId === 'page-research') {
-            // MOF Nanomaterial Lattice
             activeMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(12, 1), wireMaterial);
         } else if (pageId === 'page-publications') {
-            // Spacetime Fabric
             activeMesh = new THREE.Mesh(new THREE.PlaneGeometry(50, 50, 20, 20), wireMaterial);
             activeMesh.rotation.x = -Math.PI / 3; 
         } else if (pageId === 'page-experience') {
-            // Orbital Rings
             activeMesh = new THREE.Group();
             const r1 = new THREE.Mesh(new THREE.TorusGeometry(8, 0.1, 16, 100), wireMaterial);
             const r2 = new THREE.Mesh(new THREE.TorusGeometry(14, 0.1, 16, 100), wireMaterial);
@@ -137,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
             r3.rotation.y = Math.PI / 2;
             activeMesh.add(r1, r2, r3);
         } else {
-            // Home Page: Multi-Turn Solenoid Plasma Confinement
             activeMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 2.5, 200, 32), wireMaterial);
         }
         scene.add(activeMesh);
@@ -151,10 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
             posArray[i * 3 + 2] = (Math.random() - 0.5) * 150; 
         }
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const starfield = new THREE.Points(particlesGeometry, new THREE.PointsMaterial({ size: 0.15, color: 0xffffff, transparent: true, opacity: 0.6 }));
+        starfield = new THREE.Points(particlesGeometry, new THREE.PointsMaterial({ size: 0.15, color: 0xffffff, transparent: true, opacity: 0.6 }));
         scene.add(starfield);
 
-        // Camera scroll mechanics
         document.body.onscroll = () => {
             const t = document.body.getBoundingClientRect().top;
             if (pageId === 'page-publications') {
@@ -166,10 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
             camera.position.z = 40 + (t * 0.015); 
         };
 
-        // Render Loop with unique animations
         renderer.setAnimationLoop(() => {
             if (pageId === 'page-publications') {
-                // Creates a rippling gravity wave effect on the fabric
                 const time = Date.now() * 0.002;
                 const positions = activeMesh.geometry.attributes.position;
                 for (let i = 0; i < positions.count; i++) {
@@ -191,23 +173,42 @@ document.addEventListener('DOMContentLoaded', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Collaborative Ghost Cursors
+        // ==========================================
+        // NEW: REAL-TIME MULTIPLAYER CURSORS
+        // ==========================================
         const cursorContainer = document.getElementById('collaborative-cursors');
-        const ghostCursors = [];
-        for(let i=0; i<2; i++) {
-            const ghost = document.createElement('div');
-            ghost.className = 'ghost-cursor';
-            if(cursorContainer) cursorContainer.appendChild(ghost);
-            ghostCursors.push({ element: ghost, x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, targetX: Math.random() * window.innerWidth, targetY: Math.random() * window.innerHeight });
-        }
-        setInterval(() => {
-            ghostCursors.forEach(gc => {
-                if(Math.random() > 0.9) { gc.targetX = Math.random() * window.innerWidth; gc.targetY = window.innerHeight * Math.random(); }
-                gc.x += (gc.targetX - gc.x) * 0.05; gc.y += (gc.targetY - gc.y) * 0.05;
-                gc.element.style.transform = `translate(${gc.x}px, ${gc.y}px)`;
-                starfield.rotation.x += (gc.y * 0.000005); starfield.rotation.y += (gc.x * 0.000005);
+        const activeCursors = {}; 
+
+        if (typeof io !== 'undefined') {
+            const socket = io('http://localhost:5000'); // Connects to your running Node server
+
+            document.addEventListener('mousemove', (e) => {
+                socket.emit('cursor_move', { x: e.clientX, y: e.clientY });
             });
-        }, 50);
+
+            socket.on('update_cursor', (data) => {
+                if (!activeCursors[data.id]) {
+                    const ghost = document.createElement('div');
+                    ghost.className = 'ghost-cursor';
+                    if(cursorContainer) cursorContainer.appendChild(ghost);
+                    activeCursors[data.id] = ghost;
+                }
+                activeCursors[data.id].style.transform = `translate(${data.x}px, ${data.y}px)`;
+                
+                // Real-time interactive physics with the starfield
+                if(starfield) {
+                    starfield.rotation.x += (data.y * 0.000005);
+                    starfield.rotation.y += (data.x * 0.000005);
+                }
+            });
+
+            socket.on('remove_cursor', (id) => {
+                if (activeCursors[id]) {
+                    activeCursors[id].remove();
+                    delete activeCursors[id];
+                }
+            });
+        }
     }
 
     // Scroll Observers
@@ -244,7 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', resizeWebCanvas);
         resizeWebCanvas();
 
-        // Track mouse movement strictly within the section containing the canvas
         webCanvas.parentElement.addEventListener('mousemove', (e) => {
             const rect = webCanvas.getBoundingClientRect();
             mouse.x = e.clientX - rect.left; 
@@ -258,56 +258,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
         class WebParticle {
             constructor() {
-                this.x = Math.random() * width; 
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 1; 
-                this.vy = (Math.random() - 0.5) * 1;
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1; this.vy = (Math.random() - 0.5) * 1;
                 this.size = Math.random() * 2 + 1;
             }
             update() {
-                this.x += this.vx; 
-                this.y += this.vy;
-                // Bounce off edges
+                this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
             }
             draw() {
-                ctx.beginPath(); 
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(49, 130, 206, 0.3)'; 
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(49, 130, 206, 0.3)'; ctx.fill();
             }
         }
 
-        // Initialize particles
         for (let i = 0; i < 70; i++) particles.push(new WebParticle());
 
         function animateWeb() {
             ctx.clearRect(0, 0, width, height);
-            
             for (let i = 0; i < particles.length; i++) {
-                particles[i].update(); 
-                particles[i].draw();
-                
-                // Draw lines connecting particles to the mouse
+                particles[i].update(); particles[i].draw();
                 if (mouse.x != null) {
-                    let dx = mouse.x - particles[i].x;
-                    let dy = mouse.y - particles[i].y;
+                    let dx = mouse.x - particles[i].x; let dy = mouse.y - particles[i].y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    
                     if (distance < mouse.radius) {
                         ctx.beginPath();
-                        // Opacity fades as distance increases
                         ctx.strokeStyle = `rgba(49, 130, 206, ${1 - distance/mouse.radius})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y); 
-                        ctx.lineTo(mouse.x, mouse.y);
-                        ctx.stroke();
+                        ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); 
+                        ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
                     }
                 }
             }
             requestAnimationFrame(animateWeb);
         }
         animateWeb();
+    }
+
+    // ==========================================
+    // NEW: LIVE EMAIL ROUTING & MICROINTERACTION
+    // ==========================================
+    const form = document.getElementById('contactForm');
+    if(form) {
+        const nameInput = document.getElementById('nameInput');
+        const emailInput = document.getElementById('emailInput');
+        const msgInput = document.getElementById('msgInput');
+        const errorMsg = document.getElementById('formErrorMsg');
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+            let hasError = false;
+            errorMsg.innerText = '';
+
+            [nameInput, emailInput, msgInput].forEach(el => el.classList.remove('error-shake'));
+
+            if(!nameInput.value.trim() || !emailInput.value.trim() || !msgInput.value.trim()) {
+                hasError = true;
+                errorMsg.innerText = 'Please complete all required fields.';
+                if(!nameInput.value.trim()) nameInput.classList.add('error-shake');
+                if(!emailInput.value.trim()) emailInput.classList.add('error-shake');
+                if(!msgInput.value.trim()) msgInput.classList.add('error-shake');
+            }
+
+            if(!hasError) {
+                btnText.innerHTML = "Routing...";
+                
+                try {
+                    const response = await fetch('http://localhost:5000/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: nameInput.value.trim(),
+                            email: emailInput.value.trim(),
+                            message: msgInput.value.trim()
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if(response.ok) {
+                        errorMsg.style.color = '#48bb78';
+                        errorMsg.innerText = 'Message securely routed to SKS servers!';
+                        btnText.innerHTML = "✓ Sent!";
+                        submitBtn.style.background = "#48bb78";
+                        submitBtn.style.transform = "scale(1.05)";
+                        form.reset();
+                    } else {
+                        throw new Error(data.error || 'Server error');
+                    }
+                } catch (error) {
+                    errorMsg.style.color = '#e53e3e';
+                    errorMsg.innerText = 'Server offline. Please try again later.';
+                    btnText.innerHTML = "Error";
+                }
+
+                setTimeout(() => {
+                    btnText.innerHTML = "Send Message";
+                    submitBtn.style.background = "transparent";
+                    submitBtn.style.transform = "scale(1)";
+                }, 3000);
+            }
+        });
     }
 });
