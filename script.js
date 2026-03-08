@@ -12,27 +12,37 @@ window.addEventListener('load', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Custom Magnetic Cursor
+    // Custom Magnetic Cursor & Eye Tracking
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    // Grab the astronaut eyes
+    const astroEyes = document.querySelectorAll('.astro-eye');
 
     if (cursorDot && cursorRing) {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
             cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+
+            // --- NEW EYE TRACKING LOGIC ---
+            astroEyes.forEach(eye => {
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+                
+                // Calculate the angle between the eye and the mouse
+                const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+                
+                // Limit the pupil movement to a 3-pixel radius so they stay inside the visor
+                const distance = 3; 
+                const moveX = Math.cos(angle) * distance;
+                const moveY = Math.sin(angle) * distance;
+                
+                eye.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+            // ------------------------------
         });
-        function animateCursor() {
-            ringX += (mouseX - ringX) * 0.2; ringY += (mouseY - ringY) * 0.2;
-            cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-        document.querySelectorAll('.magnetic-hover, a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => cursorRing.classList.add('magnetic'));
-            el.addEventListener('mouseleave', () => cursorRing.classList.remove('magnetic'));
-        });
-    }
 
     // Faux 3D Cards
     document.querySelectorAll('.faux-3d-card').forEach(card => {
@@ -259,7 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
         class WebParticle {
             constructor() {
                 this.x = Math.random() * width; this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 1; this.vy = (Math.random() - 0.5) * 1;
+                this.vx = (Math.random() - 0.5) * 3.5; 
+                this.vy = (Math.random() - 0.5) * 3.5;
                 this.size = Math.random() * 2 + 1;
             }
             update() {
