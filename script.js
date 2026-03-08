@@ -196,4 +196,89 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.opacity = 0; el.style.transform = 'translateY(30px)'; el.style.transition = 'all 0.6s ease-out';
         bottomObserver.observe(el);
     });
+
+    // ==========================================
+    // 10. HOVER WEB ANIMATION (Interactive Particle Canvas)
+    // ==========================================
+    const webCanvas = document.querySelector('.web-canvas');
+    if(webCanvas) {
+        const ctx = webCanvas.getContext('2d');
+        let width, height, particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        function resizeWebCanvas() {
+            width = webCanvas.parentElement.offsetWidth; 
+            height = webCanvas.parentElement.offsetHeight;
+            webCanvas.width = width; 
+            webCanvas.height = height;
+        }
+        window.addEventListener('resize', resizeWebCanvas);
+        resizeWebCanvas();
+
+        // Track mouse movement strictly within the section containing the canvas
+        webCanvas.parentElement.addEventListener('mousemove', (e) => {
+            const rect = webCanvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left; 
+            mouse.y = e.clientY - rect.top;
+        });
+        
+        webCanvas.parentElement.addEventListener('mouseleave', () => {
+            mouse.x = null; 
+            mouse.y = null;
+        });
+
+        class WebParticle {
+            constructor() {
+                this.x = Math.random() * width; 
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1; 
+                this.vy = (Math.random() - 0.5) * 1;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx; 
+                this.y += this.vy;
+                // Bounce off edges
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(49, 130, 206, 0.3)'; 
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < 70; i++) particles.push(new WebParticle());
+
+        function animateWeb() {
+            ctx.clearRect(0, 0, width, height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); 
+                particles[i].draw();
+                
+                // Draw lines connecting particles to the mouse
+                if (mouse.x != null) {
+                    let dx = mouse.x - particles[i].x;
+                    let dy = mouse.y - particles[i].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouse.radius) {
+                        ctx.beginPath();
+                        // Opacity fades as distance increases
+                        ctx.strokeStyle = `rgba(49, 130, 206, ${1 - distance/mouse.radius})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y); 
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateWeb);
+        }
+        animateWeb();
+    }
 });
