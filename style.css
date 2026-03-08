@@ -643,25 +643,29 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 }
 
 /* ==========================================
-   BUTTON HOVER VISIBILITY FIX
+   THE NUCLEAR BUTTON VISIBILITY FIX
    ========================================== */
 
-/* Ensures text stays visible on the "View Resume" and redirect buttons */
-.btn.claymorphic {
-    transition: all 0.3s ease;
-    color: #1a202c; /* Dark text for normal state */
+/* 1. Force the button to be the parent layer */
+a.btn, a.claymorphic, .btn {
+    position: relative !important;
+    z-index: 1 !important;
 }
 
-.btn.claymorphic:hover {
-    color: #ffffff !important; /* Forces text to turn white on hover */
-    background: #3182ce !important; /* Forces a solid blue background on hover */
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(49, 130, 206, 0.3) !important;
+/* 2. Force the TEXT to stay on top of any expanding background layers */
+a.btn *, a.claymorphic * {
+    position: relative !important;
+    z-index: 10 !important;
 }
 
-/* Fix for liquid buttons just in case they have the same issue */
-.btn.liquid-btn:hover .liquid-text {
+/* 3. Push any animated hover effects to the very back */
+a.btn::before, a.claymorphic::before,
+a.btn::after, a.claymorphic::after {
+    z-index: -1 !important;
+}
+
+/* 4. Force the high-contrast color change on hover */
+a.btn:hover, a.claymorphic:hover {
     color: #ffffff !important;
-    z-index: 10;
-    position: relative;
+    background-color: #3182ce !important; /* Forces the space blue background */
 }
