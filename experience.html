@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience | Satyam Kumar Singh</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>#exp-hero { opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; }</style>
+</head>
+<body id="page-experience" class="custom-cursor-active">
+
+    <div class="cursor-dot" id="cursor-dot"></div><div class="cursor-ring" id="cursor-ring"></div>
+    <div id="page-loader"><div class="orbit-spinner"><div class="orbit"></div><div class="orbit"></div><div class="orbit"></div></div><p class="loader-text">Calculating Orbital Mechanics...</p></div>
+    <div id="collaborative-cursors"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-brand magnetic-hover">SKS Orgs</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="magnetic-hover">Home</a></li>
+            <li><a href="research.html" class="magnetic-hover">Research</a></li>
+            <li><a href="publications.html" class="magnetic-hover">Publications</a></li>
+        </ul>
+    </nav>
+
+    <div class="scrollytelling-wrapper">
+        <section id="exp-hero" class="step hero center-align" style="min-height: 50vh; display: flex; align-items: center; justify-content: center;">
+            <div class="glass-panel faux-3d-card">
+                <div class="faux-3d-content">
+                    <h1 class="expressive-text hero-fade-in">Experience & Leadership</h1>
+                    <p class="hero-fade-in">Driving innovation across elite institutes and global space societies.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <main class="solid-content">
+        <section class="section interactive-web-container">
+            <canvas class="web-canvas"></canvas>
+            <div class="container relative-z">
+                <div class="card-grid">
+                    <div class="card clay-card magnetic-hover">
+                        <h3>Nanotechnology Research Intern</h3>
+                        <p><strong>Cognizance, IIT Roorkee</strong><br>Stoichiometric calculations and materials synthesis for advanced nanomaterials.</p>
+                    </div>
+                    <div class="card clay-card magnetic-hover">
+                        <h3>Space Tech Innovator</h3>
+                        <p><strong>Team BEYONDER (IIT Delhi)</strong><br>Developed an AI-powered cargo management system for space stations with Docker-based APIs.</p>
+                    </div>
+                    <div class="card clay-card magnetic-hover">
+                        <h3>Co-Founder</h3>
+                        <p><strong>The Matrix Society, BHU</strong><br>Founded the official space society at BHU to nurture astronomy and astrophysics.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Technical Competencies</h2>
+                <div class="tags-container">
+                    <span class="tag claymorphic magnetic-hover">Astrophysics</span>
+                    <span class="tag claymorphic magnetic-hover">Quantum Mechanics</span>
+                    <span class="tag claymorphic magnetic-hover">COMSOL Multiphysics</span>
+                    <span class="tag claymorphic magnetic-hover">Python, R & SQL</span>
+                    <span class="tag claymorphic magnetic-hover">Scientific Writing</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/" } }</script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
