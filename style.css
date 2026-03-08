@@ -606,3 +606,65 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     0% { stroke-dashoffset: 400; }
     40%, 100% { stroke-dashoffset: 0; } /* Stays fully drawn for a moment before erasing */
 }
+
+/* ==========================================
+   CARTOON CLICK BURST (SKS Logo)
+   ========================================== */
+.logo-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.logo-text {
+    display: inline-block;
+}
+
+/* 1. Rubber Band Bounce for the Text */
+.rubber-bounce {
+    animation: rubberBand 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes rubberBand {
+    0% { transform: scale3d(1, 1, 1); }
+    30% { transform: scale3d(1.25, 0.75, 1); }
+    40% { transform: scale3d(0.75, 1.25, 1); }
+    50% { transform: scale3d(1.15, 0.85, 1); }
+    65% { transform: scale3d(0.95, 1.05, 1); }
+    75% { transform: scale3d(1.05, 0.95, 1); }
+    100% { transform: scale3d(1, 1, 1); }
+}
+
+/* 2. Comic Book Speed Line Burst */
+.line-burst {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    width: 80px; 
+    height: 80px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.line-burst line {
+    stroke: var(--secondary-color);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 0 50; /* Start invisible */
+    transform-origin: center;
+    opacity: 0;
+}
+
+.burst-active line {
+    animation: burstLines 0.5s ease-out forwards;
+}
+
+@keyframes burstLines {
+    0% { stroke-dasharray: 0 50; opacity: 1; transform: scale(0.5); }
+    50% { stroke-dasharray: 15 50; opacity: 1; }
+    100% { stroke-dasharray: 0 50; opacity: 0; transform: scale(1.5); }
+}
