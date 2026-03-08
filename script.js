@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeCursors = {}; 
 
         if (typeof io !== 'undefined') {
-            const socket = io('https://sks-physics-engine.onrender.com'); // Connects to your running Node server
+            const socket = io('http://localhost:5000'); // Connects to your running Node server
 
             document.addEventListener('mousemove', (e) => {
                 socket.emit('cursor_move', { x: e.clientX, y: e.clientY });
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnText.innerHTML = "Routing...";
                 
                 try {
-                    const response = await fetch('https://sks-physics-engine.onrender.com/api/contact', {
+                    const response = await fetch('http://localhost:5000/api/contact', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
