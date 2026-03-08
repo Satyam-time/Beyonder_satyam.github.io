@@ -643,32 +643,25 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 }
 
 /* ==========================================
-   BUTTON & HOVER CONTRAST FIXES
+   BUTTON HOVER VISIBILITY FIX
    ========================================== */
 
-/* 1. Claymorphic Buttons & Tags (Changes text to dark navy on hover) */
-.claymorphic:hover, 
-.btn.claymorphic:hover,
-.social-btn:hover,
-.tag:hover {
-    color: #0f172a !important; 
-    transition: color 0.3s ease;
+/* Ensures text stays visible on the "View Resume" and redirect buttons */
+.btn.claymorphic {
+    transition: all 0.3s ease;
+    color: #1a202c; /* Dark text for normal state */
 }
 
-/* 2. Liquid Buttons (Ensures text stays bright white and ON TOP of the blobs) */
-.liquid-btn:hover .liquid-text {
-    color: #ffffff !important; 
+.btn.claymorphic:hover {
+    color: #ffffff !important; /* Forces text to turn white on hover */
+    background: #3182ce !important; /* Forces a solid blue background on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(49, 130, 206, 0.3) !important;
+}
+
+/* Fix for liquid buttons just in case they have the same issue */
+.btn.liquid-btn:hover .liquid-text {
+    color: #ffffff !important;
+    z-index: 10;
     position: relative;
-    z-index: 10; /* Forces the text to render above the expanding liquid */
-}
-
-/* 3. Navigation Links (Ensures they stay readable when the magnetic cursor hits them) */
-.nav-links a:hover {
-    color: #3182ce !important; /* Matches your secondary blue theme */
-}
-
-/* 4. Clay Cards (Ensures text inside cards doesn't wash out on hover) */
-.clay-card:hover h3,
-.clay-card:hover p {
-    color: #0f172a !important;
 }
