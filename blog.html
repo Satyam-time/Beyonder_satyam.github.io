@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Research Transmissions | Satyam Kumar Singh</title>
+    <meta name="description" content="Academic blog and research logs of Satyam Kumar Singh. Exploring plasma physics, ecological engineering, and computational modeling.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+
+    <style>
+        /* Specific Blog Page Adjustments */
+        .blog-header { text-align: center; padding: 15vh 5% 5vh; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .blog-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .blog-card:hover { transform: translateY(-10px); border-color: #66fcf1; box-shadow: 0 10px 30px rgba(102, 252, 241, 0.1); }
+        .blog-date { color: #66fcf1; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; display: block; }
+        .blog-tag { background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; margin-right: 0.5rem; }
+    </style>
+</head>
+<body id="page-blog" class="custom-cursor-active">
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+            <a href="index.html" style="text-decoration: none; color: inherit;"><span class="logo-text">SKS</span></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#home" class="magnetic-hover">Home</a></li>
+            <li><a href="index.html#experience" class="magnetic-hover">Experience</a></li>
+            <li><a href="index.html#projects" class="magnetic-hover">Research</a></li>
+            <li><a href="index.html#publications" class="magnetic-hover">Publications</a></li>
+            <li><a href="blog.html" class="magnetic-hover" style="color: #66fcf1; font-weight: bold;">Blog</a></li>
+            <li><a href="Resume.pdf" target="_blank" class="nav-resume magnetic-hover">Resume</a></li>
+        </ul>
+    </nav>
+
+    <main class="solid-content" style="position: relative; z-index: 10;">
+        
+        <header class="blog-header step">
+            <h1 class="expressive-text" style="font-size: 4rem; margin-bottom: 1rem;">Research Logs</h1>
+            <p style="max-width: 600px; margin: 0 auto; opacity: 0.8;">Documenting computational physics simulations, hardware builds, and theoretical explorations.</p>
+        </header>
+
+        <section class="section">
+            <div class="blog-grid">
+                
+                <article class="blog-card step magnetic-hover">
+                    <span class="blog-date">March 2026</span>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">MEPPHS Mark II: Acoustic Horizons & Catalytic Activation</h3>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6;">A deep dive into upgrading the MOF-Engineered Plasma-Phonon Horizon System. Detailing the transition to a multi-turn solenoid configuration to achieve optimal magnetic confinement and verifying boundary conditions in COMSOL.</p>
+                    <div>
+                        <span class="blog-tag">Plasma Physics</span>
+                        <span class="blog-tag">COMSOL</span>
+                    </div>
+                    <a href="#" class="btn liquid-btn" style="border: none; margin-top: 1.5rem; padding: 0.8rem 1.5rem;">
+                        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+                        <span class="liquid-text">Read Log ➔</span>
+                    </a>
+                </article>
+
+                <article class="blog-card step magnetic-hover">
+                    <span class="blog-date">March 2026</span>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">The Bio-Pontoon Initiative: Ecological Restoration</h3>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6;">Drafting the technical defense for a modular floating system designed to tackle heavy metal pollution and microplastics. An exploration of nature-based engineering solutions for water purification.</p>
+                    <div>
+                        <span class="blog-tag">Environmental Remediation</span>
+                        <span class="blog-tag">Engineering</span>
+                    </div>
+                    <a href="#" class="btn liquid-btn" style="border: none; margin-top: 1.5rem; padding: 0.8rem 1.5rem;">
+                        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+                        <span class="liquid-text">Read Log ➔</span>
+                    </a>
+                </article>
+
+                <article class="blog-card step magnetic-hover">
+                    <span class="blog-date">February 2026</span>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Determining Sodium Wavelength via Newton's Rings</h3>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6;">Lab notes and calculations from classical optics experiments. Extracting the precise wavelength of a sodium vapor lamp by analyzing the interference patterns and calculating differences in ring diameters.</p>
+                    <div>
+                        <span class="blog-tag">Optics</span>
+                        <span class="blog-tag">Lab Experiment</span>
+                    </div>
+                    <a href="#" class="btn liquid-btn" style="border: none; margin-top: 1.5rem; padding: 0.8rem 1.5rem;">
+                        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+                        <span class="liquid-text">Read Log ➔</span>
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 3rem; opacity: 0.6;">
+            <p>&copy; 2026 Satyam Kumar Singh. All systems nominal.</p>
+        </footer>
+    </main>
+
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/" } }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
