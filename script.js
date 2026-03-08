@@ -73,6 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
+    // 11. SKS LOGO CARTOON CLICK ANIMATION
+    // ==========================================
+    const sksLogo = document.getElementById('sks-logo');
+    if(sksLogo) {
+        sksLogo.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent it from instantly jumping to top if you want to see the animation
+            
+            const text = sksLogo.querySelector('.logo-text');
+            const burst = sksLogo.querySelector('.line-burst');
+            
+            // Remove classes if they exist so you can spam-click it
+            text.classList.remove('rubber-bounce');
+            burst.classList.remove('burst-active');
+            
+            // Trigger reflow to restart animation
+            void sksLogo.offsetWidth;
+            
+            // Add animation classes
+            text.classList.add('rubber-bounce');
+            burst.classList.add('burst-active');
+            
+            // Optional: Smooth scroll to top after a tiny delay
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+        });
+    }
+
+    // ==========================================
     // SMART 3D SCENE ROUTER (Page-Specific Geometry)
     // ==========================================
     const canvas = document.querySelector('#bg-canvas');
