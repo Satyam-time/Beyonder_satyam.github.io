@@ -641,3 +641,34 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     50% { stroke-dasharray: 15 50; opacity: 1; }
     100% { stroke-dasharray: 0 50; opacity: 0; transform: scale(1.5); }
 }
+
+/* ==========================================
+   BUTTON & HOVER CONTRAST FIXES
+   ========================================== */
+
+/* 1. Claymorphic Buttons & Tags (Changes text to dark navy on hover) */
+.claymorphic:hover, 
+.btn.claymorphic:hover,
+.social-btn:hover,
+.tag:hover {
+    color: #0f172a !important; 
+    transition: color 0.3s ease;
+}
+
+/* 2. Liquid Buttons (Ensures text stays bright white and ON TOP of the blobs) */
+.liquid-btn:hover .liquid-text {
+    color: #ffffff !important; 
+    position: relative;
+    z-index: 10; /* Forces the text to render above the expanding liquid */
+}
+
+/* 3. Navigation Links (Ensures they stay readable when the magnetic cursor hits them) */
+.nav-links a:hover {
+    color: #3182ce !important; /* Matches your secondary blue theme */
+}
+
+/* 4. Clay Cards (Ensures text inside cards doesn't wash out on hover) */
+.clay-card:hover h3,
+.clay-card:hover p {
+    color: #0f172a !important;
+}
