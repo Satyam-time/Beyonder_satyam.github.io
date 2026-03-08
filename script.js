@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             // ------------------------------
         });
+    } // <-- Added missing closing brace for if (cursorDot && cursorRing)
 
     // Faux 3D Cards
     document.querySelectorAll('.faux-3d-card').forEach(card => {
@@ -104,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // SMART 3D SCENE ROUTER (Page-Specific Geometry)
     // ==========================================
     const canvas = document.querySelector('#bg-canvas');
-    let starfield; // Declared here so sockets can access it
+    let starfield; 
     if (canvas) {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -117,7 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const pageId = document.body.id; 
         let activeMesh;
-        const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x3182ce, wireframe: true, transparent: true, opacity: 0.4 });
+        
+        // Ensure this matches your CSS color update (e.g., Neon Cyan 0x66fcf1 or original 0x3182ce)
+        const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x66fcf1, wireframe: true, transparent: true, opacity: 0.4 });
 
         if (pageId === 'page-research') {
             activeMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(12, 1), wireMaterial);
@@ -132,6 +135,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const r3 = new THREE.Mesh(new THREE.TorusGeometry(20, 0.1, 16, 100), wireMaterial);
             r3.rotation.y = Math.PI / 2;
             activeMesh.add(r1, r2, r3);
+            
+        // ==========================================
+        // NEW: QUASAR FOR THE BLOG PAGE
+        // ==========================================
+        } else if (pageId === 'page-blog') {
+            activeMesh = new THREE.Group();
+            
+            // 1. The Singularity Core (Pure Black)
+            const core = new THREE.Mesh(
+                new THREE.SphereGeometry(3.5, 32, 32),
+                new THREE.MeshBasicMaterial({ color: 0x000000 }) 
+            );
+            
+            // 2. The Accretion Disk 
+            const disk = new THREE.Mesh(
+                new THREE.RingGeometry(5, 16, 64, 8),
+                wireMaterial
+            );
+            disk.rotation.x = Math.PI / 2; // Lay it flat
+            
+            // 3. Relativistic Jets (Top and Bottom)
+            const topJet = new THREE.Mesh(new THREE.ConeGeometry(2.5, 30, 32, 1, true), wireMaterial);
+            topJet.position.y = 15;
+            
+            const bottomJet = new THREE.Mesh(new THREE.ConeGeometry(2.5, 30, 32, 1, true), wireMaterial);
+            bottomJet.rotation.x = Math.PI; // Flip it upside down
+            bottomJet.position.y = -15;
+            
+            activeMesh.add(core, disk, topJet, bottomJet);
+            
+            // Tilt the entire quasar slightly so we can see the disk from a cinematic angle
+            activeMesh.rotation.x = 0.3; 
+            activeMesh.rotation.z = -0.2;
+            
         } else {
             activeMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 2.5, 200, 32), wireMaterial);
         }
@@ -170,6 +207,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     positions.setZ(i, Math.sin(x/5 + time) * Math.cos(y/5 + time) * 3);
                 }
                 positions.needsUpdate = true;
+                
+            // ==========================================
+            // NEW: QUASAR ANIMATION
+            // ==========================================
+            } else if (pageId === 'page-blog') {
+                // Spin the whole quasar slowly
+                activeMesh.rotation.y += 0.003; 
+                
+                // Spin the accretion disk super fast
+                activeMesh.children[1].rotation.z -= 0.04; 
+                
+                // Pulse the relativistic jets
+                const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.05;
+                activeMesh.children[2].scale.set(1, pulse, 1); // Top jet
+                activeMesh.children[3].scale.set(1, pulse, 1); // Bottom jet
+                
             } else {
                 activeMesh.rotation.x += 0.002;
                 activeMesh.rotation.y += 0.003;
@@ -184,13 +237,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // ==========================================
-        // NEW: REAL-TIME MULTIPLAYER CURSORS
+        // REAL-TIME MULTIPLAYER CURSORS
         // ==========================================
         const cursorContainer = document.getElementById('collaborative-cursors');
         const activeCursors = {}; 
 
         if (typeof io !== 'undefined') {
-            const socket = io('http://localhost:5000'); // Connects to your running Node server
+            const socket = io('http://localhost:5000'); 
 
             document.addEventListener('mousemove', (e) => {
                 socket.emit('cursor_move', { x: e.clientX, y: e.clientY });
@@ -205,7 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 activeCursors[data.id].style.transform = `translate(${data.x}px, ${data.y}px)`;
                 
-                // Real-time interactive physics with the starfield
                 if(starfield) {
                     starfield.rotation.x += (data.y * 0.000005);
                     starfield.rotation.y += (data.x * 0.000005);
@@ -238,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 10. HOVER WEB ANIMATION (Interactive Particle Canvas)
+    // HOVER WEB ANIMATION (Interactive Particle Canvas)
     // ==========================================
     const webCanvas = document.querySelector('.web-canvas');
     if(webCanvas) {
@@ -307,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // NEW: LIVE EMAIL ROUTING & MICROINTERACTION
+    // LIVE EMAIL ROUTING & MICROINTERACTION
     // ==========================================
     const form = document.getElementById('contactForm');
     if(form) {
