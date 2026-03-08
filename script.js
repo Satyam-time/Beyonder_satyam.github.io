@@ -76,25 +76,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // 11. SKS LOGO CARTOON CLICK ANIMATION
     // ==========================================
     const sksLogo = document.getElementById('sks-logo');
-    if(sksLogo) {
+    if (sksLogo) {
         sksLogo.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent it from instantly jumping to top if you want to see the animation
+            e.preventDefault(); 
             
             const text = sksLogo.querySelector('.logo-text');
             const burst = sksLogo.querySelector('.line-burst');
             
-            // Remove classes if they exist so you can spam-click it
+            // 1. Remove classes to reset the animation
             text.classList.remove('rubber-bounce');
             burst.classList.remove('burst-active');
             
-            // Trigger reflow to restart animation
+            // 2. Force the browser to register the reset (Reflow)
             void sksLogo.offsetWidth;
             
-            // Add animation classes
+            // 3. Add classes back to trigger the animation
             text.classList.add('rubber-bounce');
             burst.classList.add('burst-active');
             
-            // Optional: Smooth scroll to top after a tiny delay
+            // Scroll to top
             setTimeout(() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 300);
