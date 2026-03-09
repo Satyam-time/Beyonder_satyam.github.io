@@ -12,38 +12,60 @@ window.addEventListener('load', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Custom Magnetic Cursor & Eye Tracking
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-
-    // Grab the astronaut eyes
+    // ==========================================
+    // GSAP SPOTLIGHT CURSOR & EYE TRACKING
+    // ==========================================
+    const circle = document.querySelector(".circle");
+    const follow = document.querySelector(".circle-follow");
+    const ambientCursor = document.querySelector(".cursor");
     const astroEyes = document.querySelectorAll('.astro-eye');
 
-    if (cursorDot && cursorRing) {
+    // Only activate on desktop (prevents glitching on mobile touch screens)
+    if (!("ontouchstart" in document.documentElement) && navigator.maxTouchPoints === 0) {
+        
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX; mouseY = e.clientY;
-            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            const mouseX = e.clientX; 
+            const mouseY = e.clientY;
 
-            // --- NEW EYE TRACKING LOGIC ---
+            // 1. Move the GSAP Dots
+            gsap.to(circle, { duration: 0.3, x: mouseX, y: mouseY });
+            gsap.to(follow, { duration: 0.7, x: mouseX, y: mouseY });
+
+            // 2. Move the Spotlight Background
+            const xPercent = Math.round((mouseX / window.innerWidth) * 100);
+            const yPercent = Math.round((mouseY / window.innerHeight) * 100);
+            gsap.to(ambientCursor, { 
+                duration: 0.6, 
+                "--x": `${xPercent}%`, 
+                "--y": `${yPercent}%`, 
+                ease: "power2.out" 
+            });
+
+            // 3. Keep Astronaut Eye Tracking Working!
             astroEyes.forEach(eye => {
                 const rect = eye.getBoundingClientRect();
                 const eyeCenterX = rect.left + rect.width / 2;
                 const eyeCenterY = rect.top + rect.height / 2;
-                
-                // Calculate the angle between the eye and the mouse
                 const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
-                
-                // Limit the pupil movement to a 3-pixel radius so they stay inside the visor
                 const distance = 3; 
                 const moveX = Math.cos(angle) * distance;
                 const moveY = Math.sin(angle) * distance;
-                
                 eye.style.transform = `translate(${moveX}px, ${moveY}px)`;
             });
-            // ------------------------------
         });
-    } // <-- Added missing closing brace for if (cursorDot && cursorRing)
+
+        // 4. Hover Effects for Links and Buttons
+        document.querySelectorAll("a, .btn, .claymorphic, .gallery-item").forEach(el => {
+            el.addEventListener("mouseenter", () => {
+                gsap.to(circle, { duration: 0.3, opacity: 1, scale: 0 });
+                gsap.to(follow, { duration: 0.3, width: 80, height: 80, left: -40, top: -40, backgroundColor: "rgba(255,255,255,0.3)" });
+            });
+            el.addEventListener("mouseleave", () => {
+                gsap.to(circle, { duration: 0.3, opacity: 1, scale: 1 });
+                gsap.to(follow, { duration: 0.3, width: 30, height: 30, left: -15, top: -15, backgroundColor: "#fff" });
+            });
+        });
+    }
 
     // Faux 3D Cards
     document.querySelectorAll('.faux-3d-card').forEach(card => {
