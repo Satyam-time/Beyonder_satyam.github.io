@@ -616,29 +616,29 @@ a.btn:hover, a.claymorphic:hover {
 }
 
 /* ==========================================
-   SOLID TRANSLUCENT TRAILING CURSOR
+   SOLID TRANSLUCENT TRAILING CURSOR (Original Blue)
    ========================================== */
 .custom-cursor-active, .custom-cursor-active * { cursor: none !important; }
 
 .cursor-dot {
     width: 8px;
     height: 8px;
-    background-color: #66fcf1 !important; 
+    background-color: var(--secondary-color) !important; /* Restores your original blue */
     position: fixed;
     top: -4px; 
     left: -4px;
     border-radius: 50%;
     pointer-events: none;
     z-index: 999999;
-    box-shadow: none !important;
+    box-shadow: none !important; /* Kills the neon glow */
     mix-blend-mode: normal !important;
 }
 
 .cursor-ring {
     width: 40px;
     height: 40px;
-    background-color: rgba(102, 252, 241, 0.2) !important;
-    border: none !important;
+    background-color: rgba(49, 130, 206, 0.2) !important; /* 20% opacity of your original blue */
+    border: none !important; /* Removes the hollow ring */
     position: fixed;
     top: -20px; 
     left: -20px;
@@ -655,6 +655,6 @@ a.btn:hover, a.claymorphic:hover {
     height: 60px !important;
     top: -30px !important; 
     left: -30px !important;
-    background-color: rgba(102, 252, 241, 0.4) !important; 
+    background-color: rgba(49, 130, 206, 0.4) !important; /* Becomes slightly darker blue on hover */
     transform: none !important;
 }
