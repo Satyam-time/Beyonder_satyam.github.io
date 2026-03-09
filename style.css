@@ -616,45 +616,52 @@ a.btn:hover, a.claymorphic:hover {
 }
 
 /* ==========================================
-   SOLID TRANSLUCENT TRAILING CURSOR (Original Blue)
+   GSAP SPOTLIGHT CURSOR
    ========================================== */
-.custom-cursor-active, .custom-cursor-active * { cursor: none !important; }
+body, a, .btn { cursor: none !important; }
 
-.cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--secondary-color) !important; /* Restores your original blue */
-    position: fixed;
-    top: -4px; 
-    left: -4px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999999;
-    box-shadow: none !important; /* Kills the neon glow */
-    mix-blend-mode: normal !important;
+/* Small leading dot */
+.circle {
+  position: fixed;
+  background-color: #fff;
+  width: 10px;
+  height: 10px;
+  left: -5px; 
+  top: -5px;
+  border-radius: 100%;
+  z-index: 10000;
+  transform: scale(1);
+  mix-blend-mode: difference;
+  pointer-events: none; 
 }
 
-.cursor-ring {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(49, 130, 206, 0.2) !important; /* 20% opacity of your original blue */
-    border: none !important; /* Removes the hollow ring */
-    position: fixed;
-    top: -20px; 
-    left: -20px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 999998;
-    box-shadow: none !important;
-    mix-blend-mode: normal !important;
-    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, top 0.3s ease, left 0.3s ease, transform 0.1s ease-out;
+/* Larger trailing dot */
+.circle-follow {
+  position: fixed;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+  left: -15px; 
+  top: -15px;
+  border-radius: 100%;
+  z-index: 9999;
+  transform: scale(1);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
 }
 
-.cursor-ring.magnetic {
-    width: 60px !important;
-    height: 60px !important;
-    top: -30px !important; 
-    left: -30px !important;
-    background-color: rgba(49, 130, 206, 0.4) !important; /* Becomes slightly darker blue on hover */
-    transform: none !important;
+/* The ambient spotlight gradient */
+.cursor {
+  position: fixed;
+  z-index: 0; /* Sits right above your 3D background */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.6;
+  /* Deep Space Blue to match your portfolio theme */
+  background: radial-gradient(circle at var(--x, 0%) var(--y, 0%), rgba(49, 130, 206, 0.4) 1%, transparent 80%);
 }
