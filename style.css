@@ -745,3 +745,51 @@ body, a, .btn { cursor: none !important; }
   /* Deep Space Blue to match your portfolio theme */
   background: radial-gradient(circle at var(--x, 0%) var(--y, 0%), rgba(49, 130, 206, 0.4) 1%, transparent 80%);
 }
+
+/* ==========================================
+   WEBGL BIG BANG INTRO
+   ========================================== */
+#intro-wrapper {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #000; z-index: 999999; /* Covers the entire main site */
+}
+
+#canvas-container {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+
+#flash {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: #ffffff; z-index: 5; opacity: 0; pointer-events: none;
+    mix-blend-mode: overlay; 
+}
+
+#ui-layer {
+    position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 10; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; pointer-events: none;
+}
+
+#intro-title {
+    color: #ffffff; font-size: 5rem; font-weight: 900; letter-spacing: 20px;
+    opacity: 0; margin: 0; text-transform: uppercase;
+    text-shadow: 0 0 40px rgba(255,255,255,1); transform: scale(0.9);
+}
+
+#intro-subtitle {
+    color: #a1a1aa; font-family: 'Georgia', serif; font-size: 2rem;
+    font-style: italic; letter-spacing: 4px; opacity: 0; margin-top: 20px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+}
+
+#enter-btn {
+    margin-top: 40px; padding: 15px 40px; font-size: 1rem; letter-spacing: 2px;
+    color: #fff; background: transparent; border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 30px; cursor: pointer; opacity: 0; pointer-events: auto;
+    transition: all 0.3s ease; text-transform: uppercase;
+}
+
+#enter-btn:hover {
+    background: rgba(255,255,255,0.1); border-color: #fff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
