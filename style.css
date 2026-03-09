@@ -317,7 +317,14 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .science-heart-container {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    opacity: 0;
+    opacity: 0; z-index: 5;
+}
+
+/* "I LOVE SCIENCE" Text */
+.love-science-text {
+    font-family: 'Inter', sans-serif; font-weight: 900; color: #fff; text-align: center;
+    font-size: 2rem; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5); position: absolute; top: 120px;
 }
 
 .cartoon-heart {
@@ -330,12 +337,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 }
 .cartoon-heart::before { top: -75px; left: 0; }
 .cartoon-heart::after { top: 0; left: 75px; }
-
-/* "I LOVE SCIENCE" Text */
-.love-science-text {
-    font-family: 'Inter', sans-serif; font-weight: 900; color: #fff; text-align: center;
-    font-size: 2.5rem; letter-spacing: 2px; text-transform: uppercase;
-}
 
 /* ==========================================
    CLAYMORPHISM (Soft 3D Tags & Buttons)
