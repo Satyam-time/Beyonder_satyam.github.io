@@ -36,7 +36,6 @@ html { scroll-behavior: smooth; }
 .nav-links a { text-decoration: none; color: white; font-weight: 600; position: relative; transition: var(--transition); }
 .nav-links a:hover { color: var(--secondary-color); }
 .nav-resume { border: 1px solid var(--secondary-color); padding: 0.5rem 1rem; border-radius: 5px; }
-.nav-resume:hover { background: var(--secondary-color); color: white; }
 
 /* PART 1: Scrollytelling Panels */
 .scrollytelling-wrapper { position: relative; z-index: 1; }
@@ -75,7 +74,7 @@ html { scroll-behavior: smooth; }
 
 /* PART 2: Solid Content Sections */
 .solid-content {
-    background: var(--bg-color); /* Covers the 3D canvas entirely once reached */
+    background: var(--bg-color); 
     position: relative; z-index: 10;
     box-shadow: 0 -20px 40px rgba(0,0,0,0.3);
 }
@@ -146,10 +145,7 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 /* ==========================================
    STOP-MOTION ANIMATION EFFECTS
    ========================================== */
-/* Replaces smooth easing with choppy, frame-by-frame ticks */
-
 .stop-motion-float {
-    /* 8 steps means it only updates its position 8 times per animation cycle, looking like analog film */
     animation: stopMotionFloat 3s steps(8, end) infinite;
 }
 
@@ -174,7 +170,7 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .flipbook-wrapper {
     display: flex;
     justify-content: center;
-    perspective: 1500px; /* Gives the 3D depth */
+    perspective: 1500px;
     margin: 4rem 0;
 }
 
@@ -186,7 +182,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* When hovering over the wrapper, the whole book rotates slightly, and the cover opens */
 .flipbook-wrapper:hover .flipbook {
     transform: translateX(100px) rotateX(10deg) rotateY(-10deg);
 }
@@ -205,7 +200,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     background: white;
 }
 
-/* Front Cover */
 .cover-front {
     z-index: 2;
     background: var(--primary-color);
@@ -226,7 +220,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     text-align: center;
 }
 
-/* Inside Page (Revealed when open) */
 .inside {
     z-index: 1;
     transform: rotateY(0deg);
@@ -237,7 +230,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     color: var(--text-main);
 }
 
-/* The Flip Action */
 .flipbook-wrapper:hover .cover-front {
     transform: rotateY(-140deg);
     box-shadow: 0 10px 20px rgba(0,0,0,0.4);
@@ -270,12 +262,11 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
    CLAYMORPHISM (Soft 3D Tags & Buttons)
    ========================================== */
 .claymorphic {
-    background: #f0f4f8; /* Soft light background */
+    background: #f0f4f8; 
     border: none;
     border-radius: 30px;
     color: var(--primary-color) !important;
     font-weight: 600;
-    /* The Claymorphic magic: Double outer shadows + double inner shadows */
     box-shadow: 
         6px 6px 12px #d1d9e6, 
         -6px -6px 12px #ffffff,
@@ -330,7 +321,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
    BACKGROUND WEBSITE ANIMATION (Mesh Gradient)
    ========================================== */
 .solid-content {
-    /* Replaces the static background with a breathing, animated gradient */
     background: linear-gradient(-45deg, #ffffff, #f0f4f8, #e2e8f0, #ebf4ff);
     background-size: 400% 400%;
     animation: breathingMesh 15s ease infinite;
@@ -348,25 +338,15 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 /* ==========================================
    PAGE TRANSITION EFFECTS
    ========================================== */
-#page-loader {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #050814; z-index: 99999; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; 
-    /* Removed the old fade-out transition, GSAP handles the slide up now */
-}
-
 .hero-fade-in {
     opacity: 0;
     transform: translateY(20px);
 }
 
-
-/* Force the hero section container to be visible so the inner animations can play */
 #home.step {
     opacity: 1 !important;
     transform: translateY(0) !important;
 }
-
 
 /* ==========================================
    MIXED MEDIA WEB ANIMATION
@@ -407,7 +387,7 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     text-align: center;
     border-radius: 30px;
     overflow: hidden;
-    filter: url('#goo'); /* Links to the SVG filter in HTML */
+    filter: url('#goo'); 
     cursor: pointer;
     z-index: 1;
     border: none;
@@ -418,7 +398,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     z-index: 10;
 }
 
-/* Background base layer */
 .liquid-btn::before {
     content: '';
     position: absolute;
@@ -433,7 +412,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     background: var(--secondary-color);
 }
 
-/* The liquid blobs */
 .liquid-blob {
     position: absolute;
     top: 50%;
@@ -451,7 +429,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .liquid-btn:hover .liquid-blob:nth-child(2) { transform: translate(0, -50%) scale(3); transition-delay: 0.2s; }
 .liquid-btn:hover .liquid-blob:nth-child(3) { transform: translate(100%, -50%) scale(3); transition-delay: 0.3s; }
 
-
 /* ==========================================
    ISOMETRIC ANIMATION EFFECTS (Projects Grid)
    ========================================== */
@@ -460,7 +437,7 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     flex-wrap: wrap;
     gap: 3rem;
     justify-content: center;
-    perspective: 1500px; /* Essential for 3D depth */
+    perspective: 1500px;
 }
 
 .isometric-card {
@@ -475,51 +452,21 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-/* The Hover Trigger */
 .isometric-card:hover {
-    /* Translates it into a classic 3D Isometric Projection */
     transform: rotateX(55deg) rotateZ(-45deg) translateY(-20px);
     box-shadow: 
         -20px 20px 30px rgba(0,0,0,0.2),
-        -5px 5px 0px var(--secondary-color); /* Creates an extruded 3D edge */
+        -5px 5px 0px var(--secondary-color);
     border-color: var(--secondary-color);
 }
 
-/* Makes the image float above the card on hover */
 .isometric-card:hover .card-img {
     transform: translateZ(40px);
     box-shadow: -10px 10px 20px rgba(0,0,0,0.2);
 }
 
-/* Makes the text float above the card on hover */
 .isometric-card:hover .card-content {
     transform: translateZ(20px);
-}
-
-/* ==========================================
-   MICROINTERACTIONS: CUSTOM MAGNETIC CURSOR
-   ========================================== */
-.custom-cursor-active, .custom-cursor-active * { cursor: none !important; }
-
-.cursor-dot, .cursor-ring {
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999999;
-    transition: width 0.3s, height 0.3s, background 0.3s;
-}
-.cursor-dot { width: 8px; height: 8px; background: var(--secondary-color); }
-.cursor-ring {
-    width: 30px; height: 30px;
-    border: 2px solid rgba(49, 130, 206, 0.5);
-    transition: transform 0.1s ease-out, width 0.3s, height 0.3s;
-}
-
-/* Magnetic Hover State */
-.cursor-ring.magnetic {
-    width: 60px; height: 60px;
-    background: rgba(49, 130, 206, 0.1);
-    border-color: transparent;
 }
 
 /* ==========================================
@@ -547,7 +494,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     transition: transform 0.1s ease-out;
     transform-style: preserve-3d;
 }
-/* This makes the text physically pop out from the glass background */
 .faux-3d-content > * {
     transform: translateZ(40px);
     text-shadow: 0 10px 20px rgba(0,0,0,0.1);
@@ -562,7 +508,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     margin-bottom: 1rem;
 }
 
-/* This is the morphing energy field behind your photo */
 .morphing-blob {
     position: absolute;
     top: -10%;
@@ -572,7 +517,6 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     background: linear-gradient(135deg, var(--secondary-color), #63b3ed, #90cdf4);
     z-index: -1;
     opacity: 0.8;
-    /* CSS Blob Morphing Magic */
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     animation: morphPlasma 8s ease-in-out infinite;
     filter: blur(8px);
@@ -584,27 +528,24 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
 }
 
-/* Ensure the profile image sits perfectly above the morphing blob */
 .profile-img {
     position: relative;
     z-index: 2;
-    margin-bottom: 0; /* Override previous margin since wrapper handles it */
+    margin-bottom: 0; 
 }
-
 
 /* ==========================================
    SELF-DRAWING ANIMATION EFFECTS (SVG Paths)
    ========================================== */
-/* We target the path inside the inline SVGs in HTML */
 .self-draw-path {
-    stroke-dasharray: 400; /* Creates dashes long enough to cover the whole path */
-    stroke-dashoffset: 400; /* Pushes the dash completely out of view */
+    stroke-dasharray: 400; 
+    stroke-dashoffset: 400; 
     animation: selfDraw 4s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
 }
 
 @keyframes selfDraw {
     0% { stroke-dashoffset: 400; }
-    40%, 100% { stroke-dashoffset: 0; } /* Stays fully drawn for a moment before erasing */
+    40%, 100% { stroke-dashoffset: 0; }
 }
 
 /* ==========================================
@@ -628,7 +569,7 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
     stroke: var(--secondary-color, #3182ce);
     stroke-width: 5;
     stroke-linecap: round;
-    opacity: 0; /* Hidden by default */
+    opacity: 0; 
     transform-origin: center;
 }
 
@@ -645,59 +586,75 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 /* ==========================================
    THE NUCLEAR BUTTON VISIBILITY FIX
    ========================================== */
-
-/* 1. Force the button to be the parent layer */
 a.btn, a.claymorphic, .btn {
     position: relative !important;
     z-index: 1 !important;
 }
 
-/* 2. Force the TEXT to stay on top of any expanding background layers */
 a.btn *, a.claymorphic * {
     position: relative !important;
     z-index: 10 !important;
 }
 
-/* 3. Push any animated hover effects to the very back */
 a.btn::before, a.claymorphic::before,
 a.btn::after, a.claymorphic::after {
     z-index: -1 !important;
 }
 
-/* 4. Force the high-contrast color change on hover */
 a.btn:hover, a.claymorphic:hover {
     color: #ffffff !important;
-    background-color: #3182ce !important; /* Forces the space blue background */
+    background-color: #3182ce !important; 
 }
 
 /* ==========================================
    NAVBAR RESUME FIX
    ========================================== */
 .nav-resume:hover {
-    background-color: #66fcf1 !important; /* Adjust to your brand color */
-    color: #1a202c !important; /* Forces dark text on hover */
+    background-color: #66fcf1 !important; 
+    color: #1a202c !important; 
     box-shadow: 0 4px 15px rgba(102, 252, 241, 0.4);
 }
 
 /* ==========================================
-   HIGH-IMPACT NEON CURSOR
+   SOLID TRANSLUCENT TRAILING CURSOR
    ========================================== */
+.custom-cursor-active, .custom-cursor-active * { cursor: none !important; }
+
 .cursor-dot {
-    background-color: #66fcf1 !important;
-    box-shadow: 0 0 10px #66fcf1, 0 0 20px #66fcf1 !important;
-    mix-blend-mode: difference;
+    width: 8px;
+    height: 8px;
+    background-color: #66fcf1 !important; 
+    position: fixed;
+    top: -4px; 
+    left: -4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    box-shadow: none !important;
+    mix-blend-mode: normal !important;
 }
 
 .cursor-ring {
-    border: 2px solid #66fcf1 !important;
-    box-shadow: 0 0 15px rgba(102, 252, 241, 0.5) !important;
-    mix-blend-mode: difference;
-    background: transparent;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(102, 252, 241, 0.2) !important;
+    border: none !important;
+    position: fixed;
+    top: -20px; 
+    left: -20px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999998;
+    box-shadow: none !important;
+    mix-blend-mode: normal !important;
+    transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, top 0.3s ease, left 0.3s ease, transform 0.1s ease-out;
 }
 
 .cursor-ring.magnetic {
-    background-color: rgba(102, 252, 241, 0.1) !important;
-    border-color: #66fcf1 !important;
-    box-shadow: 0 0 20px #66fcf1 !important;
-    transform: scale(1.5);
+    width: 60px !important;
+    height: 60px !important;
+    top: -30px !important; 
+    left: -30px !important;
+    background-color: rgba(102, 252, 241, 0.4) !important; 
+    transform: none !important;
 }
