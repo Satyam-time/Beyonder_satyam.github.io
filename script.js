@@ -1,41 +1,195 @@
 import * as THREE from 'three';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
+// NEW: Imports for the Big Bang Post-Processing
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 // ==========================================
-// CARTOON LOADING SEQUENCE (Science Love)
+// CINEMATIC WEBGL BIG BANG INTRO
 // ==========================================
 window.addEventListener('load', () => {
-    // 1. Nuke any old animations or cached "curtain up" movements
-    gsap.killTweensOf('#page-loader');
-    
-    // Force the loader to stay perfectly still and visible
-    gsap.set('#page-loader', { y: 0, yPercent: 0, opacity: 1, display: 'flex' });
+    const introWrapper = document.getElementById('intro-wrapper');
+    if (!introWrapper) return; // Failsafe
 
-    const tl = gsap.timeline();
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.02);
 
-    // 2. Scientists Pop In (Safe Selectors)
-    tl.fromTo('.s1', { x: -150, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "back.out(1.5)" })
-      .fromTo('.s2', { x: 150, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "back.out(1.5)" }, "-=0.8")
-      
-    // 3. Pause for bubbling physics, then merge to center (Split into two safe tweens)
-      .to('.s1', { x: 80, opacity: 0, scale: 0.5, duration: 1.2, ease: "power4.inOut", delay: 1.5 })
-      .to('.s2', { x: -80, opacity: 0, scale: 0.5, duration: 1.2, ease: "power4.inOut" }, "-=1.2")
-      
-    // 4. Heart pops out
-      .fromTo('.science-heart-container', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "elastic.out(1, 0.5)" }, "-=0.5")
-      
-    // 5. "I LOVE SCIENCE" text slides up
-      .fromTo('.love-science-text', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" })
-      
-    // 6. Heart expands massively to consume the screen
-      .to('.science-heart-container', { scale: 150, duration: 1.5, ease: "power4.in", delay: 1 })
-      
-    // 7. Fade out the loader (NO UPWARDS MOVEMENT) and Bloom the Homepage
-      .to('#page-loader', { opacity: 0, duration: 0.8, onComplete: () => {
-          document.getElementById('page-loader').style.display = 'none';
-      } })
-      .fromTo('.hero-fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.15, duration: 1, ease: "back.out(1.5)" }, "-=0.4")
-      .fromTo('.navbar', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.8");
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 40;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const renderScene = new RenderPass(scene, camera);
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+    bloomPass.threshold = 0.1; bloomPass.strength = 1.2; bloomPass.radius = 0.5;
+
+    const composer = new EffectComposer(renderer);
+    composer.addPass(renderScene);
+    composer.addPass(bloomPass);
+
+    function createEnergyCluster(colorHex, particleCount, radius) {
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        for(let i = 0; i < particleCount; i++) {
+            const u = Math.random(), v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = Math.cbrt(Math.random()) * radius;
+            positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
+            positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+            positions[i*3+2] = r * Math.cos(phi);
+        }
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('basePosition', new THREE.BufferAttribute(new Float32Array(positions), 3));
+        const material = new THREE.PointsMaterial({
+            size: 0.15, color: new THREE.Color(colorHex), transparent: true,
+            opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false
+        });
+        return new THREE.Points(geometry, material);
+    }
+
+    const chemGroup = createEnergyCluster(0x10b981, 3000, 5); chemGroup.position.set(-15, -10, 0);
+    const astroGroup = createEnergyCluster(0x3b82f6, 3000, 5); astroGroup.position.set(0, 15, 0);
+    const physicsGroup = createEnergyCluster(0xd946ef, 3000, 5); physicsGroup.position.set(15, -10, 0);
+    scene.add(chemGroup, astroGroup, physicsGroup);
+
+    const singularity = createEnergyCluster(0xffffff, 5000, 1); singularity.scale.set(0,0,0);
+    scene.add(singularity);
+
+    const explosion = createEnergyCluster(0xffaa00, 20000, 10);
+    explosion.material.size = 0.2; explosion.scale.set(0,0,0);
+    scene.add(explosion);
+
+    const mouse = new THREE.Vector2(-999, -999);
+    const raycaster = new THREE.Raycaster();
+    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+    const pointOfIntersection = new THREE.Vector3();
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        raycaster.ray.intersectPlane(plane, pointOfIntersection);
+    });
+
+    const clock = new THREE.Clock();
+    let isOrbiting = true;
+    let isInteractive = false;
+    let animationId; // Used to kill the intro when done
+
+    function animate() {
+        animationId = requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+
+        if(isOrbiting) {
+            chemGroup.rotation.y = elapsedTime * 0.5; chemGroup.position.y = -10 + Math.sin(elapsedTime * 2) * 2;
+            astroGroup.rotation.x = elapsedTime * 0.5; astroGroup.position.y = 15 + Math.cos(elapsedTime * 1.5) * 2;
+            physicsGroup.rotation.z = elapsedTime * 0.5; physicsGroup.position.y = -10 + Math.sin(elapsedTime * 2.5) * 2;
+            explosion.rotation.y -= 0.01;
+        } else if (!isInteractive) {
+            chemGroup.rotation.y += 0.1; astroGroup.rotation.x += 0.1; physicsGroup.rotation.z += 0.1;
+            singularity.rotation.y += 0.2;
+            explosion.rotation.y -= 0.01;
+        }
+
+        if (isInteractive) {
+            const positions = explosion.geometry.attributes.position.array;
+            const basePositions = explosion.geometry.attributes.basePosition.array;
+            const scale = explosion.scale.x;
+            const mx = pointOfIntersection.x / scale;
+            const my = pointOfIntersection.y / scale;
+
+            for(let i = 0; i < 20000; i++) {
+                const idx = i * 3;
+                let px = positions[idx], py = positions[idx+1], pz = positions[idx+2];
+                const bx = basePositions[idx], by = basePositions[idx+1], bz = basePositions[idx+2];
+                const dx = px - mx, dy = py - my;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                
+                const influenceRadius = 2.5; 
+                if(dist < influenceRadius) {
+                    const force = (influenceRadius - dist) / influenceRadius;
+                    px += (dx / dist) * force * 0.15;
+                    py += (dy / dist) * force * 0.15;
+                }
+                px += (bx - px) * 0.04; py += (by - py) * 0.04; pz += (bz - pz) * 0.04;
+                positions[idx] = px; positions[idx+1] = py; positions[idx+2] = pz;
+            }
+            explosion.geometry.attributes.position.needsUpdate = true;
+        }
+        composer.render();
+    }
+    animate();
+
+    // GSAP TIMELINE FOR INTRO
+    setTimeout(() => {
+        const tl = gsap.timeline({
+            onComplete: () => {
+                isInteractive = true;
+                document.addEventListener('mousemove', (e) => {
+                    if(!isInteractive) return; // stops moving after click
+                    gsap.to('#ui-layer', {
+                        x: (e.clientX - window.innerWidth / 2) * 0.02,
+                        y: (e.clientY - window.innerHeight / 2) * 0.02,
+                        duration: 0.5
+                    });
+                });
+            }
+        });
+
+        tl.to({}, { duration: 0.1, onStart: () => { isOrbiting = false; } })
+        .to([chemGroup.position, astroGroup.position, physicsGroup.position], { x: 0, y: 0, z: 0, duration: 2.5, ease: "power4.in" }, "pull")
+        .to([chemGroup.scale, astroGroup.scale, physicsGroup.scale], { x: 0.1, y: 0.1, z: 0.1, duration: 2.5, ease: "power4.in" }, "pull")
+        .to(bloomPass, { strength: 3, duration: 2.5, ease: "power2.in" }, "pull")
+        .to(singularity.scale, { x: 3, y: 3, z: 3, duration: 1, ease: "back.out(1.5)" }, "singularity")
+        .to(singularity.scale, { x: 0.5, y: 0.5, z: 0.5, duration: 0.5, ease: "expo.in" }, "singularity+=1.5")
+        .to(bloomPass, { strength: 10, duration: 0.5, ease: "expo.in" }, "singularity+=1.5")
+        .to(explosion.scale, { x: 40, y: 40, z: 40, duration: 2, ease: "power4.out" }, "bang")
+        .to(singularity.scale, { x: 60, y: 60, z: 60, duration: 1, ease: "power2.in" }, "bang")
+        .to(bloomPass, { strength: 15, duration: 0.2 }, "bang")
+        .to("#flash", { opacity: 1, duration: 0.2, ease: "power4.in" }, "bang+=0.2")
+        .to(camera.position, { z: 120, duration: 3, ease: "power3.out" }, "bang")
+        .to("#flash", { opacity: 0, duration: 3, ease: "power2.inOut" }, "reveal")
+        .to(bloomPass, { strength: 1.5, duration: 3, ease: "power2.out" }, "reveal")
+        .to("#intro-title", { opacity: 1, scale: 1, duration: 2, ease: "power3.out" }, "reveal+=0.5")
+        .to("#intro-subtitle", { opacity: 1, duration: 2, ease: "power2.out" }, "reveal+=1.5")
+        .to("#enter-btn", { opacity: 1, duration: 1, ease: "power2.out" }, "reveal+=2.5");
+    }, 1500);
+
+    // TRANSITION TO MAIN SITE
+    document.getElementById('enter-btn').addEventListener('click', () => {
+        isInteractive = false; // Stop UI parallax
+        gsap.to('#ui-layer', { opacity: 0, duration: 0.5 });
+        
+        gsap.to(camera.position, { z: -50, duration: 1.5, ease: "power2.in" });
+
+        gsap.to(introWrapper, { 
+            opacity: 0, 
+            duration: 1.5, 
+            delay: 0.8,
+            onComplete: () => {
+                // Completely kill the intro engine to save GPU
+                cancelAnimationFrame(animationId);
+                introWrapper.remove();
+                
+                // NOW trigger the main site hero animations
+                gsap.fromTo('.hero-fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.15, duration: 1, ease: "back.out(1.5)" });
+                gsap.fromTo('.navbar', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.5");
+            }
+        });
+    });
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        composer.setSize(window.innerWidth, window.innerHeight);
+    });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
