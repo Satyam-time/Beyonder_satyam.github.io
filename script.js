@@ -13,16 +13,15 @@ window.addEventListener('load', () => {
 document.addEventListener('DOMContentLoaded', () => {
     
     // ==========================================
-    // GSAP SPOTLIGHT CURSOR & EYE TRACKING
+    // GSAP SPOTLIGHT CURSOR & EYE TRACKING (FIXED)
     // ==========================================
     const circle = document.querySelector(".circle");
     const follow = document.querySelector(".circle-follow");
-    const ambientCursor = document.querySelector(".cursor");
+    const ambientCursor = document.getElementById("cursor"); // Grabbed by ID just to be safe
     const astroEyes = document.querySelectorAll('.astro-eye');
 
-    // Only activate on desktop (prevents glitching on mobile touch screens)
-    if (!("ontouchstart" in document.documentElement) && navigator.maxTouchPoints === 0) {
-        
+    // Safety check: Only run if the HTML elements actually exist
+    if (circle && follow) {
         document.addEventListener('mousemove', (e) => {
             const mouseX = e.clientX; 
             const mouseY = e.clientY;
@@ -32,16 +31,18 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.to(follow, { duration: 0.7, x: mouseX, y: mouseY });
 
             // 2. Move the Spotlight Background
-            const xPercent = Math.round((mouseX / window.innerWidth) * 100);
-            const yPercent = Math.round((mouseY / window.innerHeight) * 100);
-            gsap.to(ambientCursor, { 
-                duration: 0.6, 
-                "--x": `${xPercent}%`, 
-                "--y": `${yPercent}%`, 
-                ease: "power2.out" 
-            });
+            if (ambientCursor) {
+                const xPercent = Math.round((mouseX / window.innerWidth) * 100);
+                const yPercent = Math.round((mouseY / window.innerHeight) * 100);
+                gsap.to(ambientCursor, { 
+                    duration: 0.6, 
+                    "--x": `${xPercent}%`, 
+                    "--y": `${yPercent}%`, 
+                    ease: "power2.out" 
+                });
+            }
 
-            // 3. Keep Astronaut Eye Tracking Working!
+            // 3. Keep Astronaut Eye Tracking Working
             astroEyes.forEach(eye => {
                 const rect = eye.getBoundingClientRect();
                 const eyeCenterX = rect.left + rect.width / 2;
@@ -66,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
     // Faux 3D Cards
     document.querySelectorAll('.faux-3d-card').forEach(card => {
         const content = card.querySelector('.faux-3d-content');
