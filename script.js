@@ -1,14 +1,44 @@
 import * as THREE from 'three';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
 
-window.addEventListener('load', () => {
-    setTimeout(() => {
+// ==========================================
+    // CARTOON LOADING SEQUENCE (Science Love)
+    // ==========================================
+    window.addEventListener('load', () => {
+        // Grab new elements
         const tl = gsap.timeline();
-        tl.to('#page-loader', { yPercent: -100, duration: 1.2, ease: "power4.inOut" })
-          .to('.hero-fade-in', { opacity: 1, y: 0, stagger: 0.15, duration: 1, ease: "back.out(1.5)" }, "-=0.5")
-          .from('.navbar', { y: -100, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.8");
-    }, 1200);
-});
+        const s1 = document.querySelector('.s1');
+        const s2 = document.querySelector('.s2');
+        const heartContainer = document.querySelector('.science-heart-container');
+        const loveText = document.querySelector('.love-science-text');
+        const homepage = document.querySelector('main'); // Homepage Bloom
+
+        // Safety check to ensure selectors match HTML
+        if (circle && follow) { // ... existing cursor logic ... }
+
+        // --- Step 1: Initialize Homepage ---
+        if (homepage) homepage.style.opacity = 0; // Homepage is invisible during the story
+
+        // --- Step 2: Scientists Enter (gsap back easing) ---
+        tl.to(s1, { opacity: 1, x: -100, duration: 1.2, ease: "back.out(1.5)" }) // Char 1 slides in
+          .to(s2, { opacity: 1, x: 100, duration: 1.2, ease: "back.out(1.5)" }, "-=0.8") // Char 2 overlaps
+          .to(['.prop-beaker', '.prop-atom'], { scale: 1, duration: 0.5, ease: "elastic.out(1, 0.3)" }) // Props pop-in
+          .delay(1.5) // Let them bubbling/spinning science for a moment
+
+          // --- Step 3: Science Combo (Forming Heart) ---
+          .to([s1, s2], { x: 0, opacity: 0, scale: 0.5, duration: 1.2, ease: "power4.inOut" }) // Merge scientists in center, fade out
+          .to(heartContainer, { opacity: 1, scale: 1, duration: 1, ease: "elastic.out(1, 0.5)" }, "-=0.8") // Heart pops out
+          .delay(0.5) // Pause on the combined heart
+
+          // --- Step 4: Text Reveal & Expand (Expressive stagger) ---
+          .to(loveText, { opacity: 1, y: 0, duration: 1, ease: "back.out(1.7)" }) // "I LOVE SCIENCE" slides up
+          .delay(1) // Let them read the transmission
+          .to(heartContainer, { scale: 50, duration: 1.5, ease: "power4.in" }) // Heart expands exponentially, covering everything
+
+          // --- Step 5: THE BLOOM RELEASE ---
+          .to('#page-loader', { opacity: 0, visibility: 'hidden', duration: 1, ease: "power3.inOut" }) // Fade out the story loader
+          .to(homepage, { opacity: 1, duration: 1.5, ease: "power3.out" }, "-=0.8"); // Homepage main content "blooms" beautifully
+    });
 
 document.addEventListener('DOMContentLoaded', () => {
     
