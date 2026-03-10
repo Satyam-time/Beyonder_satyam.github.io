@@ -795,6 +795,69 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
 }
 
 /* ==========================================
+   INTERACTIVE SOCIAL PILLS (Custom Links)
+   ========================================== */
+.social-pill {
+    display: flex !important;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: #ffffff;
+    color: var(--primary-color) !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* ULTIMATE FAILSAFE: Forces SVGs to stay tiny forever */
+.social-pill svg {
+    width: 20px !important;
+    height: 20px !important;
+    transition: all 0.3s ease;
+}
+
+/* Base Hover Physics */
+.social-pill:hover {
+    transform: translateY(-5px);
+    background: #ffffff;
+}
+
+/* Brand Specific Colors & Neon Shadows */
+.email-theme:hover { 
+    color: #ea4335 !important; 
+    border-color: #ea4335; 
+    box-shadow: 0 8px 20px rgba(234, 67, 53, 0.2); 
+}
+
+.linkedin-theme:hover { 
+    color: #0077b5 !important; 
+    border-color: #0077b5; 
+    box-shadow: 0 8px 20px rgba(0, 119, 181, 0.2); 
+}
+
+.github-theme:hover { 
+    color: #181717 !important; 
+    border-color: #181717; 
+    box-shadow: 0 8px 20px rgba(24, 23, 23, 0.2); 
+}
+
+.orcid-theme:hover { 
+    color: #A6CE39 !important; 
+    border-color: #A6CE39; 
+    box-shadow: 0 8px 20px rgba(166, 206, 57, 0.2); 
+}
+
+.arxiv-theme:hover { 
+    color: #B31B1B !important; 
+    border-color: #B31B1B; 
+    box-shadow: 0 8px 20px rgba(179, 27, 27, 0.2); 
+}
+
+/* ==========================================
    MOBILE TOUCH OPTIMIZATION (Non-Destructive)
    ========================================== */
 @media (pointer: coarse), (max-width: 768px) {
