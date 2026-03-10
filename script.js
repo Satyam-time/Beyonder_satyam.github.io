@@ -126,13 +126,13 @@ window.addEventListener('load', () => {
     }
     animate();
 
-    // GSAP TIMELINE FOR INTRO
+    // GSAP TIMELINE FOR INTRO (Accelerated)
     setTimeout(() => {
         const tl = gsap.timeline({
             onComplete: () => {
                 isInteractive = true;
                 document.addEventListener('mousemove', (e) => {
-                    if(!isInteractive) return; // stops moving after click
+                    if(!isInteractive) return; 
                     gsap.to('#ui-layer', {
                         x: (e.clientX - window.innerWidth / 2) * 0.02,
                         y: (e.clientY - window.innerHeight / 2) * 0.02,
@@ -143,43 +143,46 @@ window.addEventListener('load', () => {
         });
 
         tl.to({}, { duration: 0.1, onStart: () => { isOrbiting = false; } })
-        .to([chemGroup.position, astroGroup.position, physicsGroup.position], { x: 0, y: 0, z: 0, duration: 2.5, ease: "power4.in" }, "pull")
-        .to([chemGroup.scale, astroGroup.scale, physicsGroup.scale], { x: 0.1, y: 0.1, z: 0.1, duration: 2.5, ease: "power4.in" }, "pull")
-        .to(bloomPass, { strength: 3, duration: 2.5, ease: "power2.in" }, "pull")
-        .to(singularity.scale, { x: 3, y: 3, z: 3, duration: 1, ease: "back.out(1.5)" }, "singularity")
-        .to(singularity.scale, { x: 0.5, y: 0.5, z: 0.5, duration: 0.5, ease: "expo.in" }, "singularity+=1.5")
-        .to(bloomPass, { strength: 10, duration: 0.5, ease: "expo.in" }, "singularity+=1.5")
-        .to(explosion.scale, { x: 40, y: 40, z: 40, duration: 2, ease: "power4.out" }, "bang")
-        .to(singularity.scale, { x: 60, y: 60, z: 60, duration: 1, ease: "power2.in" }, "bang")
-        .to(bloomPass, { strength: 15, duration: 0.2 }, "bang")
-        .to("#flash", { opacity: 1, duration: 0.2, ease: "power4.in" }, "bang+=0.2")
-        .to(camera.position, { z: 120, duration: 3, ease: "power3.out" }, "bang")
-        .to("#flash", { opacity: 0, duration: 3, ease: "power2.inOut" }, "reveal")
-        .to(bloomPass, { strength: 1.5, duration: 3, ease: "power2.out" }, "reveal")
-        .to("#intro-title", { opacity: 1, scale: 1, duration: 2, ease: "power3.out" }, "reveal+=0.5")
-        .to("#intro-subtitle", { opacity: 1, duration: 2, ease: "power2.out" }, "reveal+=1.5")
-        .to("#enter-btn", { opacity: 1, duration: 1, ease: "power2.out" }, "reveal+=2.5");
-    }, 1500);
-
-    // TRANSITION TO MAIN SITE
-    document.getElementById('enter-btn').addEventListener('click', () => {
-        isInteractive = false; // Stop UI parallax
-        gsap.to('#ui-layer', { opacity: 0, duration: 0.5 });
+        .to([chemGroup.position, astroGroup.position, physicsGroup.position], { x: 0, y: 0, z: 0, duration: 1, ease: "power4.in" }, "pull")
+        .to([chemGroup.scale, astroGroup.scale, physicsGroup.scale], { x: 0.1, y: 0.1, z: 0.1, duration: 1, ease: "power4.in" }, "pull")
+        .to(bloomPass, { strength: 3, duration: 1, ease: "power2.in" }, "pull")
         
-        gsap.to(camera.position, { z: -50, duration: 1.5, ease: "power2.in" });
+        .to(singularity.scale, { x: 3, y: 3, z: 3, duration: 0.5, ease: "back.out(1.5)" }, "singularity")
+        .to(singularity.scale, { x: 0.5, y: 0.5, z: 0.5, duration: 0.3, ease: "expo.in" }, "singularity+=0.5")
+        .to(bloomPass, { strength: 10, duration: 0.3, ease: "expo.in" }, "singularity+=0.5")
+        
+        .to(explosion.scale, { x: 40, y: 40, z: 40, duration: 1, ease: "power4.out" }, "bang")
+        .to(singularity.scale, { x: 60, y: 60, z: 60, duration: 0.5, ease: "power2.in" }, "bang")
+        .to(bloomPass, { strength: 15, duration: 0.2 }, "bang")
+        .to("#flash", { opacity: 1, duration: 0.2, ease: "power4.in" }, "bang+=0.1")
+        .to(camera.position, { z: 120, duration: 1.5, ease: "power3.out" }, "bang")
+        
+        .to("#flash", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "reveal")
+        .to(bloomPass, { strength: 1.5, duration: 1.5, ease: "power2.out" }, "reveal")
+        .to("#intro-title", { opacity: 1, scale: 1, duration: 1, ease: "power3.out" }, "reveal+=0.2")
+        .to("#intro-subtitle", { opacity: 1, duration: 1, ease: "power2.out" }, "reveal+=0.5")
+        .to("#enter-btn", { opacity: 1, duration: 0.5, ease: "power2.out" }, "reveal+=0.8");
+
+    }, 300); // Reduced the initial blank-screen wait time from 1.5 seconds to 0.3 seconds
+
+    // TRANSITION TO MAIN SITE (Accelerated)
+    document.getElementById('enter-btn').addEventListener('click', () => {
+        isInteractive = false; 
+        gsap.to('#ui-layer', { opacity: 0, duration: 0.3 });
+        
+        gsap.to(camera.position, { z: -50, duration: 0.8, ease: "power2.in" });
 
         gsap.to(introWrapper, { 
             opacity: 0, 
-            duration: 1.5, 
-            delay: 0.8,
+            duration: 0.8, 
+            delay: 0.4,
             onComplete: () => {
-                // Completely kill the intro engine to save GPU
                 cancelAnimationFrame(animationId);
                 introWrapper.remove();
                 
-                // NOW trigger the main site hero animations
-                gsap.fromTo('.hero-fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.15, duration: 1, ease: "back.out(1.5)" });
-                gsap.fromTo('.navbar', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, "-=0.5");
+                // Sped up the text stagger and fade-in
+                gsap.fromTo('.hero-fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: "back.out(1.5)" });
+                gsap.fromTo('.navbar', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.4");
             }
         });
     });
