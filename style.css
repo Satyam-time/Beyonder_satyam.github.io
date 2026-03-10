@@ -709,7 +709,7 @@ body, a, .btn { cursor: none !important; }
   left: -5px; 
   top: -5px;
   border-radius: 100%;
-  z-index: 10000;
+  z-index: 9999999 !important; /* Boosted to 7 nines to sit above the Intro wrapper */
   transform: scale(1);
   mix-blend-mode: difference;
   pointer-events: none; 
@@ -724,7 +724,7 @@ body, a, .btn { cursor: none !important; }
   left: -15px; 
   top: -15px;
   border-radius: 100%;
-  z-index: 9999;
+  z-index: 9999998 !important; /* Boosted to sit right underneath the leading dot */
   transform: scale(1);
   mix-blend-mode: difference;
   pointer-events: none;
