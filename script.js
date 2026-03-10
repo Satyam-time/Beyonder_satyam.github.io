@@ -629,4 +629,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================
+// MOBILE TOUCH SYNTHESIZER
+// Translates finger swipes into mouse coordinates for WebGL
+// ==========================================
+window.addEventListener('touchmove', (e) => {
+    // Grab the coordinates of the first finger on the screen
+    const touch = e.touches[0];
+    
+    // Create a fake mouse event
+    const simulatedMouseEvent = new MouseEvent('mousemove', {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+        bubbles: true,
+        cancelable: true,
+        view: window
+    });
+    
+    // Dispatch it to the browser
+    window.dispatchEvent(simulatedMouseEvent);
+    
+    // Also dispatch to the document for the Web Canvas particles
+    document.dispatchEvent(simulatedMouseEvent);
+}, { passive: true }); // Passive ensures it doesn't block scrolling
+    
 });
