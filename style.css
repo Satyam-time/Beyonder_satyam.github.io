@@ -698,7 +698,7 @@ a.btn:hover, a.claymorphic:hover {
 /* ==========================================
    GSAP SPOTLIGHT CURSOR
    ========================================== */
-body, a, .btn { cursor: none !important; }
+body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
 
 /* Small leading dot */
 .circle {
