@@ -793,3 +793,39 @@ body, a, .btn { cursor: none !important; }
     background: rgba(255,255,255,0.1); border-color: #fff;
     box-shadow: 0 0 15px rgba(255,255,255,0.5);
 }
+
+/* ==========================================
+   MOBILE TOUCH OPTIMIZATION (Non-Destructive)
+   ========================================== */
+@media (pointer: coarse), (max-width: 768px) {
+    /* 1. Restore the default system cursor */
+    body, a, .btn, .custom-cursor-active, .custom-cursor-active * { 
+        cursor: auto !important; 
+    }
+
+    /* 2. Hide the GSAP Spotlight Cursor visuals */
+    .circle, .circle-follow, #cursor { 
+        display: none !important; 
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* 3. Disable Faux 3D tilt (prevents it from getting stuck on tap) */
+    .faux-3d-content { 
+        transform: none !important; 
+        transition: none !important; 
+    }
+
+    /* 4. Fix viewport sizing for mobile browser toolbars */
+    #intro-wrapper, #page-loader, #bg-canvas, .step.hero {
+        height: 100svh !important; /* Uses Small Viewport Height to prevent jumping */
+    }
+
+    /* 5. Prevent "Sticky Hover" on liquid buttons on iOS/Android */
+    .liquid-btn:hover::before {
+        background: var(--primary-color) !important;
+    }
+    .liquid-btn:active::before {
+        background: var(--secondary-color) !important;
+    }
+}
