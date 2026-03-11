@@ -16,12 +16,27 @@
 
     <style>
         /* Specific Blog Page Adjustments */
-        .blog-header { text-align: center; padding: 15vh 5% 5vh; }
+        .blog-header { text-align: center; padding: 15vh 5% 5vh; color: white; }
         .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .blog-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; backdrop-filter: blur(10px); transition: all 0.3s ease; }
-        .blog-card:hover { transform: translateY(-10px); border-color: #66fcf1; box-shadow: 0 10px 30px rgba(102, 252, 241, 0.1); }
+        
+        /* Premium Dark Glassmorphism Cards */
+        .blog-card { 
+            background: rgba(11, 25, 44, 0.6); /* Deep space blue glass */
+            border: 1px solid rgba(102, 252, 241, 0.2); 
+            border-radius: 16px; 
+            padding: 2rem; 
+            backdrop-filter: blur(12px); 
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            color: #f8fafc; /* Crisp white text */
+            display: block; /* Prevents the flexbox squishing! */
+        }
+        .blog-card:hover { 
+            transform: translateY(-10px); 
+            border-color: #66fcf1; 
+            box-shadow: 0 10px 30px rgba(102, 252, 241, 0.15); 
+        }
         .blog-date { color: #66fcf1; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1rem; display: block; }
-        .blog-tag { background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; margin-right: 0.5rem; }
+        .blog-tag { background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem; margin-right: 0.5rem; display: inline-block; font-weight: bold; }
     </style>
 </head>
 <body id="page-blog" class="custom-cursor-active">
@@ -46,53 +61,52 @@
         </ul>
     </nav>
 
-    <main class="solid-content" style="position: relative; z-index: 10;">
+    <main style="position: relative; z-index: 10;">
         
-        <header class="blog-header step">
+        <header class="blog-header hero-fade-in">
             <h1 class="expressive-text" style="font-size: 4rem; margin-bottom: 1rem;">Research Logs</h1>
-            <p style="max-width: 600px; margin: 0 auto; opacity: 0.8;">Documenting computational physics simulations, hardware builds, and theoretical explorations.</p>
+            <p style="max-width: 600px; margin: 0 auto; opacity: 0.8; font-size: 1.2rem;">Documenting computational physics simulations, hardware builds, and theoretical explorations.</p>
         </header>
 
-        <section class="section">
+        <section class="section hero-fade-in">
             <div class="blog-grid">
                 
-                <article class="blog-card step magnetic-hover">
+                <article class="blog-card magnetic-hover">
                     <span class="blog-date">March 2026</span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">MEPPHS Mark II: Acoustic Horizons & Catalytic Activation</h3>
-                    <p style="opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6;">A deep dive into upgrading the MOF-Engineered Plasma-Phonon Horizon System. Detailing the transition to a multi-turn solenoid configuration to achieve optimal magnetic confinement and verifying boundary conditions in COMSOL.</p>
-                    <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">MEPPHS Mark II: Acoustic Horizons & Catalytic Activation</h3>
+                    <p style="opacity: 0.9; margin-bottom: 1.5rem; line-height: 1.6;">A deep dive into upgrading the MOF-Engineered Plasma-Phonon Horizon System. Detailing the transition to a multi-turn solenoid configuration to achieve optimal magnetic confinement and verifying boundary conditions in COMSOL.</p>
+                    <div style="margin-bottom: 1.5rem;">
                         <span class="blog-tag">Plasma Physics</span>
                         <span class="blog-tag">COMSOL</span>
                     </div>
-                    <a href="#" class="btn liquid-btn" style="border: none; margin-top: 1.5rem; padding: 0.8rem 1.5rem;">
+                    <a href="#" class="btn liquid-btn magnetic-hover" style="border: none; padding: 0.8rem 1.5rem; width: 100%; display: block; box-sizing: border-box;">
                         <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
                         <span class="liquid-text">Read Log ➔</span>
                     </a>
                 </article>
 
-                <article class="blog-card step magnetic-hover">
+                <article class="blog-card magnetic-hover">
                     <span class="blog-date">March 2026</span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">The Bio-Pontoon Initiative: Ecological Restoration</h3>
-                    <p style="opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6;">Drafting the technical defense for a modular floating system designed to tackle heavy metal pollution and microplastics. An exploration of nature-based engineering solutions for water purification.</p>
-                    <div>
-                        <span class="blog-tag">Environmental Remediation</span>
-                        <span class="blog-tag">Engineering</span>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">The Bio-Pontoon Initiative: Ecological Restoration</h3>
+                    <p style="opacity: 0.9; margin-bottom: 1.5rem; line-height: 1.6;">Drafting the technical defense for a modular floating system designed to tackle heavy metal pollution and microplastics. An exploration of nature-based engineering solutions for water purification.</p>
+                    <div style="margin-bottom: 1.5rem;">
+                        <span class="blog-tag">Environmental Engineering</span>
                     </div>
-                    <a href="#" class="btn liquid-btn" style="border: none; margin-top: 1.5rem; padding: 0.8rem 1.5rem;">
+                    <a href="#" class="btn liquid-btn magnetic-hover" style="border: none; padding: 0.8rem 1.5rem; width: 100%; display: block; box-sizing: border-box;">
                         <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
                         <span class="liquid-text">Read Log ➔</span>
                     </a>
                 </article>
 
-                <article class="blog-card step magnetic-hover">
+                <article class="blog-card magnetic-hover">
                     <span class="blog-date">February 2026</span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Determining Sodium Wavelength via Newton's Rings</h3>
-                    <p style="opacity: 0.8; margin-bottom: 1.5rem; line-height: 1.6;">Lab notes and calculations from classical optics experiments. Extracting the precise wavelength of a sodium vapor lamp by analyzing the interference patterns and calculating differences in ring diameters.</p>
-                    <div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">Determining Sodium Wavelength via Newton's Rings</h3>
+                    <p style="opacity: 0.9; margin-bottom: 1.5rem; line-height: 1.6;">Lab notes and calculations from classical optics experiments. Extracting the precise wavelength of a sodium vapor lamp by analyzing the interference patterns and calculating differences in ring diameters.</p>
+                    <div style="margin-bottom: 1.5rem;">
                         <span class="blog-tag">Optics</span>
                         <span class="blog-tag">Lab Experiment</span>
                     </div>
-                    <a href="#" class="btn liquid-btn" style="border: none; margin-top: 1.5rem; padding: 0.8rem 1.5rem;">
+                    <a href="#" class="btn liquid-btn magnetic-hover" style="border: none; padding: 0.8rem 1.5rem; width: 100%; display: block; box-sizing: border-box;">
                         <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
                         <span class="liquid-text">Read Log ➔</span>
                     </a>
@@ -101,7 +115,7 @@
             </div>
         </section>
 
-        <footer style="text-align: center; padding: 3rem; opacity: 0.6;">
+        <footer style="text-align: center; padding: 3rem; opacity: 0.6; color: white;">
             <p>&copy; 2026 Satyam Kumar Singh. All systems nominal.</p>
         </footer>
     </main>
