@@ -10,24 +10,47 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 // ==========================================
 window.addEventListener('load', () => {
     const introWrapper = document.getElementById('intro-wrapper');
+    const subpageLoader = document.getElementById('subpage-loader');
     const hasPlayed = sessionStorage.getItem('introPlayed');
 
-    // SCENARIO 1: Sub-page (No intro wrapper exists). Fade in site instantly.
+    // THE MASTER REVEAL FUNCTION
+    // This handles both sub-pages AND returning to the homepage
+    const triggerSubpageReveal = () => {
+        const tl = gsap.timeline();
+        
+        // If a custom sub-page loader exists, let it play for 0.8 seconds, then fade it out
+        if (subpageLoader) {
+            tl.to(subpageLoader, { 
+                opacity: 0, 
+                duration: 0.5, 
+                delay: 0.8, // Gives the user just enough time to appreciate the custom animation
+                ease: "power2.inOut", 
+                onComplete: () => subpageLoader.remove() 
+            });
+        }
+        
+        // Bloom the main site content right as the loader fades away
+        tl.fromTo('.hero-fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.5)" }, subpageLoader ? "-=0.2" : 0)
+          .fromTo('.navbar', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.6");
+    };
+
+    // SCENARIO 1: Sub-page (No Big Bang wrapper exists).
     if (!introWrapper) {
-        gsap.to('.hero-fade-in', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.5)" });
-        gsap.to('.navbar', { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+        triggerSubpageReveal();
         return; 
     }
 
-    // SCENARIO 2: Home page, but already watched intro. Remove wrapper, fade in site.
+    // SCENARIO 2: Home page, but already watched intro.
     if (hasPlayed === 'true') {
         introWrapper.remove();
-        gsap.to('.hero-fade-in', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.5)" });
-        gsap.to('.navbar', { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+        triggerSubpageReveal();
         return;
     }
 
     // SCENARIO 3: First time visiting! Run the Big Bang.
+    if (subpageLoader) subpageLoader.remove(); // Hide the subpage loader so Big Bang can play cleanly
+
+    // SCENARIO 4: First time visiting! Run the Big Bang.
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x000000, 0.02);
