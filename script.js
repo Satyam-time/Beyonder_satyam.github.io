@@ -1,17 +1,33 @@
 import * as THREE from 'three';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
-// NEW: Imports for the Big Bang Post-Processing
+// Imports for the Big Bang Post-Processing
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 // ==========================================
-// CINEMATIC WEBGL BIG BANG INTRO
+// CINEMATIC WEBGL BIG BANG INTRO (Once Per Session)
 // ==========================================
 window.addEventListener('load', () => {
     const introWrapper = document.getElementById('intro-wrapper');
-    if (!introWrapper) return; // Failsafe
+    const hasPlayed = sessionStorage.getItem('introPlayed');
 
+    // SCENARIO 1: Sub-page (No intro wrapper exists). Fade in site instantly.
+    if (!introWrapper) {
+        gsap.to('.hero-fade-in', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.5)" });
+        gsap.to('.navbar', { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+        return; 
+    }
+
+    // SCENARIO 2: Home page, but already watched intro. Remove wrapper, fade in site.
+    if (hasPlayed === 'true') {
+        introWrapper.remove();
+        gsap.to('.hero-fade-in', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "back.out(1.5)" });
+        gsap.to('.navbar', { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+        return;
+    }
+
+    // SCENARIO 3: First time visiting! Run the Big Bang.
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x000000, 0.02);
@@ -80,7 +96,7 @@ window.addEventListener('load', () => {
     const clock = new THREE.Clock();
     let isOrbiting = true;
     let isInteractive = false;
-    let animationId; // Used to kill the intro when done
+    let animationId; 
 
     function animate() {
         animationId = requestAnimationFrame(animate);
@@ -133,11 +149,7 @@ window.addEventListener('load', () => {
                 isInteractive = true;
                 document.addEventListener('mousemove', (e) => {
                     if(!isInteractive) return; 
-                    gsap.to('#ui-layer', {
-                        x: (e.clientX - window.innerWidth / 2) * 0.02,
-                        y: (e.clientY - window.innerHeight / 2) * 0.02,
-                        duration: 0.5
-                    });
+                    gsap.to('#ui-layer', { x: (e.clientX - window.innerWidth / 2) * 0.02, y: (e.clientY - window.innerHeight / 2) * 0.02, duration: 0.5 });
                 });
             }
         });
@@ -146,41 +158,37 @@ window.addEventListener('load', () => {
         .to([chemGroup.position, astroGroup.position, physicsGroup.position], { x: 0, y: 0, z: 0, duration: 1, ease: "power4.in" }, "pull")
         .to([chemGroup.scale, astroGroup.scale, physicsGroup.scale], { x: 0.1, y: 0.1, z: 0.1, duration: 1, ease: "power4.in" }, "pull")
         .to(bloomPass, { strength: 3, duration: 1, ease: "power2.in" }, "pull")
-        
         .to(singularity.scale, { x: 3, y: 3, z: 3, duration: 0.5, ease: "back.out(1.5)" }, "singularity")
         .to(singularity.scale, { x: 0.5, y: 0.5, z: 0.5, duration: 0.3, ease: "expo.in" }, "singularity+=0.5")
         .to(bloomPass, { strength: 10, duration: 0.3, ease: "expo.in" }, "singularity+=0.5")
-        
         .to(explosion.scale, { x: 40, y: 40, z: 40, duration: 1, ease: "power4.out" }, "bang")
         .to(singularity.scale, { x: 60, y: 60, z: 60, duration: 0.5, ease: "power2.in" }, "bang")
         .to(bloomPass, { strength: 15, duration: 0.2 }, "bang")
         .to("#flash", { opacity: 1, duration: 0.2, ease: "power4.in" }, "bang+=0.1")
         .to(camera.position, { z: 120, duration: 1.5, ease: "power3.out" }, "bang")
-        
         .to("#flash", { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "reveal")
         .to(bloomPass, { strength: 1.5, duration: 1.5, ease: "power2.out" }, "reveal")
         .to("#intro-title", { opacity: 1, scale: 1, duration: 1, ease: "power3.out" }, "reveal+=0.2")
         .to("#intro-subtitle", { opacity: 1, duration: 1, ease: "power2.out" }, "reveal+=0.5")
         .to("#enter-btn", { opacity: 1, duration: 0.5, ease: "power2.out" }, "reveal+=0.8");
 
-    }, 300); // Reduced the initial blank-screen wait time from 1.5 seconds to 0.3 seconds
+    }, 300);
 
-    // TRANSITION TO MAIN SITE (Accelerated)
+    // TRANSITION TO MAIN SITE
     document.getElementById('enter-btn').addEventListener('click', () => {
         isInteractive = false; 
-        gsap.to('#ui-layer', { opacity: 0, duration: 0.3 });
         
+        // Save to session memory! Browser remembers this until tab is closed.
+        sessionStorage.setItem('introPlayed', 'true');
+        
+        gsap.to('#ui-layer', { opacity: 0, duration: 0.3 });
         gsap.to(camera.position, { z: -50, duration: 0.8, ease: "power2.in" });
 
         gsap.to(introWrapper, { 
-            opacity: 0, 
-            duration: 0.8, 
-            delay: 0.4,
+            opacity: 0, duration: 0.8, delay: 0.4,
             onComplete: () => {
                 cancelAnimationFrame(animationId);
                 introWrapper.remove();
-                
-                // Sped up the text stagger and fade-in
                 gsap.fromTo('.hero-fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: "back.out(1.5)" });
                 gsap.fromTo('.navbar', { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, "-=0.4");
             }
@@ -195,39 +203,31 @@ window.addEventListener('load', () => {
     });
 });
 
+// ==========================================
+// MAIN SITE INTERACTIONS
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ==========================================
-    // GSAP SPOTLIGHT CURSOR & EYE TRACKING (FIXED)
-    // ==========================================
+    // GSAP SPOTLIGHT CURSOR & EYE TRACKING
     const circle = document.querySelector(".circle");
     const follow = document.querySelector(".circle-follow");
-    const ambientCursor = document.getElementById("cursor"); // Grabbed by ID just to be safe
+    const ambientCursor = document.getElementById("cursor");
     const astroEyes = document.querySelectorAll('.astro-eye');
 
-    // Safety check: Only run if the HTML elements actually exist
     if (circle && follow) {
         document.addEventListener('mousemove', (e) => {
             const mouseX = e.clientX; 
             const mouseY = e.clientY;
 
-            // 1. Move the GSAP Dots
             gsap.to(circle, { duration: 0.3, x: mouseX, y: mouseY });
             gsap.to(follow, { duration: 0.7, x: mouseX, y: mouseY });
 
-            // 2. Move the Spotlight Background
             if (ambientCursor) {
                 const xPercent = Math.round((mouseX / window.innerWidth) * 100);
                 const yPercent = Math.round((mouseY / window.innerHeight) * 100);
-                gsap.to(ambientCursor, { 
-                    duration: 0.6, 
-                    "--x": `${xPercent}%`, 
-                    "--y": `${yPercent}%`, 
-                    ease: "power2.out" 
-                });
+                gsap.to(ambientCursor, { duration: 0.6, "--x": `${xPercent}%`, "--y": `${yPercent}%`, ease: "power2.out" });
             }
 
-            // 3. Keep Astronaut Eye Tracking Working
             astroEyes.forEach(eye => {
                 const rect = eye.getBoundingClientRect();
                 const eyeCenterX = rect.left + rect.width / 2;
@@ -240,7 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 4. Hover Effects for Links and Buttons
         document.querySelectorAll("a, .btn, .claymorphic, .gallery-item").forEach(el => {
             el.addEventListener("mouseenter", () => {
                 gsap.to(circle, { duration: 0.3, opacity: 1, scale: 0 });
@@ -252,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
     // Faux 3D Cards
     document.querySelectorAll('.faux-3d-card').forEach(card => {
         const content = card.querySelector('.faux-3d-content');
@@ -290,9 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ==========================================
-    // 11. SKS LOGO CARTOON CLICK ANIMATION
-    // ==========================================
+    // SKS LOGO CARTOON CLICK
     const sksLogo = document.getElementById('sks-logo');
     if (sksLogo) {
         sksLogo.addEventListener('click', (e) => {
@@ -308,9 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================
-    // SMART 3D SCENE ROUTER (Page-Specific Geometry)
-    // ==========================================
+    // SMART 3D SCENE ROUTER
     const canvas = document.querySelector('#bg-canvas');
     let starfield; 
     if (canvas) {
@@ -325,8 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const pageId = document.body.id; 
         let activeMesh;
-        
-        // Ensure this matches your CSS color update (e.g., Neon Cyan 0x66fcf1 or original 0x3182ce)
         const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x66fcf1, wireframe: true, transparent: true, opacity: 0.4 });
 
         if (pageId === 'page-research') {
@@ -342,46 +336,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const r3 = new THREE.Mesh(new THREE.TorusGeometry(20, 0.1, 16, 100), wireMaterial);
             r3.rotation.y = Math.PI / 2;
             activeMesh.add(r1, r2, r3);
-            
-        // ==========================================
-        // NEW: QUASAR FOR THE BLOG PAGE
-        // ==========================================
         } else if (pageId === 'page-blog') {
             activeMesh = new THREE.Group();
-            
-            // 1. The Singularity Core (Pure Black)
-            const core = new THREE.Mesh(
-                new THREE.SphereGeometry(3.5, 32, 32),
-                new THREE.MeshBasicMaterial({ color: 0x000000 }) 
-            );
-            
-            // 2. The Accretion Disk 
-            const disk = new THREE.Mesh(
-                new THREE.RingGeometry(5, 16, 64, 8),
-                wireMaterial
-            );
-            disk.rotation.x = Math.PI / 2; // Lay it flat
-            
-            // 3. Relativistic Jets (Top and Bottom)
+            const core = new THREE.Mesh(new THREE.SphereGeometry(3.5, 32, 32), new THREE.MeshBasicMaterial({ color: 0x000000 }));
+            const disk = new THREE.Mesh(new THREE.RingGeometry(5, 16, 64, 8), wireMaterial);
+            disk.rotation.x = Math.PI / 2; 
             const topJet = new THREE.Mesh(new THREE.ConeGeometry(2.5, 30, 32, 1, true), wireMaterial);
             topJet.position.y = 15;
-            
             const bottomJet = new THREE.Mesh(new THREE.ConeGeometry(2.5, 30, 32, 1, true), wireMaterial);
-            bottomJet.rotation.x = Math.PI; // Flip it upside down
+            bottomJet.rotation.x = Math.PI; 
             bottomJet.position.y = -15;
-            
             activeMesh.add(core, disk, topJet, bottomJet);
-            
-            // Tilt the entire quasar slightly so we can see the disk from a cinematic angle
             activeMesh.rotation.x = 0.3; 
             activeMesh.rotation.z = -0.2;
-            
         } else {
             activeMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 2.5, 200, 32), wireMaterial);
         }
         scene.add(activeMesh);
 
-        // Deep Starfield
         const particlesGeometry = new THREE.BufferGeometry();
         const posArray = new Float32Array(1500 * 3);
         for(let i = 0; i < 1500 * 3; i++) {
@@ -414,22 +386,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     positions.setZ(i, Math.sin(x/5 + time) * Math.cos(y/5 + time) * 3);
                 }
                 positions.needsUpdate = true;
-                
-            // ==========================================
-            // NEW: QUASAR ANIMATION
-            // ==========================================
             } else if (pageId === 'page-blog') {
-                // Spin the whole quasar slowly
                 activeMesh.rotation.y += 0.003; 
-                
-                // Spin the accretion disk super fast
                 activeMesh.children[1].rotation.z -= 0.04; 
-                
-                // Pulse the relativistic jets
                 const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.05;
-                activeMesh.children[2].scale.set(1, pulse, 1); // Top jet
-                activeMesh.children[3].scale.set(1, pulse, 1); // Bottom jet
-                
+                activeMesh.children[2].scale.set(1, pulse, 1);
+                activeMesh.children[3].scale.set(1, pulse, 1);
             } else {
                 activeMesh.rotation.x += 0.002;
                 activeMesh.rotation.y += 0.003;
@@ -443,19 +405,11 @@ document.addEventListener('DOMContentLoaded', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // ==========================================
-        // REAL-TIME MULTIPLAYER CURSORS
-        // ==========================================
         const cursorContainer = document.getElementById('collaborative-cursors');
         const activeCursors = {}; 
-
         if (typeof io !== 'undefined') {
             const socket = io('http://localhost:5000'); 
-
-            document.addEventListener('mousemove', (e) => {
-                socket.emit('cursor_move', { x: e.clientX, y: e.clientY });
-            });
-
+            document.addEventListener('mousemove', (e) => { socket.emit('cursor_move', { x: e.clientX, y: e.clientY }); });
             socket.on('update_cursor', (data) => {
                 if (!activeCursors[data.id]) {
                     const ghost = document.createElement('div');
@@ -464,18 +418,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     activeCursors[data.id] = ghost;
                 }
                 activeCursors[data.id].style.transform = `translate(${data.x}px, ${data.y}px)`;
-                
-                if(starfield) {
-                    starfield.rotation.x += (data.y * 0.000005);
-                    starfield.rotation.y += (data.x * 0.000005);
-                }
+                if(starfield) { starfield.rotation.x += (data.y * 0.000005); starfield.rotation.y += (data.x * 0.000005); }
             });
-
             socket.on('remove_cursor', (id) => {
-                if (activeCursors[id]) {
-                    activeCursors[id].remove();
-                    delete activeCursors[id];
-                }
+                if (activeCursors[id]) { activeCursors[id].remove(); delete activeCursors[id]; }
             });
         }
     }
@@ -496,9 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bottomObserver.observe(el);
     });
 
-    // ==========================================
-    // HOVER WEB ANIMATION (Interactive Particle Canvas)
-    // ==========================================
+    // HOVER WEB ANIMATION
     const webCanvas = document.querySelector('.web-canvas');
     if(webCanvas) {
         const ctx = webCanvas.getContext('2d');
@@ -516,20 +460,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         webCanvas.parentElement.addEventListener('mousemove', (e) => {
             const rect = webCanvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left; 
-            mouse.y = e.clientY - rect.top;
+            mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top;
         });
-        
-        webCanvas.parentElement.addEventListener('mouseleave', () => {
-            mouse.x = null; 
-            mouse.y = null;
-        });
+        webCanvas.parentElement.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
 
         class WebParticle {
             constructor() {
                 this.x = Math.random() * width; this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 3.5; 
-                this.vy = (Math.random() - 0.5) * 3.5;
+                this.vx = (Math.random() - 0.5) * 3.5; this.vy = (Math.random() - 0.5) * 3.5;
                 this.size = Math.random() * 2 + 1;
             }
             update() {
@@ -542,7 +480,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.fillStyle = 'rgba(49, 130, 206, 0.3)'; ctx.fill();
             }
         }
-
         for (let i = 0; i < 70; i++) particles.push(new WebParticle());
 
         function animateWeb() {
@@ -565,9 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateWeb();
     }
 
-    // ==========================================
-    // LIVE EMAIL ROUTING & MICROINTERACTION
-    // ==========================================
+    // CONTACT FORM
     const form = document.getElementById('contactForm');
     if(form) {
         const nameInput = document.getElementById('nameInput');
@@ -579,14 +514,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         form.addEventListener('submit', async (e) => {
             e.preventDefault(); 
-            let hasError = false;
-            errorMsg.innerText = '';
-
+            let hasError = false; errorMsg.innerText = '';
             [nameInput, emailInput, msgInput].forEach(el => el.classList.remove('error-shake'));
 
             if(!nameInput.value.trim() || !emailInput.value.trim() || !msgInput.value.trim()) {
-                hasError = true;
-                errorMsg.innerText = 'Please complete all required fields.';
+                hasError = true; errorMsg.innerText = 'Please complete all required fields.';
                 if(!nameInput.value.trim()) nameInput.classList.add('error-shake');
                 if(!emailInput.value.trim()) emailInput.classList.add('error-shake');
                 if(!msgInput.value.trim()) msgInput.classList.add('error-shake');
@@ -594,54 +526,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if(!hasError) {
                 btnText.innerHTML = "Routing...";
-                
                 try {
                     const response = await fetch('http://localhost:5000/api/contact', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            name: nameInput.value.trim(),
-                            email: emailInput.value.trim(),
-                            message: msgInput.value.trim()
-                        })
+                        method: 'POST', headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name: nameInput.value.trim(), email: emailInput.value.trim(), message: msgInput.value.trim() })
                     });
-
                     const data = await response.json();
-
                     if(response.ok) {
-                        errorMsg.style.color = '#48bb78';
-                        errorMsg.innerText = 'Message securely routed to SKS servers!';
-                        btnText.innerHTML = "✓ Sent!";
-                        submitBtn.style.background = "#48bb78";
-                        submitBtn.style.transform = "scale(1.05)";
+                        errorMsg.style.color = '#48bb78'; errorMsg.innerText = 'Message securely routed to SKS servers!';
+                        btnText.innerHTML = "✓ Sent!"; submitBtn.style.background = "#48bb78"; submitBtn.style.transform = "scale(1.05)";
                         form.reset();
-                    } else {
-                        throw new Error(data.error || 'Server error');
-                    }
+                    } else { throw new Error(data.error || 'Server error'); }
                 } catch (error) {
-                    errorMsg.style.color = '#e53e3e';
-                    errorMsg.innerText = 'Server offline. Please try again later.';
-                    btnText.innerHTML = "Error";
+                    errorMsg.style.color = '#e53e3e'; errorMsg.innerText = 'Server offline. Please try again later.'; btnText.innerHTML = "Error";
                 }
-
-                setTimeout(() => {
-                    btnText.innerHTML = "Send Message";
-                    submitBtn.style.background = "transparent";
-                    submitBtn.style.transform = "scale(1)";
-                }, 3000);
+                setTimeout(() => { btnText.innerHTML = "Send Message"; submitBtn.style.background = "transparent"; submitBtn.style.transform = "scale(1)"; }, 3000);
             }
         });
     }
+});
 
-    // ==========================================
+// ==========================================
 // MOBILE TOUCH SYNTHESIZER
-// Translates finger swipes into mouse coordinates for WebGL
 // ==========================================
 window.addEventListener('touchmove', (e) => {
-    // Grab the coordinates of the first finger on the screen
     const touch = e.touches[0];
-    
-    // Create a fake mouse event
     const simulatedMouseEvent = new MouseEvent('mousemove', {
         clientX: touch.clientX,
         clientY: touch.clientY,
@@ -649,12 +558,6 @@ window.addEventListener('touchmove', (e) => {
         cancelable: true,
         view: window
     });
-    
-    // Dispatch it to the browser
     window.dispatchEvent(simulatedMouseEvent);
-    
-    // Also dispatch to the document for the Web Canvas particles
     document.dispatchEvent(simulatedMouseEvent);
-}, { passive: true }); // Passive ensures it doesn't block scrolling
-    
-});
+}, { passive: true });
