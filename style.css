@@ -948,8 +948,8 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
 /* ==========================================
    MOBILE TOUCH OPTIMIZATION (Non-Destructive)
    ========================================== */
-@media (pointer: coarse), (max-width: 768px) {
-    /* 1. Restore the default system cursor */
+@media (max-width: 768px) {
+    /* 1. Restore the default system cursor on mobile */
     body, a, .btn, .custom-cursor-active, .custom-cursor-active * { 
         cursor: auto !important; 
     }
