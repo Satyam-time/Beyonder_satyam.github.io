@@ -620,6 +620,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==========================================
+    // QUANTUM FIBER TIMELINE ANIMATIONS
+    // ==========================================
+    const timelineSpine = document.querySelector('.timeline-spine-glow');
+    if (timelineSpine) {
+        // 1. Draw the laser line as you scroll
+        gsap.to(timelineSpine, {
+            scrollTrigger: {
+                trigger: '.quantum-timeline',
+                start: "top 60%", // Starts drawing when timeline is 60% down the screen
+                end: "bottom 80%", // Finishes drawing near the bottom
+                scrub: 1 // Smoothly links to scroll bar
+            },
+            height: "100%",
+            ease: "none"
+        });
+
+        // 2. Slide the glass cards in from the sides
+        gsap.utils.toArray('.timeline-event').forEach(event => {
+            const isLeft = event.classList.contains('left');
+            
+            // Set initial state
+            gsap.set(event, { opacity: 0, x: isLeft ? -50 : 50 });
+            
+            // Animate on scroll
+            gsap.to(event, {
+                scrollTrigger: {
+                    trigger: event,
+                    start: "top 85%", // Triggers when the card enters the viewport
+                },
+                opacity: 1, 
+                x: 0, 
+                duration: 0.8, 
+                ease: "back.out(1.5)"
+            });
+        });
+    }
+
+// ==========================================
 // MOBILE TOUCH SYNTHESIZER
 // ==========================================
 window.addEventListener('touchmove', (e) => {
