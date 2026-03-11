@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Global Affiliations | Satyam Kumar Singh</title>
+    <meta name="description" content="Global research communities, societies, and NASA Special Interest Groups associated with Satyam Kumar Singh.">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+</head>
+<body id="page-organisations" class="custom-cursor-active">
+
+    <div id="subpage-loader">
+        <div class="loader-gyro">
+            <div class="ring ring-x"></div>
+            <div class="ring ring-y"></div>
+            <div class="ring ring-z"></div>
+        </div>
+        <p style="color: #66fcf1; font-family: monospace; margin-top: 30px; letter-spacing: 2px;">ESTABLISHING NETWORK...</p>
+    </div>
+
+    <div class="circle"></div>
+    <div class="circle-follow"></div>
+    <div id="cursor" class="cursor"></div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; height: 60px;">
+            <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center; height: 100%;">
+                <span class="logo-text" style="display: inline-block; z-index: 2; position: relative; white-space: nowrap;">SKS Network</span>
+                <svg class="line-burst" viewBox="0 0 100 100" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; z-index: 1; pointer-events: none;">
+                    <line x1="50" y1="20" x2="50" y2="5"></line>
+                    <line x1="50" y1="80" x2="50" y2="95"></line>
+                    <line x1="20" y1="50" x2="5" y2="50"></line>
+                    <line x1="80" y1="50" x2="95" y2="50"></line>
+                    <line x1="28" y1="28" x2="15" y2="15"></line>
+                    <line x1="72" y1="72" x2="85" y2="85"></line>
+                    <line x1="28" y1="72" x2="15" y2="85"></line>
+                    <line x1="72" y1="28" x2="85" y2="15"></line>
+                </svg>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#home" class="magnetic-hover">Home</a></li>
+            <li><a href="experience.html" class="magnetic-hover">Experience</a></li>
+            <li><a href="index.html#projects" class="magnetic-hover">Research</a></li>
+            <li><a href="index.html#publications" class="magnetic-hover">Publications</a></li>
+            <li><a href="blog.html" class="magnetic-hover">Blog</a></li>
+            <li><a href="Resume.pdf" target="_blank" class="nav-resume magnetic-hover">Resume</a></li>
+        </ul>
+    </nav>
+
+    <main style="position: relative; z-index: 10;">
+        
+        <header style="text-align: center; padding: 15vh 5% 5vh; color: white;" class="hero-fade-in">
+            <h1 class="expressive-text" style="font-size: 4rem; margin-bottom: 1rem;">Global Affiliations</h1>
+            <p style="max-width: 600px; margin: 0 auto; opacity: 0.8; font-size: 1.2rem;">An interactive timeline of my professional memberships across space tech, computational physics, and ecological engineering.</p>
+        </header>
+
+        <section class="section relative-z hero-fade-in" style="overflow: hidden; padding-top: 0;">
+            <div class="container">
+                
+                <div class="quantum-timeline">
+                    <div class="timeline-spine">
+                        <div class="timeline-spine-glow"></div>
+                    </div>
+
+                    <div class="timeline-event left">
+                        <div class="event-dot"></div>
+                        <div class="event-content glass-panel magnetic-hover">
+                            <span class="event-date">Feb 2026</span>
+                            <h3 style="color: white; margin-bottom: 0.5rem;">American Society of Civil Engineers (ASCE)</h3>
+                            <p style="opacity: 0.8; font-size: 0.95rem;">Expanding interdisciplinary boundaries into engineering mechanics and structural systems.</p>
+                            <span class="blog-tag" style="margin-top: 1rem; display: inline-block; background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;">Engineering</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event right">
+                        <div class="event-dot"></div>
+                        <div class="event-content glass-panel magnetic-hover">
+                            <span class="event-date">Oct 2025</span>
+                            <h3 style="color: white; margin-bottom: 0.5rem;">UKSEDS & Force11</h3>
+                            <p style="opacity: 0.8; font-size: 0.95rem;">Driving international space science initiatives and improving global e-scholarship and research communication.</p>
+                            <span class="blog-tag" style="margin-top: 1rem; display: inline-block; background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;">Space Tech</span>
+                            <span class="blog-tag" style="margin-top: 1rem; display: inline-block; background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;">Research</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event left">
+                        <div class="event-dot"></div>
+                        <div class="event-content glass-panel magnetic-hover">
+                            <span class="event-date">Sep 2025</span>
+                            <h3 style="color: white; margin-bottom: 0.5rem;">NASA Special Interest Groups</h3>
+                            <p style="opacity: 0.8; font-size: 0.95rem;">Active contributor across six SIGs, including Cosmology, Gravitational Waves, and TDAMM (Astrophysics).</p>
+                            <span class="blog-tag" style="margin-top: 1rem; display: inline-block; background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;">Astrophysics</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event right">
+                        <div class="event-dot"></div>
+                        <div class="event-content glass-panel magnetic-hover">
+                            <span class="event-date">Sep 2025</span>
+                            <h3 style="color: white; margin-bottom: 0.5rem;">American Physical Society (APS)</h3>
+                            <p style="opacity: 0.8; font-size: 0.95rem;">Engaged in Industrial & Applied Physics, Early Career Scientists, and Quantum physics forums.</p>
+                            <span class="blog-tag" style="margin-top: 1rem; display: inline-block; background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;">Physics</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-event left">
+                        <div class="event-dot"></div>
+                        <div class="event-content glass-panel magnetic-hover">
+                            <span class="event-date">Jul 2025</span>
+                            <h3 style="color: white; margin-bottom: 0.5rem;">NVIDIA Developer Program</h3>
+                            <p style="opacity: 0.8; font-size: 0.95rem;">Accessing advanced frameworks for High-Performance Computing (HPC), AI, and GPU architecture.</p>
+                            <span class="blog-tag" style="margin-top: 1rem; display: inline-block; background: rgba(102, 252, 241, 0.1); color: #66fcf1; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.75rem;">AI / Computation</span>
+                        </div>
+                    </div>
+
+                </div>
+                
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 3rem; opacity: 0.6; color: white;">
+            <p>&copy; 2026 Satyam Kumar Singh. All systems nominal.</p>
+        </footer>
+    </main>
+
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/" } }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
