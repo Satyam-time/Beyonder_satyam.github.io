@@ -910,6 +910,100 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     box-shadow: 0 8px 20px rgba(179, 27, 27, 0.2); 
 }
 
+/* ==========================================
+   QUANTUM FIBER TIMELINE (FIXED)
+   ========================================== */
+.quantum-timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem; /* Forces a massive gap so cards never overlap */
+}
+
+.timeline-spine {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(102, 252, 241, 0.1);
+    transform: translateX(-50%);
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.timeline-spine-glow {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 0%;
+    background: #66fcf1;
+    box-shadow: 0 0 15px #66fcf1, 0 0 30px #66fcf1;
+}
+
+.timeline-event {
+    position: relative;
+    width: 50%;
+    z-index: 2;
+}
+
+/* Flexbox Auto-Margins perfectly push the cards to their sides */
+.timeline-event.left {
+    margin-right: auto;
+    padding-right: 3rem;
+}
+
+.timeline-event.right {
+    margin-left: auto;
+    padding-left: 3rem;
+}
+
+/* The New Deep-Space Dark Panels */
+.timeline-panel {
+    background: rgba(11, 25, 44, 0.8);
+    border: 1px solid rgba(102, 252, 241, 0.2);
+    border-radius: 16px;
+    padding: 2.5rem;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+    text-align: left;
+}
+
+.timeline-panel:hover {
+    transform: translateY(-8px);
+    border-color: #66fcf1;
+    box-shadow: 0 15px 40px rgba(102, 252, 241, 0.2);
+}
+
+.event-dot {
+    position: absolute;
+    top: 50%;
+    width: 24px; height: 24px;
+    background: #050814;
+    border: 4px solid #66fcf1;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.6);
+}
+
+.timeline-event.left .event-dot { right: -12px; }
+.timeline-event.right .event-dot { left: -12px; }
+
+.timeline-tag {
+    display: inline-block;
+    background: rgba(102, 252, 241, 0.1);
+    color: #66fcf1;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+}
+
 /* BLOG PAGE LAYOUT FIX */
 .blog-layout-container {
     display: flex;
@@ -1024,4 +1118,9 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     .liquid-btn:active::before {
         background: var(--secondary-color) !important;
     }
+
+    /* Mobile Timeline Adjustments */
+    .timeline-spine { left: 20px; transform: none; }
+    .timeline-event { width: 100% !important; margin: 0 !important; padding: 0 0 0 50px !important; }
+    .timeline-event .event-dot { left: 8px !important; right: auto !important; }
 }
