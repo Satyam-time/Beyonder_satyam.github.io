@@ -892,10 +892,11 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     box-shadow: 0 8px 20px rgba(24, 23, 23, 0.2); 
 }
 
-.twitter-theme:hover { 
-    color: #1DA1F2 !important; 
-    border-color: #1DA1F2 !important; 
-    box-shadow: 0 8px 20px rgba(29, 161, 242, 0.2) !important; }
+.x-theme:hover { 
+    color: #0f1419 !important; 
+    border-color: #0f1419 !important; 
+    box-shadow: 0 8px 20px rgba(15, 20, 25, 0.2) !important; 
+}
 
 .orcid-theme:hover { 
     color: #A6CE39 !important; 
