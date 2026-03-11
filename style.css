@@ -1004,6 +1004,17 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     margin-right: 0.5rem;
 }
 
+.event-date {
+    display: inline-block;
+    color: #66fcf1; /* Brilliant cyan to pop against the dark blue card */
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
 /* BLOG PAGE LAYOUT FIX */
 .blog-layout-container {
     display: flex;
