@@ -518,45 +518,84 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .liquid-btn:hover .liquid-blob:nth-child(3) { transform: translate(100%, -50%) scale(3); transition-delay: 0.3s; }
 
 /* ==========================================
-   ISOMETRIC ANIMATION EFFECTS (Projects Grid)
+   PREMIUM PROJECT CARDS (Quantum Float)
    ========================================== */
 .isometric-grid {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 3rem;
     justify-content: center;
-    perspective: 1500px;
 }
 
 .isometric-card {
-    background: white;
+    background: #ffffff;
     width: 100%;
     max-width: 450px;
-    border-radius: 8px;
-    border: 1px solid #edf2f7;
-    transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-    transform-style: preserve-3d;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
+/* 1. The Laser Sweep Line */
+.isometric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, transparent, #66fcf1, #3182ce);
+    z-index: 10;
+    transition: left 0.7s ease;
+}
+
+/* Hover Physics: Float, Glow, and Sweep */
 .isometric-card:hover {
-    transform: rotateX(55deg) rotateZ(-45deg) translateY(-20px);
-    box-shadow: 
-        -20px 20px 30px rgba(0,0,0,0.2),
-        -5px 5px 0px var(--secondary-color);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(49, 130, 206, 0.15), 0 0 20px rgba(102, 252, 241, 0.2);
     border-color: var(--secondary-color);
 }
 
+.isometric-card:hover::before {
+    left: 100%;
+}
+
+/* 2. The Internal Image Zoom */
+.isometric-card .card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #e2e8f0;
+    transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 .isometric-card:hover .card-img {
-    transform: translateZ(40px);
-    box-shadow: -10px 10px 20px rgba(0,0,0,0.2);
+    transform: scale(1.08);
 }
 
-.isometric-card:hover .card-content {
-    transform: translateZ(20px);
+/* 3. The Text Content Container */
+.isometric-card .card-content {
+    padding: 2rem;
+    background: #ffffff;
+    position: relative;
+    z-index: 2;
+    flex-grow: 1;
 }
 
+/* Ensure the titles stay clean */
+.isometric-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+    transition: color 0.3s ease;
+}
+
+.isometric-card:hover h3 {
+    color: var(--secondary-color);
+}
 /* ==========================================
    CHARACTER ANIMATION (Floating Astronaut)
    ========================================== */
