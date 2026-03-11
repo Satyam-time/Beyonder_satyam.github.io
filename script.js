@@ -338,17 +338,37 @@ document.addEventListener('DOMContentLoaded', () => {
             activeMesh.add(r1, r2, r3);
         } else if (pageId === 'page-blog') {
             activeMesh = new THREE.Group();
+            
+            // 1. The Singularity Core
             const core = new THREE.Mesh(new THREE.SphereGeometry(3.5, 32, 32), new THREE.MeshBasicMaterial({ color: 0x000000 }));
-            const disk = new THREE.Mesh(new THREE.RingGeometry(5, 16, 64, 8), wireMaterial);
+            
+            // 2. The Accretion Disk (Denser wireframe grid)
+            const disk = new THREE.Mesh(new THREE.RingGeometry(4.5, 18, 64, 12), wireMaterial);
             disk.rotation.x = Math.PI / 2; 
-            const topJet = new THREE.Mesh(new THREE.ConeGeometry(2.5, 30, 32, 1, true), wireMaterial);
-            topJet.position.y = 15;
-            const bottomJet = new THREE.Mesh(new THREE.ConeGeometry(2.5, 30, 32, 1, true), wireMaterial);
-            bottomJet.rotation.x = Math.PI; 
-            bottomJet.position.y = -15;
-            activeMesh.add(core, disk, topJet, bottomJet);
-            activeMesh.rotation.x = 0.3; 
-            activeMesh.rotation.z = -0.2;
+            
+            // 3. Glowing Energy Material for the Jets
+            const energyMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0x66fcf1, transparent: true, opacity: 0.15, 
+                blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false 
+            });
+
+            // 4. Top Relativistic Jet (Solid glowing core + wireframe net)
+            const topJetEnergy = new THREE.Mesh(new THREE.CylinderGeometry(4, 0.5, 35, 32, 1, true), energyMaterial);
+            const topJetGrid = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 0.6, 35, 16, 12, true), wireMaterial);
+            topJetEnergy.position.y = 17.5; topJetGrid.position.y = 17.5;
+            
+            // 5. Bottom Relativistic Jet
+            const bottomJetEnergy = new THREE.Mesh(new THREE.CylinderGeometry(4, 0.5, 35, 32, 1, true), energyMaterial);
+            const bottomJetGrid = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 0.6, 35, 16, 12, true), wireMaterial);
+            bottomJetEnergy.rotation.x = Math.PI; bottomJetGrid.rotation.x = Math.PI;
+            bottomJetEnergy.position.y = -17.5; bottomJetGrid.position.y = -17.5;
+            
+            activeMesh.add(core, disk, topJetEnergy, bottomJetEnergy, topJetGrid, bottomJetGrid);
+            
+            // Cinematic tilt
+            activeMesh.rotation.x = 0.2; 
+            activeMesh.rotation.z = -0.15;
+            
         } else {
             activeMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 2.5, 200, 32), wireMaterial);
         }
@@ -387,11 +407,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 positions.needsUpdate = true;
             } else if (pageId === 'page-blog') {
-                activeMesh.rotation.y += 0.003; 
-                activeMesh.children[1].rotation.z -= 0.04; 
+                activeMesh.rotation.y += 0.003; // Spin quasar
+                activeMesh.children[1].rotation.z -= 0.04; // Spin accretion disk
+                
+                // Pulse all 4 jet components (Indices 2, 3, 4, 5)
                 const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.05;
-                activeMesh.children[2].scale.set(1, pulse, 1);
-                activeMesh.children[3].scale.set(1, pulse, 1);
+                for(let j = 2; j <= 5; j++) {
+                    activeMesh.children[j].scale.set(1, pulse, 1);
+                }
             } else {
                 activeMesh.rotation.x += 0.002;
                 activeMesh.rotation.y += 0.003;
