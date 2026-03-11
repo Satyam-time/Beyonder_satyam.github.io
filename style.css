@@ -900,3 +900,20 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
         background: var(--secondary-color) !important;
     }
 }
+
+/* BLOG PAGE LAYOUT FIX */
+.blog-layout-container {
+    display: flex;
+    flex-wrap: wrap; /* This prevents the squishing! */
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.blog-layout-container > div {
+    flex: 1 1 300px; /* Tells the cards to stay at least 300px wide */
+    min-width: 300px;
+}
