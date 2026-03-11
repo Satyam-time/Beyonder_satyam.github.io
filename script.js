@@ -359,6 +359,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const r3 = new THREE.Mesh(new THREE.TorusGeometry(20, 0.1, 16, 100), wireMaterial);
             r3.rotation.y = Math.PI / 2;
             activeMesh.add(r1, r2, r3);
+            
+        // ADD THIS NEW BLOCK RIGHT HERE:
+        } else if (pageId === 'page-organisations') {
+            activeMesh = new THREE.Group();
+            
+            // 1. Solid Dark Core
+            const coreGlobe = new THREE.Mesh(new THREE.SphereGeometry(12, 32, 32), new THREE.MeshBasicMaterial({ color: 0x050814 }));
+            
+            // 2. Glowing Holographic Grid (Lat/Long lines)
+            const gridGlobe = new THREE.Mesh(new THREE.SphereGeometry(12.2, 24, 24), new THREE.MeshBasicMaterial({ color: 0x66fcf1, wireframe: true, transparent: true, opacity: 0.2 }));
+            
+            // 3. Data Rings Orbiting the Globe
+            const orbit1 = new THREE.Mesh(new THREE.TorusGeometry(18, 0.05, 16, 100), wireMaterial);
+            orbit1.rotation.x = Math.PI / 2;
+            
+            const orbit2 = new THREE.Mesh(new THREE.TorusGeometry(22, 0.05, 16, 100), wireMaterial);
+            orbit2.rotation.y = Math.PI / 3;
+
+            activeMesh.add(coreGlobe, gridGlobe, orbit1, orbit2);
+            activeMesh.rotation.z = 0.2; // Give it a slight planetary tilt
+            
         } else if (pageId === 'page-blog') {
             activeMesh = new THREE.Group();
             
@@ -430,14 +451,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 positions.needsUpdate = true;
             } else if (pageId === 'page-blog') {
-                activeMesh.rotation.y += 0.003; // Spin quasar
-                activeMesh.children[1].rotation.z -= 0.04; // Spin accretion disk
-                
-                // Pulse all 4 jet components (Indices 2, 3, 4, 5)
+                activeMesh.rotation.y += 0.003; 
+                activeMesh.children[1].rotation.z -= 0.04; 
                 const pulse = 1 + Math.sin(Date.now() * 0.005) * 0.05;
                 for(let j = 2; j <= 5; j++) {
                     activeMesh.children[j].scale.set(1, pulse, 1);
                 }
+                
+            // ADD THIS NEW ANIMATION BLOCK RIGHT HERE:
+            } else if (pageId === 'page-organisations') {
+                activeMesh.children[1].rotation.y += 0.002; // Spin the holographic grid
+                activeMesh.children[2].rotation.z += 0.005; // Spin inner data ring
+                activeMesh.children[3].rotation.x += 0.004; // Spin outer data ring
+                activeMesh.rotation.y += 0.001; // Slowly rotate the whole planetary system
+
             } else {
                 activeMesh.rotation.x += 0.002;
                 activeMesh.rotation.y += 0.003;
