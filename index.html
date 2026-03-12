@@ -401,10 +401,27 @@
                 }
             });
 
-            // DELETE THIS OLD ONE:
-setTimeout(function() {
-    $('.df-ui-wrapper').find(':contains("This is the demo version")').last().hide();
-}, 2000);
+            // ==========================================
+            // RELENTLESS BANNER ASSASSIN V2
+            // ==========================================
+            const bannerHunter = setInterval(function() {
+                // Find the innermost div containing the exact text
+                const $demoBanner = $("div:contains('This is the demo version')").last();
+                
+                // If it exists and is visible on the screen
+                if ($demoBanner.length > 0 && $demoBanner.is(':visible')) {
+                    
+                    // Nuke it with absolute maximum CSS priority
+                    $demoBanner.attr('style', 'display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; z-index: -9999 !important;');
+                    
+                    console.log("🎯 Demo banner officially assassinated.");
+                    clearInterval(bannerHunter); // Stop hunting
+                }
+            }, 100); // Scans the page 10 times every single second
+
+            // Safety kill-switch for the scanner
+            setTimeout(function() { clearInterval(bannerHunter); }, 15000);
+            // ==========================================
             
         });
     </script>
