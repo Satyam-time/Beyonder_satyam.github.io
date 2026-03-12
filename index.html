@@ -239,12 +239,31 @@
                 
                 <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0;">
                     <div id="ad-astra-flipbook" style="width: 800px; height: 500px; max-width: 100%; border: 2px solid red; background: #111;"></div>
+                    <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0;">
+                    <div id="ad-astra-flipbook" style="width: 800px; height: 500px; max-width: 100%; background: #111;"></div>
                 </div>
                 
-                <div style="text-align: center; margin-top: 3rem;">
-                    <a href="publications.html" class="btn liquid-btn magnetic-hover" style="border: none;">
+                <div style="text-align: center; margin-top: -1rem; margin-bottom: 3rem; position: relative; z-index: 10;">
+                    <a href="Violation_of_Energy_Conditions.pdf" download="Satyam_Singh_Energy_Conditions.pdf" class="btn liquid-btn magnetic-hover" style="border: none; background: #3182ce;">
                         <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
-                        <span class="liquid-text">Explore Complete Literature Archive ➔</span>
+                        <span class="liquid-text">📥 Download Full Manuscript</span>
+                    </a>
+                </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; position: relative; z-index: 10;">
+    <a href="Violation_of_Energy_Conditions.pdf" download="Satyam_Singh_Energy_Conditions.pdf" class="btn liquid-btn magnetic-hover" style="border: none; background: #3182ce;">
+        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+        <span class="liquid-text">📥 Download Full Manuscript</span>
+    </a>
+</div>
+
+<div style="text-align: center; margin-top: 2rem;">
+    <a href="publications.html" class="btn liquid-btn magnetic-hover" style="border: none;">
+        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+        <span class="liquid-text">Explore Complete Literature Archive ➔</span>
+    </a>
+</div>
                     </a>
                 </div>
             </div>
@@ -396,6 +415,12 @@
                     script: repoUrl + 'flipbook-plugin/js/default-book-view.js'
                 }
             });
+
+            // Wait 2 seconds for the UI to build, then destroy the demo banner
+            setTimeout(function() {
+                $('.df-ui-wrapper').find(':contains("This is the demo version")').last().hide();
+            }, 2000);
+            
         });
     </script>
     
