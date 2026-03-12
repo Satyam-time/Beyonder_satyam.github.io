@@ -236,15 +236,16 @@
         <section id="publications" class="section bg-light">
             <div class="container">
                 <h2 class="section-title">Publications & Literature</h2>
+                
                 <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0;">
-                    <div id="ad-astra-flipbook" style="width: 800px; height: 500px; max-width: 100%;"></div>
+                    <div id="ad-astra-flipbook" style="width: 800px; height: 500px; max-width: 100%; border: 2px solid red; background: #111;"></div>
                 </div>
                 
                 <div style="text-align: center; margin-top: 3rem;">
                     <a href="publications.html" class="btn liquid-btn magnetic-hover" style="border: none;">
-    <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
-    <span class="liquid-text">Explore Complete Literature Archive ➔</span>
-</a>
+                        <span class="liquid-blob"></span><span class="liquid-blob"></span><span class="liquid-blob"></span>
+                        <span class="liquid-text">Explore Complete Literature Archive ➔</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -348,36 +349,45 @@
         { "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/" } }
     </script>
 
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.158.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/" } }
+    </script>
+
     <script src="flipbook-plugin/js/jquery.min.js"></script>
     <script src="flipbook-plugin/js/html2canvas.min.js"></script>
     <script src="flipbook-plugin/js/three.min.js"></script>
     <script src="flipbook-plugin/js/pdf.min.js"></script>
 
-    <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0; position: relative; z-index: 9999;">
-                    <div id="ad-astra-flipbook" style="width: 800px; height: 500px; max-width: 100%; border: 2px solid red; background: #111;"></div>
-                </div>
-
-                <script>
-                    $(document).ready(function () {
-                        $('#ad-astra-flipbook').FlipBook({
-                            
-                            // 1. Put your exact PDF name here
-                            pdf: 'Violation of Energy Conditions.pdf', 
-                            
-                            // 2. Add the dot-slash (./) to force it to look in the current repo folder!
-                            pdfWorker: './flipbook-plugin/js/pdf.worker.js',
-                            
-                            propertiesCallback: function (props) {
-                                props.page.depth /= 2;
-                                props.cover.padding = 0.002;
-                                return props;
-                            }
-                            // WE DELETED THE TEMPLATE BLOCK COMPLETELY!
-                        });
-                    });
-                </script>
-    
     <script src="flipbook-plugin/src/3dflipbook.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("🚀 Flipbook Engine Starting..."); 
+
+            const repoUrl = "https://satyam-time.github.io/Beyonder_satyam.github.io/";
+
+            $('#ad-astra-flipbook').FlipBook({
+                
+                // Note the %20 used to replace the spaces in your file name!
+                pdf: repoUrl + 'Violation%20of%20Energy%20Conditions.pdf', 
+                
+                pdfWorker: repoUrl + 'flipbook-plugin/js/pdf.worker.js',
+                
+                propertiesCallback: function (props) {
+                    props.page.depth /= 2;
+                    props.cover.padding = 0.002;
+                    return props;
+                },
+                
+                template: {
+                    html: repoUrl + 'flipbook-plugin/templates/default-book-view.html',
+                    links: [{ rel: 'stylesheet', href: repoUrl + 'flipbook-plugin/css/font-awesome.min.css' }],
+                    styles: [repoUrl + 'flipbook-plugin/css/short-black-book-view.css'],
+                    script: repoUrl + 'flipbook-plugin/js/default-book-view.js'
+                }
+            });
+        });
+    </script>
     
     <script type="module" src="script.js"></script>
 </body>
