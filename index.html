@@ -353,25 +353,29 @@
     <script src="flipbook-plugin/js/three.min.js"></script>
     <script src="flipbook-plugin/js/pdf.min.js"></script>
 
-    <script>
-    $(document).ready(function () {
-        const testPages = [
-            "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=800",
-            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
-        ];
+    <div style="width: 100%; display: flex; justify-content: center; margin: 4rem 0; position: relative; z-index: 9999;">
+                    <div id="ad-astra-flipbook" style="width: 800px; height: 500px; max-width: 100%; border: 2px solid red; background: #111;"></div>
+                </div>
 
-        $('#ad-astra-flipbook').FlipBook({
-            pageCallback: function (n) { return { type: 'image', src: testPages[n], interactive: false }; },
-            pages: testPages.length,
-            template: {
-                html: 'flipbook-plugin/templates/default-book-view.html',
-                links: [{ rel: 'stylesheet', href: 'flipbook-plugin/css/font-awesome.min.css' }],
-                styles: ['flipbook-plugin/css/short-black-book-view.css'],
-                script: 'flipbook-plugin/js/default-book-view.js'
-            }
-        });
-    });
-  </script>
+                <script>
+                    $(document).ready(function () {
+                        $('#ad-astra-flipbook').FlipBook({
+                            
+                            // 1. Put your exact PDF name here
+                            pdf: 'Violation of Energy Conditions.pdf', 
+                            
+                            // 2. Add the dot-slash (./) to force it to look in the current repo folder!
+                            pdfWorker: './flipbook-plugin/js/pdf.worker.js',
+                            
+                            propertiesCallback: function (props) {
+                                props.page.depth /= 2;
+                                props.cover.padding = 0.002;
+                                return props;
+                            }
+                            // WE DELETED THE TEMPLATE BLOCK COMPLETELY!
+                        });
+                    });
+                </script>
     
     <script src="flipbook-plugin/src/3dflipbook.min.js"></script>
     
