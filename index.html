@@ -366,6 +366,16 @@
 
             const repoUrl = "https://satyam-time.github.io/Beyonder_satyam.github.io/";
 
+            // ==========================================
+            // THE MAGIC FIX: FORCE THE WORKER PATH
+            // ==========================================
+            if (typeof pdfjsLib !== 'undefined') {
+                pdfjsLib.GlobalWorkerOptions.workerSrc = repoUrl + 'flipbook-plugin/js/pdf.worker.js';
+            } else if (typeof window.PDFJS !== 'undefined') {
+                window.PDFJS.workerSrc = repoUrl + 'flipbook-plugin/js/pdf.worker.js';
+            }
+            // ==========================================
+
             $('#ad-astra-flipbook').FlipBook({
                 
                 // Note the %20 used to replace the spaces in your file name!
