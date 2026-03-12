@@ -355,30 +355,18 @@
 
     <script>
                     $(document).ready(function () {
-                        // The images for your magazine (Replace with your actual pages later)
-                        const bookPages = [
-                            "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=800", // Front Cover
-                            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800", // Inside Left
-                            "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&q=80&w=800", // Inside Right
-                            "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800"  // Back Cover
-                        ];
-
+                        
                         $('#ad-astra-flipbook').FlipBook({
-                            pageCallback: function (n) {
-                                return {
-                                    type: 'image',
-                                    src: bookPages[n],
-                                    interactive: false
-                                };
-                            },
-                            pages: bookPages.length,
+                            
+                            // 1. POINT THIS TO YOUR ACTUAL PDF FILE NAME!
+                            pdf: 'Violation of Energy Conditions.pdf', 
+                            
                             propertiesCallback: function (props) {
-                                props.page.depth /= 2; // Makes the pages look like standard magazine paper
+                                props.page.depth /= 2; // Keeps the paper thickness realistic
                                 props.cover.padding = 0.002;
                                 return props;
                             },
                             template: {
-                                // Maps directly to your downloaded file tree
                                 html: 'flipbook-plugin/templates/default-book-view.html',
                                 links: [
                                     { rel: 'stylesheet', href: 'flipbook-plugin/css/font-awesome.min.css' }
@@ -389,8 +377,9 @@
                                 script: 'flipbook-plugin/js/default-book-view.js'
                             }
                         });
+                        
                     });
-                </script>
+    </script>
     
     <script src="flipbook-plugin/src/3dflipbook.min.js"></script>
     
