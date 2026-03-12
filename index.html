@@ -354,34 +354,24 @@
     <script src="flipbook-plugin/js/pdf.min.js"></script>
 
     <script>
-                    $(document).ready(function () {
-                        
-                        $('#ad-astra-flipbook').FlipBook({
-                            
-                            // 1. POINT THIS TO YOUR ACTUAL PDF FILE NAME!
-                            pdf: 'Violation of Energy Conditions.pdf', 
+    $(document).ready(function () {
+        const testPages = [
+            "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&q=80&w=800",
+            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
+        ];
 
-                            pdfWorker: 'flipbook-plugin/js/pdf.worker.js',
-                            
-                            propertiesCallback: function (props) {
-                                props.page.depth /= 2; // Keeps the paper thickness realistic
-                                props.cover.padding = 0.002;
-                                return props;
-                            },
-                            template: {
-                                html: 'flipbook-plugin/templates/default-book-view.html',
-                                links: [
-                                    { rel: 'stylesheet', href: 'flipbook-plugin/css/font-awesome.min.css' }
-                                ],
-                                styles: [
-                                    'flipbook-plugin/css/short-black-book-view.css'
-                                ],
-                                script: 'flipbook-plugin/js/default-book-view.js'
-                            }
-                        });
-                        
-                    });
-    </script>
+        $('#ad-astra-flipbook').FlipBook({
+            pageCallback: function (n) { return { type: 'image', src: testPages[n], interactive: false }; },
+            pages: testPages.length,
+            template: {
+                html: 'flipbook-plugin/templates/default-book-view.html',
+                links: [{ rel: 'stylesheet', href: 'flipbook-plugin/css/font-awesome.min.css' }],
+                styles: ['flipbook-plugin/css/short-black-book-view.css'],
+                script: 'flipbook-plugin/js/default-book-view.js'
+            }
+        });
+    });
+  </script>
     
     <script src="flipbook-plugin/src/3dflipbook.min.js"></script>
     
