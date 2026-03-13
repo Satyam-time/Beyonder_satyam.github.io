@@ -1308,10 +1308,13 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
     border: 1px solid #edf2f7;
-    border-bottom: 4px solid #3182ce; /* Heavy anchor line */
+    border-bottom: 4px solid #3182ce; 
     z-index: 1;
+    
+    /* THE FIX: Properly stacks the badge, title, and text vertically! */
     display: flex;
-    flex-content: column;
+    flex-direction: column; 
+    align-items: flex-start; 
 }
 
 /* 1. The Typography Hierarchy */
