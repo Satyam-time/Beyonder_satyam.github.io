@@ -1149,21 +1149,6 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
    CYBER-VISOR ANIMATIONS (NAVBAR)
    ========================================== */
 
-/* 1. Add depth to the entire visor casing */
-#nav-eyes-container svg {
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
-    transition: transform 0.3s ease;
-}
-
-/* 2. Smooth out the eye movements and apply the glow animation */
-.nav-eye {
-    /* The JS handles movement, but this smooths out the frame rate */
-    transition: filter 0.3s ease; 
-    
-    /* Attach the pulsing animation defined below */
-    animation: cyberPulse 3s infinite alternate ease-in-out;
-}
-
 /* 3. The "Breathing" Neon Glow Effect */
 @keyframes cyberPulse {
     0% { 
@@ -1174,7 +1159,20 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     }
 }
 
-/* 4. Optional: Visor reacts slightly when hovered */
+/* ==========================================
+   CYBER-VISOR ANIMATIONS (OPTIMIZED FOR SPEED)
+   ========================================== */
+#nav-eyes-container svg {
+    /* Lighter static shadow, very easy on the CPU */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease;
+}
+
 #nav-eyes-container:hover svg {
     transform: scale(1.05);
+}
+
+.nav-eye {
+    /* Smooth physical tracking, zero filter lag! */
+    transition: transform 0.05s linear; 
 }
