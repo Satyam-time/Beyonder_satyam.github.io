@@ -1135,3 +1135,46 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     .timeline-event { width: 100% !important; margin: 0 !important; padding: 0 0 0 50px !important; }
     .timeline-event .event-dot { left: 8px !important; right: auto !important; }
 }
+
+#nav-eyes-container {
+    width: 250px; /* Significantly larger statement size */
+    height: 100px; /* Adjust height to accommodate large eyes/visor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Let clicks pass through if needed, though centered visor shouldn't block much */
+}
+
+/* ==========================================
+   CYBER-VISOR ANIMATIONS (NAVBAR)
+   ========================================== */
+
+/* 1. Add depth to the entire visor casing */
+#nav-eyes-container svg {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.8));
+    transition: transform 0.3s ease;
+}
+
+/* 2. Smooth out the eye movements and apply the glow animation */
+.nav-eye {
+    /* The JS handles movement, but this smooths out the frame rate */
+    transition: filter 0.3s ease; 
+    
+    /* Attach the pulsing animation defined below */
+    animation: cyberPulse 3s infinite alternate ease-in-out;
+}
+
+/* 3. The "Breathing" Neon Glow Effect */
+@keyframes cyberPulse {
+    0% { 
+        filter: drop-shadow(0 0 3px #66fcf1) brightness(1); 
+    }
+    100% { 
+        filter: drop-shadow(0 0 10px #66fcf1) drop-shadow(0 0 20px rgba(102, 252, 241, 0.4)) brightness(1.3); 
+    }
+}
+
+/* 4. Optional: Visor reacts slightly when hovered */
+#nav-eyes-container:hover svg {
+    transform: scale(1.05);
+}
