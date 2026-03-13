@@ -354,7 +354,16 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.xr.enabled = true;
-        document.body.appendChild(VRButton.createButton(renderer)); 
+        
+        // Create the VR Button and place it inside the Home section
+        const vrBtn = VRButton.createButton(renderer);
+        const homeSection = document.getElementById('home');
+        if(homeSection) {
+            homeSection.appendChild(vrBtn);
+        } else {
+            document.body.appendChild(vrBtn);
+        }
+        
         camera.position.set(0, 0, 40);
 
         const pageId = document.body.id; 
@@ -459,7 +468,6 @@ document.addEventListener('DOMContentLoaded', () => {
         starfield = new THREE.Points(particlesGeometry, new THREE.PointsMaterial({ size: 0.15, color: 0xffffff, transparent: true, opacity: 0.6 }));
         scene.add(starfield);
 
-        // 2. RESTORE THE SCROLL ZOOM (With a safety bumper!)
         document.body.onscroll = () => {
             const t = document.body.getBoundingClientRect().top;
             if (pageId === 'page-publications') {
@@ -469,9 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeMesh.rotation.y = t * -0.002;
             }
             
-            // THE FIX: Zooms the camera as you scroll, but the Math.max stops it 
-            // at Z=15 so it never accidentally flies *inside* the Torus again!
-            camera.position.z = Math.max(15, 40 + (t * 0.015)); 
+            // THE FIX: Zoom speed cut in half (0.008), and stops further back (28)
+            camera.position.z = Math.max(28, 40 + (t * 0.008)); 
         };
 
         renderer.setAnimationLoop(() => {
