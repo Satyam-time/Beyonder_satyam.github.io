@@ -70,43 +70,27 @@
         </div>
 
         <div id="nav-eyes-container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 20; pointer-events: none;">
-            <svg width="240" height="60" viewBox="0 0 240 60">
-                <defs>
-                    <linearGradient id="metalFacetedVisor" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#1f2937" /> <stop offset="50%" stop-color="#111827" /> <stop offset="100%" stop-color="#030712" /> </linearGradient>
-                    
-                    <linearGradient id="angularSocket" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#050814" />
-                        <stop offset="100%" stop-color="#1a365d" stop-opacity="0.1" />
-                    </linearGradient>
-                </defs>
+            <svg width="120" height="70" viewBox="0 0 120 70">
+                <line x1="60" y1="15" x2="60" y2="2" stroke="#2D3748" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="60" cy="2" r="4" fill="#F6E05E" stroke="#2D3748" stroke-width="2"/> <rect x="10" y="28" width="10" height="16" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="3"/>
+                <rect x="100" y="28" width="10" height="16" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="3"/>
 
-                <path d="M 30 18 H 210 L 200 42 H 40 Z" fill="url(#metalFacetedVisor)" stroke="#3182ce" stroke-width="2"/>
-                
-                <path d="M 45 22 H 195 L 185 38 H 55 Z" fill="#02040a" stroke="#1a365d" stroke-width="1"/>
+                <rect x="18" y="15" width="84" height="46" rx="20" fill="#FF6B6B" stroke="#2D3748" stroke-width="3"/>
 
-                <g transform="translate(90, 30)">
-                    <path d="M -12 -8 H 12 L 8 8 H -8 Z" fill="url(#angularSocket)" stroke="#1a365d" stroke-width="1.5"/>
-                    
-                    <g class="nav-eye">
-                        <circle cx="0" cy="0" r="7" fill="url(#cyberIris)" filter="url(#cyanGlow)" />
-                        <path d="M -2 -4 L -1 -1 L -3 -1 L -2 -4" fill="rgba(255,255,255,0.7)" />
-                    </g>
+                <circle cx="42" cy="38" r="12" fill="#FFFFFF" stroke="#2D3748" stroke-width="3"/>
+                <circle cx="78" cy="38" r="12" fill="#FFFFFF" stroke="#2D3748" stroke-width="3"/>
+
+                <g transform="translate(42, 38)" class="nav-eye">
+                    <circle cx="0" cy="0" r="6" fill="#4299E1"/>
+                    <circle cx="0" cy="0" r="3" fill="#1A202C"/>
+                    <circle cx="-2" cy="-2" r="2" fill="#FFFFFF"/>
                 </g>
 
-                <g transform="translate(150, 30)">
-                    <path d="M -12 -8 H 12 L 8 8 H -8 Z" fill="url(#angularSocket)" stroke="#1a365d" stroke-width="1.5"/>
-                    
-                    <g class="nav-eye">
-                        <circle cx="0" cy="0" r="7" fill="url(#cyberIris)" filter="url(#cyanGlow)" />
-                        <path d="M -2 -4 L -1 -1 L -3 -1 L -2 -4" fill="rgba(255,255,255,0.7)" />
-                    </g>
+                <g transform="translate(78, 38)" class="nav-eye">
+                    <circle cx="0" cy="0" r="6" fill="#4299E1"/>
+                    <circle cx="0" cy="0" r="3" fill="#1A202C"/>
+                    <circle cx="-2" cy="-2" r="2" fill="#FFFFFF"/>
                 </g>
-                
-                <path d="M 35 22 L 35 18 L 45 18" fill="none" stroke="#66fcf1" stroke-width="1"/>
-                <path d="M 205 22 L 205 18 L 195 18" fill="none" stroke="#66fcf1" stroke-width="1"/>
-                <path d="M 45 42 L 35 42 L 35 38" fill="none" stroke="#66fcf1" stroke-width="1"/>
-                <path d="M 195 42 L 205 42 L 205 38" fill="none" stroke="#66fcf1" stroke-width="1"/>
             </svg>
         </div>
 
