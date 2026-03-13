@@ -355,11 +355,13 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.xr.enabled = true;
         
-        // Create the VR Button and place it inside the Home section
+        // Create the VR Button
         const vrBtn = VRButton.createButton(renderer);
-        const homeSection = document.getElementById('home');
-        if(homeSection) {
-            homeSection.appendChild(vrBtn);
+        
+        // Target the white glass panel explicitly!
+        const heroPanel = document.getElementById('hero-panel');
+        if(heroPanel) {
+            heroPanel.appendChild(vrBtn);
         } else {
             document.body.appendChild(vrBtn);
         }
