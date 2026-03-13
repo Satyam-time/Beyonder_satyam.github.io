@@ -1173,6 +1173,6 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
 }
 
 .nav-eye {
-    /* Smooth physical tracking, zero filter lag! */
-    transition: transform 0.05s linear; 
+    /* Zero CSS lag. Let the JavaScript run at native 60fps! */
+    transition: none; 
 }
