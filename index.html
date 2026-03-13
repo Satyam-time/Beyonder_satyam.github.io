@@ -402,25 +402,27 @@
             });
 
             // ==========================================
-            // RELENTLESS BANNER ASSASSIN V2
+            // THE IFRAME ASSASSIN (Thanks to your DevTools find!)
             // ==========================================
-            const bannerHunter = setInterval(function() {
-                // Find the innermost div containing the exact text
-                const $demoBanner = $("div:contains('This is the demo version')").last();
+            const iframeHunter = setInterval(function() {
+                // 1. Find the hidden iframe the plugin generates
+                const $iframe = $('#ad-astra-flipbook iframe');
                 
-                // If it exists and is visible on the screen
-                if ($demoBanner.length > 0 && $demoBanner.is(':visible')) {
+                if ($iframe.length > 0) {
+                    // 2. Reach INSIDE the iframe and hunt for the exact class you found
+                    const $demoMsg = $iframe.contents().find('.demo-msg');
                     
-                    // Nuke it with absolute maximum CSS priority
-                    $demoBanner.attr('style', 'display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; z-index: -9999 !important;');
-                    
-                    console.log("🎯 Demo banner officially assassinated.");
-                    clearInterval(bannerHunter); // Stop hunting
+                    if ($demoMsg.length > 0) {
+                        // 3. Completely delete the HTML element from the document
+                        $demoMsg.remove(); 
+                        console.log("🎯 Iframe breached. Demo banner neutralized.");
+                        clearInterval(iframeHunter); // Stop hunting
+                    }
                 }
-            }, 100); // Scans the page 10 times every single second
+            }, 250); 
 
-            // Safety kill-switch for the scanner
-            setTimeout(function() { clearInterval(bannerHunter); }, 15000);
+            // Safety kill-switch
+            setTimeout(function() { clearInterval(iframeHunter); }, 15000);
             // ==========================================
             
         });
