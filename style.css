@@ -72,15 +72,33 @@ html { scroll-behavior: smooth; }
 }
 
 /* ==========================================
-   3. VR BUTTON (Tucked out of the way)
+   VR BUTTON (Pinned Below Hero Square)
    ========================================== */
 #VRButton {
-    position: fixed !important;
-    bottom: 20px !important;
-    right: 20px !important; /* Safely in the bottom right corner */
-    left: auto !important;
-    transform: none !important;
-    z-index: 9999 !important;
+    position: absolute !important;
+    bottom: 12% !important; /* Pushes it perfectly below the glass panel */
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Perfectly centered */
+    margin: 0 !important;
+    
+    /* Matches your clean, bright white academic theme */
+    background: #ffffff !important;
+    border: 2px solid #3182ce !important;
+    border-radius: 30px !important;
+    padding: 12px 24px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 600 !important;
+    color: #3182ce !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease !important;
+    z-index: 100 !important;
+}
+
+#VRButton:hover {
+    background: #3182ce !important;
+    color: #ffffff !important;
+    transform: translate(-50%, -3px) !important; /* Keeps it centered when hovering */
+    box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3) !important;
 }
 
 /* Navigation */
