@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
             activeMesh.rotation.z = -0.15;
 
         } else {
-            // THE MASSIVE TORUS OVERRIDE
+            // 1. THE MASSIVE TORUS OVERRIDE
             const massiveGeometry = new THREE.TorusKnotGeometry(18, 4, 200, 32);
             const neonMaterial = new THREE.MeshBasicMaterial({ 
                 color: 0x66fcf1, 
@@ -441,7 +441,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             activeMesh = new THREE.Mesh(massiveGeometry, neonMaterial);
-            // The position line is gone! It will now default to dead center (0,0,0).
+            
+            // EXPLICITLY center it so it hides perfectly behind the Hero Square
+            activeMesh.position.x = 0; 
+            activeMesh.position.y = 0;
         }
         scene.add(activeMesh);
 
@@ -456,6 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
         starfield = new THREE.Points(particlesGeometry, new THREE.PointsMaterial({ size: 0.15, color: 0xffffff, transparent: true, opacity: 0.6 }));
         scene.add(starfield);
 
+        // 2. RESTORE THE SCROLL ZOOM (With a safety bumper!)
         document.body.onscroll = () => {
             const t = document.body.getBoundingClientRect().top;
             if (pageId === 'page-publications') {
@@ -464,6 +468,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeMesh.rotation.x = t * -0.001;
                 activeMesh.rotation.y = t * -0.002;
             }
+            
+            // THE FIX: Zooms the camera as you scroll, but the Math.max stops it 
+            // at Z=15 so it never accidentally flies *inside* the Torus again!
+            camera.position.z = Math.max(15, 40 + (t * 0.015)); 
         };
 
         renderer.setAnimationLoop(() => {
