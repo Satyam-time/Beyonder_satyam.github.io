@@ -235,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const circle = document.querySelector(".circle");
     const follow = document.querySelector(".circle-follow");
     const ambientCursor = document.getElementById("cursor");
-    const astroEyes = document.querySelectorAll('.astro-eye');
+    // Now it grabs BOTH the astronaut eyes and the new nav eyes!
+    const astroEyes = document.querySelectorAll('.astro-eye, .nav-eye');
 
     if (circle && follow) {
         document.addEventListener('mousemove', (e) => {
