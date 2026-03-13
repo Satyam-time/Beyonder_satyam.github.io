@@ -19,22 +19,25 @@ body {
 
 html { scroll-behavior: smooth; }
 
-/* 3D Canvas Fixed Background */
+/* ==========================================
+   THE X-RAY OVERRIDE (GUARANTEED VISIBILITY)
+   ========================================== */
+/* 1. Strip ALL solid backgrounds from body, layout wrappers, and sections */
+body, html, .solid-content, .bg-light, section, main {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* 2. Lock the canvas, bring it forward, and make it the true background */
 #bg-canvas {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: -999 !important; /* Forces it to the absolute back */
-    pointer-events: none !important; /* Stops it from blocking clicks */
-}
-
-/* Ensure the sections allow the universe to show through */
-#journey, #experience, #research {
-    background-color: transparent; 
-    /* Optional: If you want a cool glass effect, use this instead: */
-    /* background-color: rgba(5, 8, 20, 0.4); */ 
+    z-index: -1 !important; /* Keeps it behind text, but brings it out of the void */
+    pointer-events: none !important;
+    background-color: #050814 !important; /* Space color is now directly on the canvas */
 }
 
 /* Navigation */
