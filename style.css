@@ -76,12 +76,12 @@ html { scroll-behavior: smooth; }
    ========================================== */
 #VRButton {
     position: absolute !important;
-    bottom: 12% !important; /* Pushes it perfectly below the glass panel */
+    bottom: -70px !important; /* THE FIX: Pushes it exactly 70px below the white box! */
     left: 50% !important;
-    transform: translateX(-50%) !important; /* Perfectly centered */
+    transform: translateX(-50%) !important; 
     margin: 0 !important;
     
-    /* Matches your clean, bright white academic theme */
+    /* Clean, bright white academic theme */
     background: #ffffff !important;
     border: 2px solid #3182ce !important;
     border-radius: 30px !important;
@@ -97,7 +97,7 @@ html { scroll-behavior: smooth; }
 #VRButton:hover {
     background: #3182ce !important;
     color: #ffffff !important;
-    transform: translate(-50%, -3px) !important; /* Keeps it centered when hovering */
+    transform: translate(-50%, -3px) !important;
     box-shadow: 0 8px 25px rgba(49, 130, 206, 0.3) !important;
 }
 
