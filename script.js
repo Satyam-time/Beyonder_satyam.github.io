@@ -428,9 +428,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // Cinematic tilt
             activeMesh.rotation.x = 0.2; 
             activeMesh.rotation.z = -0.15;
-            
+
         } else {
-            activeMesh = new THREE.Mesh(new THREE.TorusKnotGeometry(10, 2.5, 200, 32), wireMaterial);
+            // 1. Double the size and thickness of the Torus
+            const massiveGeometry = new THREE.TorusKnotGeometry(18, 4, 200, 32);
+            
+            // 2. Crank the brightness/opacity up to 90% so it glows
+            const neonMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0x66fcf1, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.9, 
+                side: THREE.DoubleSide 
+            });
+            
+            activeMesh = new THREE.Mesh(massiveGeometry, neonMaterial);
+            
+            // 3. THE MAGIC TRICK: Move it to the right side of the screen!
+            activeMesh.position.x = 30; 
         }
         scene.add(activeMesh);
 
@@ -482,8 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else {
                 activeMesh.rotation.x += 0.002;
-                activeMesh.rotati
-                    on.y += 0.003;
+                activeMesh.rotation.y += 0.003;
             }
             renderer.render(scene, camera);
         });
