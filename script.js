@@ -452,7 +452,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 activeMesh.rotation.x = t * -0.001;
                 activeMesh.rotation.y = t * -0.002;
             }
-            camera.position.z = 40 + (t * 0.015); 
+            
+            // THE FIX: Clamps the camera so it never zooms closer than Z=25
+            camera.position.z = Math.max(25, 40 + (t * 0.015)); 
         };
 
         renderer.setAnimationLoop(() => {
