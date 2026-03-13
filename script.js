@@ -430,10 +430,8 @@ document.addEventListener('DOMContentLoaded', () => {
             activeMesh.rotation.z = -0.15;
 
         } else {
-            // 1. Double the size and thickness of the Torus
+            // THE MASSIVE TORUS OVERRIDE
             const massiveGeometry = new THREE.TorusKnotGeometry(18, 4, 200, 32);
-            
-            // 2. Crank the brightness/opacity up to 90% so it glows
             const neonMaterial = new THREE.MeshBasicMaterial({ 
                 color: 0x66fcf1, 
                 wireframe: true, 
@@ -443,9 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             activeMesh = new THREE.Mesh(massiveGeometry, neonMaterial);
-            
-            // 3. THE MAGIC TRICK: Move it to the right side of the screen!
-            activeMesh.position.x = 30; 
+            // The position line is gone! It will now default to dead center (0,0,0).
         }
         scene.add(activeMesh);
 
