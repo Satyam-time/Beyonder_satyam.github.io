@@ -422,10 +422,23 @@
             });
 
             // ==========================================
-            // THE IFRAME ASSASSIN (Thanks to your DevTools find!)
+            // THE IFRAME ASSASSIN (RESTORED)
             // ==========================================
             const iframeHunter = setInterval(function() {
+                // 1. Find the hidden iframe the plugin generates
+                const $iframe = $('#ad-astra-flipbook iframe');
                 
+                if ($iframe.length > 0) {
+                    // 2. Reach INSIDE the iframe and hunt for the exact class
+                    const $demoMsg = $iframe.contents().find('.demo-msg');
+                    
+                    if ($demoMsg.length > 0) {
+                        // 3. Completely delete the HTML element
+                        $demoMsg.remove(); 
+                        console.log("🎯 Iframe breached. Demo banner neutralized.");
+                        clearInterval(iframeHunter); // Stop hunting
+                    }
+                }
             }, 250); 
 
             // Safety kill-switch
