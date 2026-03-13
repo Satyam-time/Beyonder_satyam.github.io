@@ -63,16 +63,23 @@
     
     <canvas id="bg-canvas"></canvas>
 
-    <nav class="navbar">
-        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 15px;">
+    <nav class="navbar" style="position: relative;">
+    <div class="nav-brand magnetic-hover" id="sks-logo" style="cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">
+        <span class="logo-text" style="display: inline-block;">SKS</span>
+        </div>
+
+    <div id="nav-eyes-container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 20;">
+        </div>
+
+    <ul class="nav-links" style="display: flex; gap: 20px; z-index: 10;">
+        </ul>
+    </nav>
+
+    <nav class="navbar" style="position: relative; display: flex; justify-content: space-between; align-items: center;">
+        
+        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">
             <span class="logo-text" style="display: inline-block;">SKS</span>
             
-            <svg width="40" height="16" viewBox="0 0 40 16" style="z-index: 10;">
-                <rect x="0" y="0" width="40" height="16" rx="8" fill="#050814" stroke="#3182ce" stroke-width="1.5"/>
-                <circle cx="12" cy="8" r="2.5" fill="#66fcf1" class="nav-eye" style="filter: drop-shadow(0 0 3px #66fcf1);"/>
-                <circle cx="28" cy="8" r="2.5" fill="#66fcf1" class="nav-eye" style="filter: drop-shadow(0 0 3px #66fcf1);"/>
-            </svg>
-
             <svg class="line-burst" viewBox="0 0 100 100" style="position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%); pointer-events: none; z-index: -1;">
                 <line x1="50" y1="20" x2="50" y2="5" />
                 <line x1="50" y1="80" x2="50" y2="95" />
@@ -84,7 +91,55 @@
                 <line x1="72" y1="28" x2="85" y2="15" />
             </svg>
         </div>
-        <ul class="nav-links">
+
+        <div id="nav-eyes-container" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 20; pointer-events: none;">
+            <svg width="240" height="60" viewBox="0 0 240 60">
+                <defs>
+                    <linearGradient id="metalVisor" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#1a202c" />
+                        <stop offset="50%" stop-color="#050814" />
+                        <stop offset="100%" stop-color="#0f172a" />
+                    </linearGradient>
+                    
+                    <radialGradient id="cyberIris" cx="50%" cy="50%" r="50%">
+                        <stop offset="40%" stop-color="#000000" /> <stop offset="45%" stop-color="#66fcf1" /> <stop offset="70%" stop-color="#1a365d" /> <stop offset="100%" stop-color="#0f172a" /> </radialGradient>
+                    
+                    <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="3" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                </defs>
+
+                <path d="M 20 15 H 220 L 210 45 H 30 Z" fill="url(#metalVisor)" stroke="#3182ce" stroke-width="2" style="filter: drop-shadow(0 0 8px rgba(49, 130, 206, 0.4));"/>
+                
+                <rect x="35" y="18" width="170" height="24" fill="#02040a" stroke="#1a365d" stroke-width="1"/>
+
+                <g transform="translate(80, 30)">
+                    <circle cx="0" cy="0" r="10" fill="#000000" />
+                    
+                    <g class="nav-eye">
+                        <circle cx="0" cy="0" r="9" fill="url(#cyberIris)" filter="url(#cyanGlow)" />
+                        <circle cx="-3" cy="-3" r="1.5" fill="rgba(255,255,255,0.8)" />
+                    </g>
+                </g>
+
+                <g transform="translate(160, 30)">
+                    <circle cx="0" cy="0" r="10" fill="#000000" />
+                    
+                    <g class="nav-eye">
+                        <circle cx="0" cy="0" r="9" fill="url(#cyberIris)" filter="url(#cyanGlow)" />
+                        <circle cx="-3" cy="-3" r="1.5" fill="rgba(255,255,255,0.8)" />
+                    </g>
+                </g>
+                
+                <path d="M 25 20 L 25 15 L 35 15" fill="none" stroke="#66fcf1" stroke-width="1"/>
+                <path d="M 215 20 L 215 15 L 205 15" fill="none" stroke="#66fcf1" stroke-width="1"/>
+                <path d="M 35 45 L 25 45 L 25 40" fill="none" stroke="#66fcf1" stroke-width="1"/>
+                <path d="M 205 45 L 215 45 L 215 40" fill="none" stroke="#66fcf1" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <ul class="nav-links" style="z-index: 10;">
             <li><a href="#home" class="magnetic-hover">Home</a></li>
             <li><a href="#journey" class="magnetic-hover">Journey</a></li>
             <li><a href="#experience" class="magnetic-hover">Experience</a></li>
