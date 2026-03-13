@@ -419,15 +419,22 @@ footer { text-align: center; padding: 2rem; background: var(--primary-color); co
 .relative-z { position: relative; z-index: 2; }
 
 /* ==========================================
-   BACKGROUND WEBSITE ANIMATION (Mesh Gradient)
+   BACKGROUND WEBSITE ANIMATION (Deep Space Glass)
    ========================================== */
 .solid-content {
-    background: linear-gradient(-45deg, #ffffff, #f0f4f8, #e2e8f0, #ebf4ff);
+    /* Replaced the solid white with a dark, semi-transparent nebula gradient */
+    background: linear-gradient(-45deg, rgba(5, 8, 20, 0.6), rgba(11, 25, 44, 0.8), rgba(5, 8, 20, 0.7));
     background-size: 400% 400%;
     animation: breathingMesh 15s ease infinite;
     position: relative; 
     z-index: 10;
-    box-shadow: 0 -20px 40px rgba(0,0,0,0.3);
+    backdrop-filter: blur(8px); /* Adds a gorgeous frosted glass distortion to the 3D shapes behind it! */
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.6);
+}
+
+/* Also ensure the secondary background color isn't blocking the view */
+.bg-light { 
+    background-color: rgba(255, 255, 255, 0.02); 
 }
 
 @keyframes breathingMesh {
