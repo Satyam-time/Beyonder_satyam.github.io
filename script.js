@@ -359,7 +359,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const pageId = document.body.id; 
         let activeMesh;
-        const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x66fcf1, wireframe: true, transparent: true, opacity: 0.4 });
+
+        const wireMaterial = new THREE.MeshBasicMaterial({ color: 0x66fcf1, wireframe: true, transparent: true, opacity: 0.4, side: THREE.DoubleSide });
 
         if (pageId === 'page-research') {
             activeMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(12, 1), wireMaterial);
