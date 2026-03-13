@@ -1176,3 +1176,38 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     /* Zero CSS lag. Let the JavaScript run at native 60fps! */
     transition: none; 
 }
+
+/* ==========================================
+   ASTRONAUT CHARACTER (JOURNEY SECTION)
+   ========================================== */
+#journey {
+    position: relative; /* Ensures the astronaut stays inside this section */
+}
+
+.astronaut-character {
+    position: absolute;
+    left: 15%; /* Pulls him safely away from the left edge */
+    top: 50%; /* Centers him vertically */
+    width: 180px; /* Makes him big enough to see clearly */
+    z-index: 5;
+    pointer-events: none; /* Stops him from blocking clicks */
+    
+    /* The Zero-Gravity Float Animation */
+    animation: spaceFloat 6s ease-in-out infinite;
+}
+
+@keyframes spaceFloat {
+    0%, 100% { 
+        transform: translateY(-50%) rotate(-2deg); 
+    }
+    50% { 
+        transform: translateY(-65%) rotate(4deg); 
+    }
+}
+
+/* Make sure he hides or shrinks on mobile phones so he doesn't overlap text */
+@media (max-width: 768px) {
+    .astronaut-character {
+        display: none; 
+    }
+}
