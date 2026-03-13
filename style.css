@@ -1295,3 +1295,97 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
         display: none; 
     }
 }
+
+/* ==========================================
+   PROFESSIONAL EXPERIENCE: PRESENTATION CARDS
+   ========================================== */
+.experience-card {
+    background: #ffffff !important;
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
+    border: 1px solid #edf2f7;
+    border-bottom: 4px solid #3182ce; /* Heavy anchor line */
+    z-index: 1;
+    display: flex;
+    flex-content: column;
+}
+
+/* 1. The Typography Hierarchy */
+.experience-card h3 {
+    font-size: 1.4rem;
+    color: #0b192c !important;
+    margin-bottom: 0.2rem;
+}
+
+.experience-card h4 {
+    font-size: 1rem;
+    color: #3182ce; /* Distinct blue for the organization */
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.experience-card p {
+    color: #718096 !important;
+    line-height: 1.6;
+}
+
+/* 2. The Hover Physics (Lift & Shadow) */
+.experience-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(49, 130, 206, 0.15);
+    border-bottom-color: #66fcf1; /* Anchor line lights up cyan */
+}
+
+/* 3. The Cinematic Laser Sweep */
+.experience-card::before {
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: -100%; 
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 252, 241, 0.15), transparent);
+    transition: left 0.7s ease; 
+    z-index: -1;
+    pointer-events: none;
+}
+
+.experience-card:hover::before { 
+    left: 100%; /* Sweeps the gradient from left to right on hover */
+}
+
+/* 4. The Pulsing Duration Badge */
+.exp-duration {
+    background: rgba(49, 130, 206, 0.1);
+    color: #3182ce;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(49, 130, 206, 0.2);
+    box-shadow: 0 0 0 0 rgba(49, 130, 206, 0.4);
+    animation: pulseBadge 2.5s infinite; /* The Heartbeat */
+}
+
+@keyframes pulseBadge {
+    0% { box-shadow: 0 0 0 0 rgba(49, 130, 206, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(49, 130, 206, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(49, 130, 206, 0); }
+}
+
+/* Badge turns glowing cyan on card hover! */
+.experience-card:hover .exp-duration {
+    background: rgba(102, 252, 241, 0.15);
+    color: #0b192c;
+    border-color: #66fcf1;
+    animation: none; /* Stops the pulse so it stays sharp */
+    box-shadow: 0 0 10px rgba(102, 252, 241, 0.4);
+}
