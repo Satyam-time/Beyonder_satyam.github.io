@@ -64,20 +64,26 @@
     <canvas id="bg-canvas"></canvas>
 
     <nav class="navbar">
-        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-    <span class="logo-text" style="display: inline-block;">SKS</span>
-    
-    <svg class="line-burst" viewBox="0 0 100 100" style="position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%); pointer-events: none; z-index: -1;">
-        <line x1="50" y1="20" x2="50" y2="5" />
-        <line x1="50" y1="80" x2="50" y2="95" />
-        <line x1="20" y1="50" x2="5" y2="50" />
-        <line x1="80" y1="50" x2="95" y2="50" />
-        <line x1="28" y1="28" x2="15" y2="15" />
-        <line x1="72" y1="72" x2="85" y2="85" />
-        <line x1="28" y1="72" x2="15" y2="85" />
-        <line x1="72" y1="28" x2="85" y2="15" />
-    </svg>
-</div>
+        <div class="nav-brand magnetic-hover" id="sks-logo" style="position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            <span class="logo-text" style="display: inline-block;">SKS</span>
+            
+            <svg width="40" height="16" viewBox="0 0 40 16" style="z-index: 10;">
+                <rect x="0" y="0" width="40" height="16" rx="8" fill="#050814" stroke="#3182ce" stroke-width="1.5"/>
+                <circle cx="12" cy="8" r="2.5" fill="#66fcf1" class="nav-eye" style="filter: drop-shadow(0 0 3px #66fcf1);"/>
+                <circle cx="28" cy="8" r="2.5" fill="#66fcf1" class="nav-eye" style="filter: drop-shadow(0 0 3px #66fcf1);"/>
+            </svg>
+
+            <svg class="line-burst" viewBox="0 0 100 100" style="position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; transform: translate(-50%, -50%); pointer-events: none; z-index: -1;">
+                <line x1="50" y1="20" x2="50" y2="5" />
+                <line x1="50" y1="80" x2="50" y2="95" />
+                <line x1="20" y1="50" x2="5" y2="50" />
+                <line x1="80" y1="50" x2="95" y2="50" />
+                <line x1="28" y1="28" x2="15" y2="15" />
+                <line x1="72" y1="72" x2="85" y2="85" />
+                <line x1="28" y1="72" x2="15" y2="85" />
+                <line x1="72" y1="28" x2="85" y2="15" />
+            </svg>
+        </div>
         <ul class="nav-links">
             <li><a href="#home" class="magnetic-hover">Home</a></li>
             <li><a href="#journey" class="magnetic-hover">Journey</a></li>
