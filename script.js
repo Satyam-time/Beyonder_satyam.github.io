@@ -235,14 +235,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const circle = document.querySelector(".circle");
     const follow = document.querySelector(".circle-follow");
     const ambientCursor = document.getElementById("cursor");
-    // Now it grabs BOTH the astronaut eyes and the new nav eyes!
+    
+    // Grab BOTH the astronaut eyes and the new nav eyes!
     const astroEyes = document.querySelectorAll('.astro-eye, .nav-eye');
+
+    // HIGH-PERFORMANCE MOUSE TRACKING ENGINE (120Hz+ Sync)
+    let eyeFrameId = null;
 
     if (circle && follow) {
         document.addEventListener('mousemove', (e) => {
             const mouseX = e.clientX; 
             const mouseY = e.clientY;
 
+            // 1. Let GSAP handle the custom cursor 
             gsap.to(circle, { duration: 0.3, x: mouseX, y: mouseY });
             gsap.to(follow, { duration: 0.7, x: mouseX, y: mouseY });
 
@@ -252,18 +257,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 gsap.to(ambientCursor, { duration: 0.6, "--x": `${xPercent}%`, "--y": `${yPercent}%`, ease: "power2.out" });
             }
 
-            astroEyes.forEach(eye => {
-                const rect = eye.getBoundingClientRect();
-                const eyeCenterX = rect.left + rect.width / 2;
-                const eyeCenterY = rect.top + rect.height / 2;
-                const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
-                const distance = 6; 
-                const moveX = Math.cos(angle) * distance;
-                const moveY = Math.sin(angle) * distance;
-                eye.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            // 2. Hardware-Accelerated Eye Tracking
+            if (eyeFrameId) cancelAnimationFrame(eyeFrameId); 
+            
+            eyeFrameId = requestAnimationFrame(() => {
+                astroEyes.forEach(eye => {
+                    // Measure the PARENT socket, not the moving pupil
+                    const rect = eye.parentElement.getBoundingClientRect();
+                    const eyeCenterX = rect.left + rect.width / 2;
+                    const eyeCenterY = rect.top + rect.height / 2;
+                    
+                    const angle = Math.atan2(mouseY - eyeCenterY, mouseX - eyeCenterX);
+                    const distance = 5; // The cartoon travel distance
+                    const moveX = Math.cos(angle) * distance;
+                    const moveY = Math.sin(angle) * distance;
+                    
+                    eye.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
             });
         });
 
+        // 3. Hover effects for links and buttons
         document.querySelectorAll("a, .btn, .claymorphic, .gallery-item").forEach(el => {
             el.addEventListener("mouseenter", () => {
                 gsap.to(circle, { duration: 0.3, opacity: 1, scale: 0 });
@@ -275,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
+    
     // Faux 3D Cards
     document.querySelectorAll('.faux-3d-card').forEach(card => {
         const content = card.querySelector('.faux-3d-content');
@@ -468,7 +482,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else {
                 activeMesh.rotation.x += 0.002;
-                activeMesh.rotation.y += 0.003;
+                activeMesh.rotati
+                    on.y += 0.003;
             }
             renderer.render(scene, camera);
         });
