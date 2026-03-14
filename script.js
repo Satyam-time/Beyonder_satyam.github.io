@@ -308,24 +308,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // GSAP Expressive Typography
+    // GSAP Expressive Typography (Fixed Word Wrapping)
     gsap.registerPlugin(ScrollTrigger);
     document.querySelectorAll('.expressive-text').forEach(el => {
-        const text = el.innerText;
+        const words = el.innerText.split(' '); // Split by words first!
         el.innerHTML = ''; 
-        text.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.innerHTML = char === ' ' ? '&nbsp;' : char;
-            el.appendChild(span);
+        
+        words.forEach(word => {
+            // Create a protective wrapper for the whole word
+            const wordSpan = document.createElement('span');
+            wordSpan.style.display = 'inline-block'; // Forces the word to stay together
+            
+            // Now split the letters inside that wrapper
+            word.split('').forEach(char => {
+                const charSpan = document.createElement('span');
+                charSpan.className = 'char';
+                charSpan.innerText = char;
+                wordSpan.appendChild(charSpan);
+            });
+            
+            el.appendChild(wordSpan);
+            
+            // Add a standard space between words
+            const space = document.createElement('span');
+            space.innerHTML = '&nbsp;';
+            el.appendChild(space);
         });
-        gsap.to(el.querySelectorAll('.char'), { scrollTrigger: { trigger: el, start: "top 85%" }, y: 0, opacity: 1, stagger: 0.02, duration: 0.8, ease: "back.out(1.7)" });
-    });
-
-    document.querySelectorAll('.step').forEach(panel => {
-        if(!panel.id.includes('hero')) { 
-            gsap.to(panel, { scrollTrigger: { trigger: panel, start: "top 80%" }, opacity: 1, y: 0, duration: 1 });
-        }
+        
+        // The animation remains exactly the same
+        gsap.to(el.querySelectorAll('.char'), { 
+            scrollTrigger: { trigger: el, start: "top 85%" }, 
+            y: 0, opacity: 1, stagger: 0.02, duration: 0.8, ease: "back.out(1.7)" 
+        });
     });
 
     // SKS LOGO CARTOON CLICK
