@@ -219,13 +219,6 @@ html { scroll-behavior: smooth; }
 
 footer { text-align: center; padding: 2rem; background: var(--primary-color); color: white; }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .nav-links { display: none; }
-    .bio-grid, .contact-wrapper { grid-template-columns: 1fr; }
-    .step { padding: 6rem 5%; }
-}
-
 
 /* ==========================================
    STOP-MOTION ANIMATION EFFECTS
@@ -1179,47 +1172,6 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     50% { height: 50px; background: #66fcf1; box-shadow: 0 0 15px #66fcf1; } 
 }
 
-/* ==========================================
-   MOBILE TOUCH OPTIMIZATION (Non-Destructive)
-   ========================================== */
-@media (max-width: 768px) {
-    /* 1. Restore the default system cursor on mobile */
-    body, a, .btn, .custom-cursor-active, .custom-cursor-active * { 
-        cursor: auto !important; 
-    }
-
-    /* 2. Hide the GSAP Spotlight Cursor visuals */
-    .circle, .circle-follow, #cursor { 
-        display: none !important; 
-        opacity: 0 !important;
-        visibility: hidden !important;
-    }
-
-    /* 3. Disable Faux 3D tilt (prevents it from getting stuck on tap) */
-    .faux-3d-content { 
-        transform: none !important; 
-        transition: none !important; 
-    }
-
-    /* 4. Fix viewport sizing for mobile browser toolbars */
-    #intro-wrapper, #page-loader, #bg-canvas, .step.hero {
-        height: 100svh !important; /* Uses Small Viewport Height to prevent jumping */
-    }
-
-    /* 5. Prevent "Sticky Hover" on liquid buttons on iOS/Android */
-    .liquid-btn:hover::before {
-        background: var(--primary-color) !important;
-    }
-    .liquid-btn:active::before {
-        background: var(--secondary-color) !important;
-    }
-
-    /* Mobile Timeline Adjustments */
-    .timeline-spine { left: 20px; transform: none; }
-    .timeline-event { width: 100% !important; margin: 0 !important; padding: 0 0 0 50px !important; }
-    .timeline-event .event-dot { left: 8px !important; right: auto !important; }
-}
-
 #nav-eyes-container {
     width: 250px; /* Significantly larger statement size */
     height: 100px; /* Adjust height to accommodate large eyes/visor */
@@ -1286,13 +1238,6 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     }
     50% { 
         transform: translateY(-65%) rotate(4deg); 
-    }
-}
-
-/* Make sure he hides or shrinks on mobile phones so he doesn't overlap text */
-@media (max-width: 768px) {
-    .astronaut-character {
-        display: none; 
     }
 }
 
@@ -1432,3 +1377,54 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
 .experience-card:hover .experience-skills span:nth-child(2) { transition-delay: 0.05s; }
 .experience-card:hover .experience-skills span:nth-child(3) { transition-delay: 0.1s; }
 .experience-card:hover .experience-skills span:nth-child(4) { transition-delay: 0.15s; }
+
+/* ==========================================
+   THE ULTIMATE MOBILE & SPLIT-SCREEN MASTER BLOCK
+   ========================================== */
+@media (max-width: 768px) {
+    /* 1. Tame the Typography & Padding */
+    .glass-panel { padding: 1.5rem !important; margin: 0 1rem !important; }
+    .glass-panel h1 { font-size: 2rem !important; }
+    .glass-panel h2 { font-size: 1.3rem !important; }
+    .section-title { font-size: 2rem !important; margin-bottom: 2rem !important; }
+    .experience-card { padding: 1.5rem !important; }
+
+    /* 2. Force Elements to Stack Vertically (No Squishing!) */
+    .bio-grid, .contact-wrapper, .isometric-grid, .card-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    /* 3. Hide Overlapping Desktop Elements */
+    .astronaut-character { display: none !important; }
+    .nav-links { display: none !important; } /* Hides links so logo fits */
+
+    /* 4. Disable Custom Cursor on Touch Screens (Crucial for UX) */
+    .circle, .circle-follow, #cursor { display: none !important; }
+    body, a, .btn, .custom-cursor-active, .custom-cursor-active * { cursor: auto !important; }
+
+    /* 5. Fix the Big Bang Intro Screen */
+    #intro-title { font-size: 2.5rem !important; letter-spacing: 10px !important; }
+    #intro-subtitle { font-size: 1rem !important; }
+    #enter-btn { padding: 10px 20px !important; font-size: 0.9rem !important; }
+
+    /* 6. UI Overrides */
+    #VRButton { bottom: 20px !important; padding: 8px 16px !important; font-size: 0.8rem !important; }
+    #ad-astra-flipbook { height: 60vh !important; }
+    .faux-3d-content { transform: none !important; transition: none !important; }
+    
+    /* 7. Fix Button Sticky Hover on iOS/Android */
+    .liquid-btn:hover::before { background: var(--primary-color) !important; }
+    .liquid-btn:active::before { background: var(--secondary-color) !important; }
+
+    /* 8. Quantum Timeline Mobile Fix */
+    .timeline-spine { left: 20px; transform: none; }
+    .timeline-event { width: 100% !important; margin: 0 !important; padding: 0 0 0 50px !important; }
+    .timeline-event .event-dot { left: 8px !important; right: auto !important; }
+}
+
+/* Fix for iPads / Medium Tablets */
+@media (max-width: 1024px) {
+    .glass-panel { max-width: 90%; }
+    .astronaut-character { left: -20px; width: 100px; }
+}
