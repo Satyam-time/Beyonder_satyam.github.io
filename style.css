@@ -1428,3 +1428,18 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
     .glass-panel { max-width: 90%; }
     .astronaut-character { left: -20px; width: 100px; }
 }
+
+/* ==========================================
+   FAILSAFE: FORCE JOURNEY PANELS TO BE VISIBLE
+   ========================================== */
+.step {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    visibility: visible !important;
+}
+
+/* Ensure the expressive text doesn't stay invisible if JS fails */
+.char {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
