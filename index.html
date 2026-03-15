@@ -444,6 +444,9 @@
                 propertiesCallback: function (props) {
                     props.page.depth /= 2;
                     props.cover.padding = 0.002;
+
+                    // THE MAGIC FIX: Switch from 3D textures to native 2D crisp text
+                    viewMode: '2d',
                     
                     // 2. FORCE 3K RESOLUTION TEXTURES
                     // This uses a standard A4 academic paper ratio (1 : 1.414) 
