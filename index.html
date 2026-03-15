@@ -439,6 +439,12 @@
                 propertiesCallback: function (props) {
                     props.page.depth /= 2;
                     props.cover.padding = 0.002;
+
+                    // ==========================================
+                    // THE HD RESOLUTION FIX
+                    // ==========================================
+                    props.page.resolution = 3; // Increases the base pixel density. Try 2.5 or 3 if you want it even sharper!
+                    
                     return props;
                 },
                 
