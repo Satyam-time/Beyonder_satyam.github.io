@@ -445,11 +445,6 @@
                     props.page.depth /= 2;
                     props.cover.padding = 0.002;
                     
-                    // THE BRUTE-FORCE HD MULTIPLIER
-                    // This forces the hidden PDF.js engine to render the pages at 4x their normal size 
-                    // before painting them onto the 3D book.
-                    props.page.resolution = 4;
-                    
                     return props;
                 },
                 
