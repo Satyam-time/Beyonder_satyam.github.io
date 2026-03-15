@@ -431,19 +431,26 @@
 
             $('#ad-astra-flipbook').FlipBook({
                 
-                // Note the %20 used to replace the spaces in your file name!
                 pdf: repoUrl + 'Violation_of_Energy_Conditions.pdf', 
-                
                 pdfWorker: repoUrl + 'flipbook-plugin/js/pdf.worker.js',
+                
+                // 1. Turn OFF the plugin's automatic blurring feature
+                controlsProps: {
+                    autoResolution: {
+                        enabled: false
+                    }
+                },
                 
                 propertiesCallback: function (props) {
                     props.page.depth /= 2;
                     props.cover.padding = 0.002;
-
-                    // ==========================================
-                    // THE HD RESOLUTION FIX
-                    // ==========================================
-                    props.page.resolution = 3; // Increases the base pixel density. Try 2.5 or 3 if you want it even sharper!
+                    
+                    // 2. FORCE 3K RESOLUTION TEXTURES
+                    // This uses a standard A4 academic paper ratio (1 : 1.414) 
+                    // and forces it to render at a massive 2500px width.
+                    if (!props.sheet) props.sheet = {}; // Safety check
+                    props.sheet.widthTexels = 2500; 
+                    props.sheet.heightTexels = 3535; 
                     
                     return props;
                 },
@@ -455,7 +462,6 @@
                     script: repoUrl + 'flipbook-plugin/js/default-book-view.js'
                 }
             });
-
             // ==========================================
             // THE IFRAME ASSASSIN (RESTORED)
             // ==========================================
