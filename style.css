@@ -1379,53 +1379,6 @@ body, a, .btn, #intro-wrapper, #intro-wrapper * { cursor: none !important; }
 .experience-card:hover .experience-skills span:nth-child(4) { transition-delay: 0.15s; }
 
 /* ==========================================
-   THE ACADEMIC MINIMALIST NAVBAR OVERRIDE
-   ========================================== */
-.navbar {
-    background: rgba(255, 255, 255, 0.95) !important; /* Crisp, clean white */
-    backdrop-filter: blur(12px) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important; /* Subtle separator line */
-    box-shadow: none !important; /* Removes the heavy dark shadow */
-}
-
-/* The "Identity Anchor" (Left Side) */
-.nav-brand {
-    color: #0b192c !important; /* Your authoritative dark primary color */
-    font-family: 'Georgia', serif !important; /* Classic academic serif font */
-    font-size: 1.5rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 0px !important;
-}
-
-/* The "Academic Taxonomy" Links (Right Side) */
-.nav-links a {
-    color: #4a5568 !important; /* Sophisticated slate gray */
-    font-weight: 600 !important;
-    font-size: 0.95rem !important;
-    letter-spacing: 0.5px !important;
-}
-
-.nav-links a:hover {
-    color: #3182ce !important; /* Highlights smoothly in your signature blue */
-}
-
-/* Strip the "button" styling from the Resume link to match the pattern */
-.nav-resume {
-    border: none !important;
-    padding: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-}
-
-.nav-resume:hover {
-    background: transparent !important;
-    color: #3182ce !important;
-    box-shadow: none !important;
-    transform: none !important;
-}
-
-/* ==========================================
    THE ULTIMATE MOBILE & SPLIT-SCREEN MASTER BLOCK
    ========================================== */
 @media (max-width: 768px) {
